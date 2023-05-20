@@ -39,7 +39,7 @@ public class CrafterSmartPort extends SlimefunItem {
     public CrafterSmartPort(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
 
-        new BlockMenuPreset("CRAFTER_SMART_PORT", "&a合成机智能交互接口") {
+        new BlockMenuPreset("CRAFTER_SMART_PORT", "&a智慧合成機互動接口") {
             @Override
             public void init() {
                 addItem(6, getCountItem(), (p, slot, item, action) -> false);
@@ -77,7 +77,7 @@ public class CrafterSmartPort extends SlimefunItem {
                     var im = menu.getItemInSlot(6).getItemMeta();
 
                     if (im != null) {
-                        im.setLore(List.of("数量: " + countStr));
+                        im.setLore(List.of("數量：" + countStr));
 
                         var pdc = im.getPersistentDataContainer();
                         pdc.set(countKey, PersistentDataType.INTEGER, Integer.parseInt(countStr));
@@ -152,7 +152,7 @@ public class CrafterSmartPort extends SlimefunItem {
     private ItemStack getCountItem() {
         ItemStack countItem = new ItemStack(Material.CLOCK);
         ItemMeta im = countItem.getItemMeta();
-        im.setDisplayName(ChatColor.BLUE + "合成表的原料数量");
+        im.setDisplayName(ChatColor.BLUE + "合成表的原料數量");
         countItem.setItemMeta(im);
         return countItem;
     }

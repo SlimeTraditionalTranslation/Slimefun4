@@ -22,7 +22,7 @@ public class PlayerProfileMigrator {
 
     public static void checkOldData() {
         if (isOldDataExists()) {
-            Slimefun.logger().log(Level.WARNING, "检测到使用文件储存的旧玩家数据, 请使用 /sf migrate 迁移旧数据至数据库!");
+            Slimefun.logger().log(Level.WARNING, "偵測到使用舊型檔案式儲存的玩家資料，請使用 /sf migrate 轉移舊資料到資料庫中！");
         }
     }
 
@@ -57,7 +57,7 @@ public class PlayerProfileMigrator {
                 var p = Bukkit.getOfflinePlayer(uuid);
 
                 if (!p.hasPlayedBefore()) {
-                    Slimefun.logger().log(Level.INFO, "检测到从未加入服务器玩家的数据, 已自动跳过: " + uuid);
+                    Slimefun.logger().log(Level.INFO, "偵測到從未加入過伺服器的玩家資料，已自動跳過：" + uuid);
                     total--;
                     continue;
                 }
@@ -65,15 +65,15 @@ public class PlayerProfileMigrator {
                 migratePlayerProfile(p);
 
                 migratedCount++;
-                Slimefun.logger().log(Level.INFO, "成功迁移玩家数据: " + p.getName() + "(" + migratedCount + "/" + total + ")");
+                Slimefun.logger().log(Level.INFO, "成功轉移玩家資料：" + p.getName() + "(" + migratedCount + "/" + total + ")");
             } catch (IllegalArgumentException ignored) {
-                Slimefun.logger().log(Level.WARNING, "检测到不合法命名的玩家数据文件: '" + file.getName() + "'");
+                Slimefun.logger().log(Level.WARNING, "偵測到不合法的玩家名稱資料檔案：'" + file.getName() + "'");
                 // illegal player name, skip
             }
         }
 
         if (MigratorUtil.createDirBackup(playerFolder)) {
-            Slimefun.logger().log(Level.INFO, "成功迁移 {0} 个玩家数据! 迁移前的数据已储存在 ./data-storage/Slimefun/old_data 下", migratedCount);
+            Slimefun.logger().log(Level.INFO, "成功轉移 {0} 個玩家資料！轉移前的資料已儲存在 ./data-storage/Slimefun/old_data 下", migratedCount);
             playerFolder.delete();
         }
 

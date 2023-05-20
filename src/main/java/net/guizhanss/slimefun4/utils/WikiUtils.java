@@ -44,7 +44,7 @@ public final class WikiUtils {
      */
     public static void setupJson(Plugin plugin, Function<String, String> formatter) {
         if (!(plugin instanceof SlimefunAddon)) {
-            throw new IllegalArgumentException("该插件不是 Slimefun 附属");
+            throw new IllegalArgumentException("該插件不是 Slimefun 的附加");
         }
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(plugin.getClass().getResourceAsStream("/wiki.json"), StandardCharsets.UTF_8))) {
             JsonElement element = JsonUtils.parseString(reader.lines().collect(Collectors.joining("")));
@@ -63,9 +63,9 @@ public final class WikiUtils {
                 }
             }
 
-            plugin.getLogger().log(Level.INFO, MessageFormat.format("加载了 {0} 中 {1} 个物品的 Wiki 页面", plugin.getName(), count));
+            plugin.getLogger().log(Level.INFO, MessageFormat.format("載入了 {0} 中 {1} 個物品的 Wiki 頁面", plugin.getName(), count));
         } catch (Exception e) {
-            plugin.getLogger().log(Level.SEVERE, MessageFormat.format("无法加载 {0} 的 wiki.json", plugin.getName()), e);
+            plugin.getLogger().log(Level.SEVERE, MessageFormat.format("無法載入 {0} 的 wiki.json", plugin.getName()), e);
         }
     }
 }

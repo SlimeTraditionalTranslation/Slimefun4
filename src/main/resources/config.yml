@@ -1,20 +1,20 @@
 # options:
-#    auto-update - Github 新版本自动检查并更新
-#    armor-update-interval - 粘液科技护甲效果更新周期
-#    enable-armor-effects - 护甲效果的开关
-#    chat-prefix - 粘液科技所有消息的前缀
-#    auto-save-delay-in-minutes - 自动保存数据的周期, 单位为分钟
-#    legacy-ore-washer - 是否使用旧版的洗矿机机制
-#    legacy-dust-washer - 是否使用旧版的除尘机机制
-#    legacy-ore-grinder - 是否使用旧版的碎矿机机制
-#    language - 粘液科技文本语言 (不包括物品)
-#    enable-translations - 多语言功能
-#    backwards-compatibility - 物品向后兼容模式, 关闭后物品会使用新版物品系统
-#                             将会提升服务器性能
-#    log-duplicate-block-entries - 是否输出发现重复方块的警告
-#    burn-players-when-radioactive - 是否在当玩家暴露在辐射中时灼烧玩家
-#    drop-excess-sf-give-items - 是否在背包已满时使用命令给予 Slimefun 物品直接掉落溢出的物品
-#    backup-data - 自动备份数据
+#    auto-update - Github 新版本自動檢查更新
+#    armor-update-interval - 黏液科技裝備效果更新週期
+#    enable-armor-effects - 裝備效果的開關
+#    chat-prefix - 黏液科技所有訊息的前綴
+#    auto-save-delay-in-minutes - 自動儲存資料的週期，單位為分鐘
+#    legacy-ore-washer - 是否使用舊版的礦物洗滌機機制
+#    legacy-dust-washer - 是否使用舊版的礦物洗滌機機制
+#    legacy-ore-grinder - 是否使用旧版的碎矿机机制 是否使用舊版的粉碎機機制
+#    language - 黏液科技的文字語言（不包含物品）
+#    enable-translations - 是否啟用多語言功能設定
+#    backwards-compatibility - 物品向後相容模式，關閉後物品會使用新版物品系統
+#                             將提升伺服器效能
+#    log-duplicate-block-entries - 是否輸出發現重複方塊的警告
+#    burn-players-when-radioactive - 是否在當玩家暴露於輻射中燃燒玩家
+#    drop-excess-sf-give-items - 當使用指令給予 Slimefun 物品時，在背包已滿狀態下直接掉落物品
+#    backup-data - 自動備份資料
 options:
   auto-update: true
   backwards-compatibility: false
@@ -25,7 +25,7 @@ options:
   legacy-ore-washer: false
   legacy-dust-washer: false
   legacy-ore-grinder: true
-  language: zh-CN
+  language: zh-TW
   enable-translations: true
   log-duplicate-block-entries: true
   burn-players-when-radioactive: true
@@ -33,23 +33,23 @@ options:
   backup-data: true
 
 guide:
-  # 是否在指南中展示原版物品合成配方
+  # 是否在指南中顯示原版物品合成配方
   show-vanilla-recipes: true
-  # 是否在玩家第一次进入服务器时自动赠送粘液科技指南
+  # 是否在玩家第一次加入伺服器時自動贈送黏液科技指南
   receive-on-first-join: true
-  # 是否在搜索中显示隐藏物品
+  # 是否在搜尋中顯示隱藏物品
   show-hidden-item-groups-in-search: false
 
 researches:
   # 是否允许创造模式玩家免费解锁研究
   free-in-creative-mode: true
-  # 是否在解锁时燃放烟花
+  # 是否在解鎖研究時發射煙火
   enable-fireworks: true
-  # 是否使用游戏币替代使用经验解锁
+  # 是否使用遊戲幣替換使用經驗值解鎖
   use-money-unlock: false
-  # 经验自动转换到游戏币倍率
+  # 經驗自動轉換到遊戲幣的倍率
   currency-cost-convert-rate: 25.0
-  # 是否禁用解锁研究时的动画
+  # 是否停用解鎖研究時的動畫
   disable-learning-animation: false
 
 URID:
@@ -70,45 +70,45 @@ metrics:
   auto-update: false
 
 backpack:
-  # 背包所有者离线时是否允许背包被打开
+  # 背包擁有者離線時是否允許背包被打開
   allow-open-when-owner-offline: true
 
 research-ranks:
-  - 小鸡
-  - 牛牛君
-  - 蜘蛛
-  - 村民
-  - 开拓者
-  - 童生
-  - 实习生
-  - 合格生
-  - 学生
-  - 笨拙学徒
-  - 学徒
-  - 熟练学徒
-  - 法师学徒
-  - 杰出法师
-  - 年轻魔术师
-  - 笨拙魔术师
-  - 普通魔术师
-  - 魔术师
-  - 熟练魔术师
-  - 特技魔术师
-  - 惯用魔术师
-  - 杰出魔术师
-  - 笨拙巫师
-  - 巫师
-  - 普通巫师 
-  - 特技巫师
-  - 杰出巫师
-  - 卓越巫师
-  - 年轻大师
-  - 笨拙大师
-  - 实习大师
-  - 合格大师
-  - 大师
-  - 特技大师
-  - 杰出大师
-  - 卓越大师
-  - 精通大师
-  - 天选之子
+  - 弱小如雞
+  - 初生之犢
+  - 蜘途小蛛
+  - 村民出身
+  - 初出茅廬
+  - 笨拙的學徒初學者
+  - 璞玉未成的初學者
+  - 大器晚成的初學者
+  - 普普通通的初學者
+  - 璞玉未成的學徒
+  - 普普通通的學徒
+  - 技巧熟練的學徒
+  - 大放異彩的法師
+  - 煉鐵成鋼的法師
+  - 年輕有為的魔導士
+  - 大器晚成的魔導士
+  - 千篇一律的魔導士
+  - 普普通通的魔導士
+  - 精練成熟的魔導士
+  - 技巧熟練的魔導士
+  - 千錘百鍊的魔導士
+  - 舉世聞名的魔導士
+  - 大器晚成的巫師
+  - 普普通通的巫師
+  - 璞玉未成的巫師
+  - 技巧熟練的巫師
+  - 舉世聞名的巫師
+  - 百年一見的巫師
+  - 年輕有為的大師
+  - 大器晚成的大師
+  - 大放異彩的大師
+  - 名符其實的大師
+  - 聲名大噪的大師
+  - 技巧熟練的大師
+  - 煉鐵成鋼的大師
+  - 舉世聞名的大師
+  - 精練成熟的大師
+  - 天選者

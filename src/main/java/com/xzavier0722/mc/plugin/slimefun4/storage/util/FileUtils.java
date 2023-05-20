@@ -17,7 +17,7 @@ public class FileUtils {
         try (var fs = Files.walk(dir.toPath())) {
             fs.map(Path::toFile).forEach(File::delete);
         } catch (Exception e) {
-            Slimefun.logger().log(Level.WARNING, "删除文件夹 " + dir.getName() + "失败", e);
+            Slimefun.logger().log(Level.WARNING, "刪除資料夾 " + dir.getName() + " 時失敗", e);
         }
 
         dir.delete();

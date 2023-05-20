@@ -53,7 +53,7 @@ public abstract class ADataController {
         try {
             var pendingTask = scheduledWriteTasks.size();
             while (pendingTask > 0) {
-                System.out.println("数据保存中，请稍候... 剩余 " + pendingTask + " 个任务");
+                System.out.println("資料儲存中，請稍後... 剩餘 " + pendingTask + " 個任務");
                 Thread.sleep(500);
                 pendingTask = scheduledWriteTasks.size();
             }

@@ -25,14 +25,14 @@ class MigratorUtil {
                             Files.copy(path, zs);
                             zs.closeEntry();
                         } catch (IOException e) {
-                            Slimefun.logger().log(Level.WARNING, "备份旧数据 " + dir.getName() + " 时出现问题", e);
+                            Slimefun.logger().log(Level.WARNING, "備份舊資料 " + dir.getName() + " 時發生問題", e);
                         }
                     });
                 }
             }
             return true;
         } catch (Exception e) {
-            Slimefun.logger().log(Level.WARNING, "备份旧数据 " + dir.getName() + " 时出现问题", e);
+            Slimefun.logger().log(Level.WARNING, "備份舊資料 " + dir.getName() + " 時發生問題", e);
             return false;
         }
     }

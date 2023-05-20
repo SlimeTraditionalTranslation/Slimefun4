@@ -20,10 +20,10 @@ public class VaultIntegration {
                 econ = rsp.getProvider();
                 plugin.getLogger().log(Level.INFO, "成功接入 Vault");
             } else {
-                plugin.getLogger().log(Level.WARNING, "无法接入 Vault. 如果你是 CMI 用户, 请至配置文件启用经济系统");
+                plugin.getLogger().log(Level.WARNING, "無法接入 Vault。如果你是 CMI 用戶，請到設定檔案中啟用經濟系統");
             }
         } else {
-            plugin.getLogger().log(Level.WARNING, "无法接入 Vault. 你必须先安装 Vault!");
+            plugin.getLogger().log(Level.WARNING, "無法接入 Vault。你必須先安裝 Vault！");
         }
     }
 

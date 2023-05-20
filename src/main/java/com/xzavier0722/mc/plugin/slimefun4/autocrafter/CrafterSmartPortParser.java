@@ -73,7 +73,7 @@ public class CrafterSmartPortParser implements CrafterInteractable{
         var im = inv.getItemInSlot(6).getItemMeta();
 
         if (im != null) {
-            im.setLore(List.of("数量: " + count));
+            im.setLore(List.of("數量：" + count));
             var pdc = im.getPersistentDataContainer();
             pdc.set(countKey, PersistentDataType.INTEGER, count);
         }
