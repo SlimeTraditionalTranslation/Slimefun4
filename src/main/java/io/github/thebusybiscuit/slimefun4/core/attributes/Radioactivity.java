@@ -36,7 +36,7 @@ public enum Radioactivity {
      * A very high level of radiation will be deadly.
      * The {@link Player} should not take this too lightly...
      */
-    VERY_HIGH(ChatColor.RED, "极高"),
+    VERY_HIGH(ChatColor.RED, "極高"),
 
     /**
      * This is the deadlies level of radiation.
@@ -55,7 +55,7 @@ public enum Radioactivity {
 
     @Nonnull
     public String getLore() {
-        return ChatColor.GREEN + "\u2622" + ChatColor.GRAY + " 辐射等级: " + color + alias;
+        return ChatColor.GREEN + "\u2622" + ChatColor.GRAY + " 輻射等級：" + color + alias;
     }
 
     /**

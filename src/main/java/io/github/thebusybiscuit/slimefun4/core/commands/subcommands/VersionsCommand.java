@@ -38,7 +38,7 @@ class VersionsCommand extends SubCommand {
      * This is the notice that will be displayed when an
      * older version of Java is detected.
      */
-    private static final String JAVA_VERSION_NOTICE = "在 Minecraft 1.17 发布时需要 Java 16+!";
+    private static final String JAVA_VERSION_NOTICE = "從 Minecraft 1.17 開始，將需要使用 Java 16+！";
 
     @ParametersAreNonnullByDefault
     VersionsCommand(Slimefun plugin, SlimefunCommand cmd) {
@@ -56,7 +56,7 @@ class VersionsCommand extends SubCommand {
             ComponentBuilder builder = new ComponentBuilder();
 
             // @formatter:off
-            builder.append("Slimefun 运行的服务器环境:\n")
+            builder.append("此伺服器使用以下 Slimefun 配置：\n")
                     .color(ChatColor.GRAY)
                     .append(serverSoftware)
                     .color(ChatColor.GREEN)
@@ -70,7 +70,7 @@ class VersionsCommand extends SubCommand {
 
             if (Slimefun.getMetricsService().getVersion() != null) {
                 // @formatter:off
-                builder.append("Metrics-组件 ")
+                builder.append("Metrics-模組 ")
                         .color(ChatColor.GREEN)
                         .append("#" + Slimefun.getMetricsService().getVersion() + '\n')
                         .color(ChatColor.DARK_GREEN);
@@ -82,21 +82,20 @@ class VersionsCommand extends SubCommand {
             if (Slimefun.getConfigManager().isBackwardsCompatible()) {
                 // @formatter:off
                 HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent(
-                        "向后兼容将会极大地影响服务器性能!\n" +
-                                "我们推荐你关闭它, 除非服务器中还有" +
-                                "旧版本中的 Slimefun 物品 (通常为 1.13 版本前的)."
+                        "向後相容會對效能產生極大的負面影響！\n" +
+                                "我們建議你關閉此設定，除非你的伺服器\n" +
+                                "仍有在流通舊版的 Slimefun 物品（來自 2019 夏季之前）。"
                 )});
                 // @formatter:on
 
-                builder.append("\n向后兼容已启用!\n").color(ChatColor.RED).event(hoverEvent);
+                builder.append("\n向後相容已啟用！\n").color(ChatColor.RED).event(hoverEvent);
             }
 
             // Add notice to warn those smart people
-            builder.append("\n由 StarWishsama 汉化").color(ChatColor.WHITE)
+            builder.append("\n由 StarWishsama 漢化，並由 xMikux 進行繁化，並以芒果綠茶的翻譯為基準").color(ChatColor.WHITE)
                     .append(
-                            "\n请不要将此版本信息截图到 Discord/Github 反馈 Bug" +
-                                    "\n优先到汉化页面反馈" +
-                                    "\n"
+                            "\n請不要將此版本資訊截圖到官方的 Discord/GitHub 回報 Bug" +
+                            "\n請優先到翻譯專案回報" + "\n"
                     ).color(ChatColor.RED);
 
             builder.append("\n").event((HoverEvent) null);
@@ -115,8 +114,8 @@ class VersionsCommand extends SubCommand {
             // @formatter:off
             builder.append("Java " + version).color(ChatColor.RED)
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent(
-                            "你使用的 Java 版本已过时!\n!" +
-                                    "推荐你使用 Java " + RECOMMENDED_JAVA_VERSION + " 或更高版本.\n" +
+                            "你所使用的 Java 版本已過時！\n!" +
+                                    "你應該使用 Java " + RECOMMENDED_JAVA_VERSION + " 或更高的版本。\n" +
                                     JAVA_VERSION_NOTICE
                     )}))
                     .append("\n")
@@ -131,11 +130,11 @@ class VersionsCommand extends SubCommand {
         Collection<Plugin> addons = Slimefun.getInstalledAddons();
 
         if (addons.isEmpty()) {
-            builder.append("没有安装任何附属插件").color(ChatColor.GRAY).italic(true);
+            builder.append("未安裝任何附加").color(ChatColor.GRAY).italic(true);
             return;
         }
 
-        builder.append("安装的附属插件: ").color(ChatColor.GRAY).append("(" + addons.size() + ")").color(ChatColor.DARK_GRAY);
+        builder.append("已安裝的附加：").color(ChatColor.GRAY).append("（" + addons.size() + "）").color(ChatColor.DARK_GRAY);
 
         for (Plugin plugin : addons) {
             String version = plugin.getDescription().getVersion();
@@ -153,10 +152,10 @@ class VersionsCommand extends SubCommand {
                 if (plugin instanceof SlimefunAddon addon && addon.getBugTrackerURL() != null) {
                     // @formatter:off
                     hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent(new ComponentBuilder()
-                            .append("作者: ")
+                            .append("作者：")
                             .append(authors)
                             .color(ChatColor.YELLOW)
-                            .append("\n> 单击打开反馈页面")
+                            .append("\n> 點擊開啟問題追蹤器")
                             .color(ChatColor.GOLD)
                             .create()
                     )});
@@ -166,7 +165,7 @@ class VersionsCommand extends SubCommand {
                 } else {
                     // @formatter:off
                     hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent(new ComponentBuilder()
-                            .append("作者: ")
+                            .append("作者：")
                             .append(authors)
                             .color(ChatColor.YELLOW)
                             .create()
@@ -180,9 +179,9 @@ class VersionsCommand extends SubCommand {
                 if (plugin instanceof SlimefunAddon addon && addon.getBugTrackerURL() != null) {
                     // @formatter:off
                     hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent(new ComponentBuilder()
-                            .append("此插件已被禁用.\n检查后台是否有报错.")
+                            .append("此插件已停用。\n檢查控制台是否有錯誤。")
                             .color(ChatColor.RED)
-                            .append("\n> 单击打开反馈页面")
+                            .append("\n> 點擊開啟問題追蹤器")
                             .color(ChatColor.DARK_RED)
                             .create()
                     )});
@@ -192,7 +191,7 @@ class VersionsCommand extends SubCommand {
                         clickEvent = new ClickEvent(ClickEvent.Action.OPEN_URL, addon.getBugTrackerURL());
                     }
                 } else {
-                    hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent("插件已被禁用. 可以看看后台是否有报错.")});
+                    hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{new TextComponent("插件已停用。檢查控制台是否有錯誤並回報。")});
                 }
             }
 

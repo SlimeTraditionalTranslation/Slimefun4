@@ -54,7 +54,7 @@ class TransformCommand extends SubCommand {
                         }
                     });
                 } catch (Exception e) {
-                    Slimefun.logger().log(Level.WARNING, "在转换物品时发生了错误", e);
+                    Slimefun.logger().log(Level.WARNING, "在轉換物品時發生了錯誤", e);
                 }
 
                 noticedPlayer.remove(p);
@@ -63,13 +63,13 @@ class TransformCommand extends SubCommand {
                 ItemStack item = p.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
                 if (meta != null) {
-                    if (meta.getDisplayName().contains(ChatColors.color("&b已修复的刷怪笼"))) {
+                    if (meta.getDisplayName().contains(ChatColors.color("&b已修復的生怪磚"))) {
                         ItemStack transform = item.clone();
                         List<String> lore = meta.getLore();
                         if (lore != null) {
                             for (int i = 0; i < lore.size(); i++) {
-                                if (lore.get(i).contains("类型")) {
-                                    lore.set(i, lore.get(i).replace("类型", "Type"));
+                                if (lore.get(i).contains("類型")) {
+                                    lore.set(i, lore.get(i).replace("類型", "Type"));
                                 }
                             }
                         }
@@ -87,13 +87,13 @@ class TransformCommand extends SubCommand {
                         if (lore != null) {
                             for (int i = 0; i < lore.size(); i++) {
                                 if (lore.get(i).contains("Type")) {
-                                    lore.set(i, lore.get(i).replace("Type", "类型"));
+                                    lore.set(i, lore.get(i).replace("Type", "類型"));
                                 }
                             }
                         }
 
                         im.setLore(lore);
-                        im.setDisplayName(ChatColors.color("&b已修复的刷怪笼"));
+                        im.setDisplayName(ChatColors.color("&b已修復的生怪磚"));
                         transform.setItemMeta(im);
                         p.getInventory().setItemInMainHand(transform);
                         Slimefun.getLocalization().sendMessage(sender, "messages.transform.success", true);

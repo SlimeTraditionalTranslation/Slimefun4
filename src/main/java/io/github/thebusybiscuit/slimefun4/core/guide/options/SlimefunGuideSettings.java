@@ -112,14 +112,16 @@ public final class SlimefunGuideSettings {
                         ChatColor.GREEN + locale.getMessage(p, "guide.title.versions"),
                         "&7&o" + locale.getMessage(p, "guide.tooltips.versions-notice"),
                         "",
-                        "&f汉化 By StarWishsama",
-                        "&c请不要将此版本信息截图到 Discord/Github 反馈 Bug",
-                        "&c而是优先到汉化页面反馈",
+                        "&f由 StarWishsama 漢化，並由 xMikux 進行繁化",
+                        "&f並以芒果綠茶的翻譯為基準",
+                        "",
+                        "&c請不要將此版本資訊截圖到官方的 Discord/GitHub 回報 Bug",
+                        "&c請優先到翻譯專案回報",
                         "",
                         "&cTHIS BUILD IS UNOFFICIAL BUILD, DO NOT REPORT TO SLIMEFUN DEV",
                         "",
-                        "&fMinecraft: &a" + Bukkit.getBukkitVersion(),
-                        "&fSlimefun: &a" + Slimefun.getVersion()),
+                        "&fMinecraft：&a" + Bukkit.getBukkitVersion(),
+                        "&fSlimefun：&a" + Slimefun.getVersion()),
             ChestMenuUtils.getEmptyClickHandler()
         );
         // @formatter:on
@@ -127,16 +129,16 @@ public final class SlimefunGuideSettings {
         // @formatter:off
         menu.addItem(6, new CustomItemStack(Material.COMPARATOR, 
            "&e" + locale.getMessage(p, "guide.title.source"),
-           "", "&7最近活动于: &a" + NumberUtils.getElapsedTime(github.getLastUpdate()) + " 前",
-           "&7Forks: &e" + github.getForks(),
-           "&7Stars: &e" + github.getStars(),
+           "", "&7最近活動於：&a" + NumberUtils.getElapsedTime(github.getLastUpdate()) + " 前",
+           "&7專案分支數（Fork）：&e" + github.getForks(),
+           "&7星星數：&e" + github.getStars(),
            "",
-           "&7&oSlimefun 4 是一个由社区参与的项目,",
-           "&7&o源代码可以在 GitHub 上找到",
-           "&7&o如果你想让这个项目持续下去",
-           "&7&o你可以考虑对项目做出贡献",
+           "&7&oSlimefun4 是一個社群專案，",
+           "&7&o原始程式碼可以在 GitHub 上找到",
+           "&7&o如果你想保持此插件的生命力，",
+           "&7&o可以考慮對其進行貢獻",
            "",
-           "&7\u21E8 &e点击前往汉化版 GitHub 仓库"
+           "&7\u21E8 &e點擊進入 GitHub"
         ));
         // @formatter:on
 
@@ -149,12 +151,12 @@ public final class SlimefunGuideSettings {
         // @formatter:off
         menu.addItem(8, new CustomItemStack(Material.KNOWLEDGE_BOOK,
             "&3" + locale.getMessage(p, "guide.title.wiki"),
-            "", "&7你需要对物品或机器方面的帮助吗?",
-            "&7你不知道要干什么?",
-            "&7查看我们的由社区维护的维基",
-            "&7并考虑成为一名编辑者!",
+            "", "&7你需要有關物品或機器的幫助嗎？",
+            "&7你不知道該做什麼？",
+            "&7查看由我們社群所維護的 Wiki",
+            "&7並成為我們的編輯之一！",
             "",
-            "&7\u21E8 &e点击前往非官方中文 Wiki"
+            "&7\u21E8 &e點擊查看官方的 Slimefun Wiki"
         ));
         // @formatter:on
 
@@ -168,13 +170,13 @@ public final class SlimefunGuideSettings {
         menu.addItem(47, new CustomItemStack(Material.BOOKSHELF,
             "&3" + locale.getMessage(p, "guide.title.addons"),
             "",
-            "&7Slimefun 是一个大型项目，但附属插件的存在",
-            "&7能让 Slimefun 真正的发光发亮",
-            "&7看一看它们，也许你要寻找的附属插件就在那里!",
+            "&7Slimefun 是一個大型專案，但附加的存在",
+            "&7能讓 Slimefun 真正的發光發亮",
+            "&7看一看它們，也許你所尋找的附加就在那裡！",
             "",
-            "&7该服务器已安装附属插件: &b" + Slimefun.getInstalledAddons().size(),
+            "&7安裝在伺服器上的數量：&b" + Slimefun.getInstalledAddons().size(),
             "",
-            "&7\u21E8 &e点击查看 Slimefun4 可用的附属插件"
+            "&7\u21E8 &e點擊查看所有 Slimefun4 的附加"
         ));
         // @formatter:on
 

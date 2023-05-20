@@ -154,7 +154,7 @@ public class GPSNetwork {
         menu.addMenuClickHandler(2, ChestMenuUtils.getEmptyClickHandler());
 
         int complexity = getNetworkComplexity(p.getUniqueId());
-        menu.addItem(4, new CustomItemStack(SlimefunItems.GPS_CONTROL_PANEL, "&7网络信息", "", "&8\u21E8 &7状态: " + getStatusText(p, complexity), "&8\u21E8 &7复杂度: &f" + complexity));
+        menu.addItem(4, new CustomItemStack(SlimefunItems.GPS_CONTROL_PANEL, "&7GPS 網路資訊", "", "&8\u21E8 &7狀態：" + getStatusText(p, complexity), "&8\u21E8 &7總訊號強度：&f" + complexity));
         menu.addMenuClickHandler(4, ChestMenuUtils.getEmptyClickHandler());
 
         menu.addItem(6, new CustomItemStack(HeadTexture.GLOBE_OVERWORLD.getAsItemStack(), "&7" + Slimefun.getLocalization().getMessage(p, "machines.GPS_CONTROL_PANEL.waypoints"), "", ChatColor.GRAY + "\u21E8 " + Slimefun.getLocalization().getMessage(p, "guide.tooltips.open-itemgroup")));
@@ -174,7 +174,7 @@ public class GPSNetwork {
             if (sfi instanceof GPSTransmitter transmitter) {
                 int slot = inventory[index];
 
-                menu.addItem(slot, new CustomItemStack(SlimefunItems.GPS_TRANSMITTER, "&bGPS 发射器", "&8\u21E8 &7世界: &f" + l.getWorld().getName(), "&8\u21E8 &7X: &f" + l.getX(), "&8\u21E8 &7Y: &f" + l.getY(), "&8\u21E8 &7Z: &f" + l.getZ(), "", "&8\u21E8 &7信号强度: &f" + transmitter.getMultiplier(l.getBlockY()), "&8\u21E8 &7延迟: &f" + NumberUtils.roundDecimalNumber(1000D / l.getY()) + "ms"));
+                menu.addItem(slot, new CustomItemStack(SlimefunItems.GPS_TRANSMITTER, "&bGPS 發訊器", "&8\u21E8 &7世界：&f" + l.getWorld().getName(), "&8\u21E8 &7X：&f" + l.getX(), "&8\u21E8 &7Y：&f" + l.getY(), "&8\u21E8 &7Z：&f" + l.getZ(), "", "&8\u21E8 &7訊號強度：&f" + transmitter.getMultiplier(l.getBlockY()), "&8\u21E8 &7延遲：&f" + NumberUtils.roundDecimalNumber(1000D / l.getY()) + "ms"));
                 menu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
 
                 index++;
@@ -236,7 +236,7 @@ public class GPSNetwork {
             });
 
             int complexity = getNetworkComplexity(p.getUniqueId());
-            menu.addItem(4, new CustomItemStack(SlimefunItems.GPS_CONTROL_PANEL, "&7网络信息", "", "&8\u21E8 &7状态: " + (complexity > 0 ? "&2&l在线" : "&4&l离线"), "&8\u21E8 &7复杂度: &f" + complexity));
+            menu.addItem(4, new CustomItemStack(SlimefunItems.GPS_CONTROL_PANEL, "&7GPS 網路資訊", "", "&8\u21E8 &7狀態：" + (complexity > 0 ? "&2&l線上" : "&4&l離線"), "&8\u21E8 &7總訊號強度：&f" + complexity));
             menu.addMenuClickHandler(4, ChestMenuUtils.getEmptyClickHandler());
 
             menu.addItem(6, new CustomItemStack(HeadTexture.GLOBE_OVERWORLD.getAsItemStack(), "&7" + Slimefun.getLocalization().getMessage(p, "machines.GPS_CONTROL_PANEL.waypoints")));
@@ -251,7 +251,7 @@ public class GPSNetwork {
                 int slot = inventory[index];
 
                 Location l = waypoint.getLocation();
-                menu.addItem(slot, new CustomItemStack(waypoint.getIcon(), waypoint.getName().replace("player:death ", ""), "&8\u21E8 &7世界: &f" + l.getWorld().getName(), "&8\u21E8 &7X: &f" + l.getX(), "&8\u21E8 &7Y: &f" + l.getY(), "&8\u21E8 &7Z: &f" + l.getZ(), "", "&8\u21E8 &cClick to delete"));
+                menu.addItem(slot, new CustomItemStack(waypoint.getIcon(), waypoint.getName().replace("player:death ", ""), "&8\u21E8 &7世界：&f" + l.getWorld().getName(), "&8\u21E8 &7X：&f" + l.getX(), "&8\u21E8 &7Y：&f" + l.getY(), "&8\u21E8 &7Z：&f" + l.getZ(), "", "&8\u21E8 &c點擊刪除"));
                 menu.addMenuClickHandler(slot, (pl, s, item, action) -> {
                     profile.removeWaypoint(waypoint);
                     pl.playSound(pl.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);

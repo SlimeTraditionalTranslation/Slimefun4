@@ -63,7 +63,7 @@ public class SlimefunDatabaseManager {
                 );
             }
         } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "加载 Slimefun 方块存储适配器失败", e);
+            plugin.getLogger().log(Level.SEVERE, "載入 Slimefun 方塊儲存配接器失敗", e);
             return;
         }
 
@@ -76,7 +76,7 @@ public class SlimefunDatabaseManager {
             var profileController = ControllerHolder.createController(ProfileDataController.class, profileStorageType);
             profileController.init(profileAdapter, readExecutorThread, writeExecutorThread);
         } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "加载玩家档案适配器失败", e);
+            plugin.getLogger().log(Level.SEVERE, "載入玩家檔案配接器失敗", e);
         }
     }
 

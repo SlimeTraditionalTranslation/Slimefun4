@@ -4,12 +4,12 @@ import javax.annotation.Nonnull;
 
 public enum MachineTier {
 
-    BASIC("&e基础"),
+    BASIC("&e基礎"),
     AVERAGE("&6普通"),
-    MEDIUM("&a中型"),
-    GOOD("&2优秀"),
-    ADVANCED("&6高级"),
-    END_GAME("&4终极");
+    MEDIUM("&a中等"),
+    GOOD("&2優秀"),
+    ADVANCED("&6高級"),
+    END_GAME("&4終極");
 
     private final String prefix;
 

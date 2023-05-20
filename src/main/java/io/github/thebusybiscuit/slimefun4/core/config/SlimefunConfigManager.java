@@ -123,7 +123,7 @@ public class SlimefunConfigManager {
                 if (itemStatus && SlimefunItem.getById(item.getId()) == null) {
                     item.register(item.getAddon());
                 } else {
-                    Slimefun.logger().log(Level.WARNING, "物品禁用暂时不支持热重载, 请手动重启服务器.");
+                    Slimefun.logger().log(Level.WARNING, "物品停用暫時不支援熱重載，請手動重開伺服器。");
                     isSuccessful = false;
                 }
             }
