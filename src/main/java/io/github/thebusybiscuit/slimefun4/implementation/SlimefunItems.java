@@ -42,7 +42,7 @@ public final class SlimefunItems {
     public static final SlimefunItemStack BROKEN_SPAWNER = new SlimefunItemStack("BROKEN_SPAWNER", Material.SPAWNER, "&c已損壞的生怪磚", "&7類型: &b<Type>", "", "&c你必須用「古代祭壇」修復");
     public static final SlimefunItemStack REPAIRED_SPAWNER = new SlimefunItemStack("REINFORCED_SPAWNER", Material.SPAWNER, "&b已修復的生怪磚", "&7類型: &b<Type>");
     public static final SlimefunItemStack INFERNAL_BONEMEAL = new SlimefunItemStack("INFERNAL_BONEMEAL", Material.BONE_MEAL, "&4地獄骨粉", "", "&c加快植物生長", "&c只能用在「地獄疙瘩」");
-    public static final SlimefunItemStack TAPE_MEASURE = new SlimefunItemStack("TAPE_MEASURE", "180d5c43a6cf5bb7769fd0c8240e1e70d2ae38ef9d78a1db401aca6a2cb36f65", "&6捲尺", "", "&e蹲下&右鍵點擊 &7設置起始點", "&e右鍵點擊 &7進行測量");
+    public static final SlimefunItemStack TAPE_MEASURE = new SlimefunItemStack("TAPE_MEASURE", "180d5c43a6cf5bb7769fd0c8240e1e70d2ae38ef9d78a1db401aca6a2cb36f65", "&6卷尺", "", "&e蹲下&右鍵點擊 &7設置起始點", "&e右鍵點擊 &7進行測量");
 
     /*		 Gadgets 		*/
     public static final SlimefunItemStack GOLD_PAN = new SlimefunItemStack("GOLD_PAN", Material.BOWL, "&6掏金盤", "&a&o可以給你各式各樣的好東西...", "", "&7&e右鍵點擊&7 從「礫石」中取出各種東西");
@@ -60,9 +60,9 @@ public final class SlimefunItems {
     public static final SlimefunItemStack RAG = new SlimefunItemStack("RAG", Material.PAPER, "&c紗布", "", "&a一級醫療用品", "", "&f恢復2顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
     public static final SlimefunItemStack BANDAGE = new SlimefunItemStack("BANDAGE", Material.PAPER, "&c繃帶", "", "&a二級醫療用品", "", "&f恢復4顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
     public static final SlimefunItemStack SPLINT = new SlimefunItemStack("SPLINT", Material.STICK, "&c夾板", "", "&a一級醫療用品", "", "&f恢復2顆心", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack VITAMINS = new SlimefunItemStack("VITAMINS", Material.NETHER_WART, "&c維生素", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治愈中毒/凋零/放射", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack MEDICINE = new SlimefunItemStack("MEDICINE", Material.POTION, Color.RED, "&c醫療品", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治愈中毒/凋零/放射");
-    public static final SlimefunItemStack MAGICAL_ZOMBIE_PILLS = new SlimefunItemStack("MAGICAL_ZOMBIE_PILLS", Material.NETHER_WART, "&6神奇的殭屍藥丸", "", "&e右鍵點擊 &7殭屍村民", "&e或 &7殭屍化豬布林", "&7將立即從詛咒中治愈");
+    public static final SlimefunItemStack VITAMINS = new SlimefunItemStack("VITAMINS", Material.NETHER_WART, "&c維他命", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治癒中毒/凋零/放射", "", LoreBuilder.RIGHT_CLICK_TO_USE);
+    public static final SlimefunItemStack MEDICINE = new SlimefunItemStack("MEDICINE", Material.POTION, Color.RED, "&c醫療品", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治癒中毒/凋零/放射");
+    public static final SlimefunItemStack MAGICAL_ZOMBIE_PILLS = new SlimefunItemStack("MAGICAL_ZOMBIE_PILLS", Material.NETHER_WART, "&6神奇的殭屍藥丸", "", "&e右鍵點擊 &7殭屍村民", "&e或 &7殭屍化豬布林", "&7將立即從詛咒中治癒");
 
     public static final SlimefunItemStack FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FLASK_OF_KNOWLEDGE", Material.GLASS_BOTTLE, "&c學識之瓶", "", "&f你可以把一些經驗", "&f存在瓶子裡", "&7消耗: &a1 個等級");
     public static final SlimefunItemStack FILLED_FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FILLED_FLASK_OF_KNOWLEDGE", Material.EXPERIENCE_BOTTLE, "&a學識之瓶");
@@ -75,7 +75,7 @@ public final class SlimefunItems {
     public static final SlimefunItemStack GILDED_BACKPACK = new SlimefunItemStack("GILDED_BACKPACK", HeadTexture.BACKPACK, "&e鍍金背包", "", "&7大小: &e45格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack RADIANT_BACKPACK = new SlimefunItemStack("RADIANT_BACKPACK", HeadTexture.BACKPACK, "&e登山背包", "", "&7大小: &e54格(2個箱子)", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack BOUND_BACKPACK = new SlimefunItemStack("BOUND_BACKPACK", HeadTexture.ENDER_BACKPACK, "&c靈魂綁定背包", "", "&7大小: &e36格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能存儲果汁/冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包才有效", "", "&7大小: &e27格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能儲存果汁/冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包才有效", "", "&7大小: &e27格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack RESTORED_BACKPACK = new SlimefunItemStack("RESTORED_BACKPACK", HeadTexture.RESTORED_BACKPACK, "&e還原的背包", "", "&7找回丟失的物品", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
 
     /*		 Jetpacks		*/
@@ -448,7 +448,7 @@ public final class SlimefunItems {
     public static final SlimefunItemStack RAINBOW_CONCRETE_HALLOWEEN = new SlimefunItemStack("RAINBOW_CONCRETE_HALLOWEEN", Material.ORANGE_CONCRETE, "&5彩虹混凝土 &7(萬聖節)", "", HALLOWEEN);
     public static final SlimefunItemStack RAINBOW_GLAZED_TERRACOTTA_HALLOWEEN = new SlimefunItemStack("RAINBOW_GLAZED_TERRACOTTA_HALLOWEEN", Material.ORANGE_GLAZED_TERRACOTTA, "&5彩虹釉陶 &7(萬聖節)", "", HALLOWEEN);
 
-    /*		锭 		*/
+    /*		錠 		*/
     public static final SlimefunItemStack COPPER_INGOT = new SlimefunItemStack("COPPER_INGOT", Material.BRICK, "&b銅錠");
     public static final SlimefunItemStack TIN_INGOT = new SlimefunItemStack("TIN_INGOT", Material.IRON_INGOT, "&b錫錠");
     public static final SlimefunItemStack SILVER_INGOT = new SlimefunItemStack("SILVER_INGOT", Material.IRON_INGOT, "&b銀錠");
@@ -729,7 +729,7 @@ public final class SlimefunItems {
 
     public static final SlimefunItemStack REFINERY = new SlimefunItemStack("REFINERY", Material.PISTON, "&c煉油廠", "", "&f將「石油」提煉成「燃油」");
     public static final SlimefunItemStack COMBUSTION_REACTOR = new SlimefunItemStack("COMBUSTION_REACTOR", HeadTexture.GENERATOR, "&c石油反應爐", "", LoreBuilder.machine(MachineTier.ADVANCED, MachineType.GENERATOR), LoreBuilder.powerBuffer(256), LoreBuilder.powerPerSecond(24));
-    public static final SlimefunItemStack ANDROID_MEMORY_CORE = new SlimefunItemStack("ANDROID_MEMORY_CORE", HeadTexture.ENERGY_REGULATOR, "&b機器人內存核心");
+    public static final SlimefunItemStack ANDROID_MEMORY_CORE = new SlimefunItemStack("ANDROID_MEMORY_CORE", HeadTexture.ENERGY_REGULATOR, "&b機器人記憶體核心");
 
     public static final SlimefunItemStack GPS_TELEPORTER_PYLON = new SlimefunItemStack("GPS_TELEPORTER_PYLON", Material.PURPLE_STAINED_GLASS, "&5GPS傳送裝置(組件)", "", "&7傳送裝置的一部分");
     public static final SlimefunItemStack GPS_TELEPORTATION_MATRIX = new SlimefunItemStack("GPS_TELEPORTATION_MATRIX", Material.IRON_BLOCK, "&bGPS傳送裝置(核心)", "", "&f傳送裝置的核心", "&f將傳送選單設置為放置此裝置的玩家");
@@ -825,7 +825,7 @@ public final class SlimefunItems {
     public static final SlimefunItemStack REACTOR_COOLANT_CELL = new SlimefunItemStack("REACTOR_COLLANT_CELL", HeadTexture.COOLANT_CELL, "&b反應爐冷卻單元");
 
     public static final SlimefunItemStack NUCLEAR_REACTOR = new SlimefunItemStack("NUCLEAR_REACTOR", HeadTexture.NUCLEAR_REACTOR, "&2核能反應爐", "", "&f需要冷卻劑!", "&8\u21E8 &b必須被水包圍", "&8\u21E8 &b必須使用「反應爐冷卻單元」", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), "&8\u21E8 &e\u26A1 &716384 J 緩衝", "&8\u21E8 &e\u26A1 &7500 J/s");
-    public static final SlimefunItemStack NETHER_STAR_REACTOR = new SlimefunItemStack("NETHERSTAR_REACTOR", HeadTexture.NETHER_STAR_REACTOR, "&r地獄之星反應爐", "", "&f需要地獄之星", "&8\u21E8 &b必須被水包圍", "&8\u21E8 &b必須使用「地獄冰冷卻單元」", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), "&8\u21E8 &e\u26A1 &732768 J 緩衝", "&8\u21E8 &e\u26A1 &71024 J/s", "&8\u21E8 &4会导致附近的生物获得凋零效果");
+    public static final SlimefunItemStack NETHER_STAR_REACTOR = new SlimefunItemStack("NETHERSTAR_REACTOR", HeadTexture.NETHER_STAR_REACTOR, "&r地獄之星反應爐", "", "&f需要地獄之星", "&8\u21E8 &b必須被水包圍", "&8\u21E8 &b必須使用「地獄冰冷卻單元」", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), "&8\u21E8 &e\u26A1 &732768 J 緩衝", "&8\u21E8 &e\u26A1 &71024 J/s", "&8\u21E8 &4使附近的實體得到「凋零 II」");
     public static final SlimefunItemStack REACTOR_ACCESS_PORT = new SlimefunItemStack("REACTOR_ACCESS_PORT", Material.CYAN_TERRACOTTA, "&2反應爐端口", "", "&f讓你能與反應爐互動", "&f可以使用物流節點", "&f當作緩存空間", "", "&8\u21E8 &e放置在反應爐上方的第&a3格&e處");
 
     public static final SlimefunItemStack FREEZER = new SlimefunItemStack("FREEZER", Material.LIGHT_BLUE_STAINED_GLASS, "&b冰箱", "", LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE), "&8\u21E8 &7速度: 1x", LoreBuilder.powerBuffer(256), LoreBuilder.powerPerSecond(18));
