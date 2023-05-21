@@ -132,12 +132,12 @@ public final class Script {
         List<String> lore = new LinkedList<>();
         lore.add("&7上傳者 &f" + getAuthor());
         lore.add("");
-        lore.add("&7下載量: &f" + getDownloads());
-        lore.add("&7評價: " + getScriptRatingPercentage());
+        lore.add("&7下載量：&f" + getDownloads());
+        lore.add("&7評價：" + getScriptRatingPercentage());
         lore.add("&a" + getUpvotes() + " \u263A &7| &4\u2639 " + getDownvotes());
         lore.add("");
         lore.add("&e左鍵 &f來下載此程式");
-        lore.add("&4(這將會把目前的程式覆蓋掉!)");
+        lore.add("&4（這將會把目前的程式覆蓋掉！）");
 
         if (canRate(p)) {
             lore.add("");

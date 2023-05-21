@@ -518,13 +518,13 @@ public class ProgrammableAndroid extends SlimefunItem implements InventoryBlock,
             return false;
         });
 
-        menu.addItem(3, new CustomItemStack(HeadTexture.SCRIPT_NEW.getAsItemStack(), "&4> 創建新程式", "", "&c刪除你目前正在使用的程式", "&c並創建一個全新空白程式"));
+        menu.addItem(3, new CustomItemStack(HeadTexture.SCRIPT_NEW.getAsItemStack(), "&4> 建立新程式", "", "&c刪除你目前正在使用的程式", "&c並建立一個全新空白程式"));
         menu.addMenuClickHandler(3, (pl, slot, item, action) -> {
             openScript(pl, b, DEFAULT_SCRIPT);
             return false;
         });
 
-        menu.addItem(5, new CustomItemStack(HeadTexture.SCRIPT_DOWN.getAsItemStack(), "&6> 下載程式", "", "&e從伺服器上下載玩家上傳的程式", "&e可以下載就用,或修改後再使用"));
+        menu.addItem(5, new CustomItemStack(HeadTexture.SCRIPT_DOWN.getAsItemStack(), "&6> 下載程式", "", "&e從伺服器上下載玩家所上傳的程式", "&e可以下載就用，或修改後再使用"));
         menu.addMenuClickHandler(5, (pl, slot, item, action) -> {
             openScriptDownloader(pl, b, 1);
             return false;
