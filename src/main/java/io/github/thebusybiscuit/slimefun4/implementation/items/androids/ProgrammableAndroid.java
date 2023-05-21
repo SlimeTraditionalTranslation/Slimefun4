@@ -86,7 +86,7 @@ public class ProgrammableAndroid extends SlimefunItem implements InventoryBlock,
         texture = item.getSkullTexture().orElse(null);
         registerDefaultFuelTypes();
 
-        new BlockMenuPreset(getId(), "可编程式机器人") {
+        new BlockMenuPreset(getId(), "可編輯的機器人") {
 
             @Override
             public void init() {
