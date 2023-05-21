@@ -58,8 +58,8 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem {
         for (String line : meta.getLore()) {
             String stripColor = ChatColor.stripColor(line);
 
-            if ((stripColor.startsWith("类型: ") || stripColor.startsWith("Type:")) && (!line.contains("<类型>") || line.contains("<Type>"))) {
-                EntityType type = EntityType.valueOf(ChatColor.stripColor(line).replace("类型: ", "").replace("Type: ", "").replace(' ', '_').toUpperCase(Locale.ROOT));
+            if ((stripColor.startsWith("類型：") || stripColor.startsWith("Type:")) && (!line.contains("<類型>") || line.contains("<Type>"))) {
+                EntityType type = EntityType.valueOf(ChatColor.stripColor(line).replace("類型：", "").replace("Type: ", "").replace(' ', '_').toUpperCase(Locale.ROOT));
                 return Optional.of(type);
             }
         }
@@ -100,9 +100,9 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem {
 
         for (int i = 0; i < lore.size(); i++) {
             String currentLine = lore.get(i);
-            if (currentLine.contains("<Type>") || currentLine.contains("<类型>")) {
+            if (currentLine.contains("<Type>") || currentLine.contains("<類型>")) {
                 String typeName = ChatUtils.humanize(type.name());
-                lore.set(i, currentLine.replace("<Type>", typeName).replace("<类型>", typeName));
+                lore.set(i, currentLine.replace("<Type>", typeName).replace("<類型>", typeName));
                 break;
             }
         }

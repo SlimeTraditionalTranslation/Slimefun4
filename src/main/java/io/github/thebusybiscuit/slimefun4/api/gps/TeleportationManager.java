@@ -73,7 +73,7 @@ public final class TeleportationManager {
             p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
 
             PlayerProfile.fromUUID(ownerUUID, profile -> {
-                ChestMenu menu = new ChestMenu("&3传送机");
+                ChestMenu menu = new ChestMenu("&3傳送選單");
                 menu.addMenuCloseHandler(pl -> teleporterUsers.remove(pl.getUniqueId()));
 
                 for (int slot : teleporterBorder) {
@@ -98,11 +98,11 @@ public final class TeleportationManager {
                     // @formatter:off
                     String[] lore = {
                         "",
-                        "&8\u21E8 &7" + Slimefun.getLocalization().getResourceString(p, "tooltips.world") + ": &f" + l.getWorld().getName(),
-                        "&8\u21E8 &7X: &f" + l.getX(),
-                        "&8\u21E8 &7Y: &f" + l.getY(),
-                        "&8\u21E8 &7Z: &f" + l.getZ(),
-                        "&8\u21E8 &7" + Slimefun.getLocalization().getMessage(p, "machines.TELEPORTER.gui.time") + ": &f" + time + "s",
+                        "&8\u21E8 &7" + Slimefun.getLocalization().getResourceString(p, "tooltips.world") + "：&f" + l.getWorld().getName(),
+                        "&8\u21E8 &7X：&f" + l.getX(),
+                        "&8\u21E8 &7Y：&f" + l.getY(),
+                        "&8\u21E8 &7Z：&f" + l.getZ(),
+                        "&8\u21E8 &7" + Slimefun.getLocalization().getMessage(p, "machines.TELEPORTER.gui.time") + "：&f" + time + "s",
                         "",
                         "&8\u21E8 &c" + Slimefun.getLocalization().getMessage(p, "machines.TELEPORTER.gui.tooltip")
                     };

@@ -51,7 +51,7 @@ class BlockDataCommand extends SubCommand {
         var blockData = StorageCacheUtils.getBlock(target.getLocation());
 
         if (target == null || target.getType().isAir() || blockData == null) {
-            ChatUtils.sendMessage(player, "&c你需要看向一个 Slimefun 方块才能执行该指令!");
+            ChatUtils.sendMessage(player, "&c你需要看向一個 Slimefun 方塊才能執行該指令！");
             return;
         }
 
@@ -60,7 +60,7 @@ class BlockDataCommand extends SubCommand {
         switch (args[1]) {
             case "get" -> {
                 String value = blockData.getData(key);
-                ChatUtils.sendMessage(player, "&a该方块 &b%key% &a的值为: &e%value%",
+                ChatUtils.sendMessage(player, "&a該方塊 &b%key% &a的值為：&e%value%",
                     msg -> msg.replace("%key%", key).replace("%value%", value)
                 );
             }
@@ -73,25 +73,25 @@ class BlockDataCommand extends SubCommand {
                 }
 
                 if (key.equalsIgnoreCase("id")) {
-                    ChatUtils.sendMessage(player, "&c你不能修改方块的 ID!");
+                    ChatUtils.sendMessage(player, "&c你不能修改方塊的 ID！");
                     return;
                 }
 
                 String value = args[2];
 
                 blockData.setData(key, value);
-                ChatUtils.sendMessage(player, "&a已设置该方块 &b%key% &a的值为: &e%value%",
+                ChatUtils.sendMessage(player, "&a已設置該方塊 &b%key% &a的值為：&e%value%",
                     msg -> msg.replace("%key%", key).replace("%value%", value)
                 );
             }
             case "remove" -> {
                 if (key.equalsIgnoreCase("id")) {
-                    ChatUtils.sendMessage(player, "&c你不能修改方块的 ID!");
+                    ChatUtils.sendMessage(player, "&c你不能修改方塊的 ID！");
                     return;
                 }
 
                 blockData.removeData(key);
-                ChatUtils.sendMessage(player, "&a已移除该方块 &b%key% &a的值",
+                ChatUtils.sendMessage(player, "&a已移除該方塊 &b%key% &a的值",
                     msg -> msg.replace("%key%", key)
                 );
             }

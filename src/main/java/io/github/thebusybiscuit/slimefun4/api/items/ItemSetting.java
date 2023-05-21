@@ -154,7 +154,7 @@ public class ItemSetting<T> {
      * @return An error message which is displayed when this {@link ItemSetting} is misconfigured.
      */
     protected @Nonnull String getErrorMessage() {
-        return "请使用在 '" + defaultValue.getClass().getSimpleName() + "' 范围内的值!";
+        return "請使用在 '" + defaultValue.getClass().getSimpleName() + "' 範圍內的值！";
     }
 
     /**
@@ -178,9 +178,9 @@ public class ItemSetting<T> {
             } else {
                 // @formatter:off
                 item.warn(
-                        "发现在 Items.yml 中有无效的物品设置!" +
+                        "發現在 Items.yml 中有無效的物品設定！" +
                                 "\n  在 \"" + item.getId() + "." + getKey() + "\"" +
-                                "\n  " + configuredValue + " 不是一个有效值!" +
+                                "\n  " + configuredValue + " 不是個有效的值！" +
                                 "\n" + getErrorMessage()
                 );
                 // @formatter:on
@@ -191,10 +191,10 @@ public class ItemSetting<T> {
 
             // @formatter:off
             item.warn(
-                    "发现在 Items.yml 中有无效的物品设置!" +
-                            "\n请只设置有效的值." +
+                    "發現在 Items.yml 中有無效的物品設定！" +
+                            "\n請只設定有效的值。" +
                             "\n  在 \"" + item.getId() + "." + getKey() + "\"" +
-                            "\n  期望值为 \"" + defaultValue.getClass().getSimpleName() + "\" 但填写了: \"" + found + "\""
+                            "\n  期望值為 \"" + defaultValue.getClass().getSimpleName() + "\" 但填寫了 \"" + found + "\""
             );
             // @formatter:on
         }
