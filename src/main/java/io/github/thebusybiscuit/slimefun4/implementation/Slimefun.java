@@ -291,7 +291,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         cfgManager.reload();
         registry.load(this);
 
-        logger.log(Level.INFO, "正在載入資料庫...");
+        logger.log(Level.INFO, "載入資料庫...");
         PlayerProfileMigrator.checkOldData();
         BlockStorageMigrator.checkOldData();
         databaseManager.init();
@@ -321,13 +321,13 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         logger.log(Level.INFO, "載入 GEO-資源...");
         GEOResourcesSetup.setup();
 
-        logger.log(Level.INFO, "載入自訂標籤...");
+        logger.log(Level.INFO, "載入標籤...");
         loadTags();
 
         logger.log(Level.INFO, "載入物品...");
         loadItems();
 
-        logger.log(Level.INFO, "載入研究項目...");
+        logger.log(Level.INFO, "載入研究...");
         loadResearches();
 
         PostSetup.setupWiki();
@@ -383,7 +383,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         }
 
         // Hooray!
-        logger.log(Level.INFO, "Slimefun 完成載入, 耗時 {0}", getStartupTime(timestamp));
+        logger.log(Level.INFO, "Slimefun 已完成載入，耗時 {0}", getStartupTime(timestamp));
     }
 
     @Override
@@ -525,7 +525,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
                 StartupWarnings.invalidMinecraftVersion(getLogger(), version, getDescription().getVersion());
                 return true;
             } else {
-                getLogger().log(Level.WARNING, "我們無法識別你正在使用的 Minecraft 版本 (1.{0}.x)", version);
+                getLogger().log(Level.WARNING, "我們無法判斷你所使用的 Minecraft 版本？（1.{0}.x）", version);
 
                 /*
                  * If we are unsure about it, we will assume "supported".
@@ -536,7 +536,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
                 return false;
             }
         } catch (Exception | LinkageError x) {
-            getLogger().log(Level.SEVERE, x, () -> "錯誤: 無法識別伺服器 Minecraft 版本, Slimefun v" + getDescription().getVersion());
+            getLogger().log(Level.SEVERE, x, () -> "錯誤：無法判斷環境或 Minecraft 的版本，Slimefun v" + getDescription().getVersion());
 
             // We assume "unsupported" if something went wrong.
             return true;
