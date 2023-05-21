@@ -372,7 +372,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         hologramsService.start();
         ticker.start(this);
 
-        logger.log(Level.INFO, "正在載入第三方插件支持...");
+        logger.log(Level.INFO, "載入第三方插件整合...");
         integrations.start();
 
         gitHubService.start(this);
