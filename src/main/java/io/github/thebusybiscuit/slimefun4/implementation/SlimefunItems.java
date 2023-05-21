@@ -68,15 +68,15 @@ public final class SlimefunItems {
     public static final SlimefunItemStack FILLED_FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FILLED_FLASK_OF_KNOWLEDGE", Material.EXPERIENCE_BOTTLE, "&a學識之瓶");
 
     /*		Backpacks		*/
-    public static final SlimefunItemStack BACKPACK_SMALL = new SlimefunItemStack("SMALL_BACKPACK", HeadTexture.BACKPACK, "&e小背包", "", "&7大小: &e9格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BACKPACK_MEDIUM = new SlimefunItemStack("MEDIUM_BACKPACK", HeadTexture.BACKPACK, "&e背包", "", "&7大小: &e18格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BACKPACK_LARGE = new SlimefunItemStack("LARGE_BACKPACK", HeadTexture.BACKPACK, "&e大背包", "", "&7大小: &e27格(1個箱子)", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack WOVEN_BACKPACK = new SlimefunItemStack("WOVEN_BACKPACK", HeadTexture.BACKPACK, "&e編織背包", "", "&7大小: &e36格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack GILDED_BACKPACK = new SlimefunItemStack("GILDED_BACKPACK", HeadTexture.BACKPACK, "&e鍍金背包", "", "&7大小: &e45格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack RADIANT_BACKPACK = new SlimefunItemStack("RADIANT_BACKPACK", HeadTexture.BACKPACK, "&e登山背包", "", "&7大小: &e54格(2個箱子)", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BOUND_BACKPACK = new SlimefunItemStack("BOUND_BACKPACK", HeadTexture.ENDER_BACKPACK, "&c靈魂綁定背包", "", "&7大小: &e36格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能儲存果汁/冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包才有效", "", "&7大小: &e27格", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack RESTORED_BACKPACK = new SlimefunItemStack("RESTORED_BACKPACK", HeadTexture.RESTORED_BACKPACK, "&e還原的背包", "", "&7找回丟失的物品", BACKPACK_ID, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_SMALL = new SlimefunItemStack("SMALL_BACKPACK", HeadTexture.BACKPACK, "&e小背包", "", "&7大小: &e9格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_MEDIUM = new SlimefunItemStack("MEDIUM_BACKPACK", HeadTexture.BACKPACK, "&e背包", "", "&7大小: &e18格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_LARGE = new SlimefunItemStack("LARGE_BACKPACK", HeadTexture.BACKPACK, "&e大背包", "", "&7大小: &e27格(1個箱子)", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack WOVEN_BACKPACK = new SlimefunItemStack("WOVEN_BACKPACK", HeadTexture.BACKPACK, "&e編織背包", "", "&7大小: &e36格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack GILDED_BACKPACK = new SlimefunItemStack("GILDED_BACKPACK", HeadTexture.BACKPACK, "&e鍍金背包", "", "&7大小: &e45格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack RADIANT_BACKPACK = new SlimefunItemStack("RADIANT_BACKPACK", HeadTexture.BACKPACK, "&e登山背包", "", "&7大小: &e54 (2個箱子)", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BOUND_BACKPACK = new SlimefunItemStack("BOUND_BACKPACK", HeadTexture.ENDER_BACKPACK, "&c靈魂綁定背包", "", "&7大小: &e36格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能儲存果汁/冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包才有效", "", "&7大小: &e27格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack RESTORED_BACKPACK = new SlimefunItemStack("RESTORED_BACKPACK", HeadTexture.RESTORED_BACKPACK, "&e還原的背包", "", "&7找回丟失的物品", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
 
     /*		 Jetpacks		*/
     public static final SlimefunItemStack DURALUMIN_JETPACK = new SlimefunItemStack("DURALUMIN_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eI", "", LoreBuilder.material("硬鋁"), LoreBuilder.powerCharged(0, 20), "&8\u21E8 &7推力: &c0.35", "", LoreBuilder.CROUCH_TO_USE);
