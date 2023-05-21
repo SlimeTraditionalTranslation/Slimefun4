@@ -39,8 +39,8 @@ public final class SlimefunItems {
     public static final SlimefunItemStack PORTABLE_DUSTBIN = new SlimefunItemStack("PORTABLE_DUSTBIN", HeadTexture.TRASH_CAN, "&6隨身垃圾桶", "&f清理不要的物品", "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack ENDER_BACKPACK = new SlimefunItemStack("ENDER_BACKPACK", HeadTexture.ENDER_BACKPACK, "&6終界背包", "&a&o一個隨身終界箱", "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack MAGIC_EYE_OF_ENDER = new SlimefunItemStack("MAGIC_EYE_OF_ENDER", Material.ENDER_EYE, "&6&l魔法終界之眼", "&4&l需要穿上完整的「終界套裝」", "", "&7&e右鍵點擊&7 發射一顆「終界珍珠」");
-    public static final SlimefunItemStack BROKEN_SPAWNER = new SlimefunItemStack("BROKEN_SPAWNER", Material.SPAWNER, "&c已損壞的生怪磚", "&7類型: &b<Type>", "", "&c你必須用「古代祭壇」修復");
-    public static final SlimefunItemStack REPAIRED_SPAWNER = new SlimefunItemStack("REINFORCED_SPAWNER", Material.SPAWNER, "&b已修復的生怪磚", "&7類型: &b<Type>");
+    public static final SlimefunItemStack BROKEN_SPAWNER = new SlimefunItemStack("BROKEN_SPAWNER", Material.SPAWNER, "&c已損壞的生怪磚", "&7類型：&b<類型>", "", "&c你必須用「古代祭壇」修復");
+    public static final SlimefunItemStack REPAIRED_SPAWNER = new SlimefunItemStack("REINFORCED_SPAWNER", Material.SPAWNER, "&b已修復的生怪磚", "&7類型：&b<類型>");
     public static final SlimefunItemStack INFERNAL_BONEMEAL = new SlimefunItemStack("INFERNAL_BONEMEAL", Material.BONE_MEAL, "&4地獄骨粉", "", "&c加快植物生長", "&c只能用在「地獄疙瘩」");
     public static final SlimefunItemStack TAPE_MEASURE = new SlimefunItemStack("TAPE_MEASURE", "180d5c43a6cf5bb7769fd0c8240e1e70d2ae38ef9d78a1db401aca6a2cb36f65", "&6卷尺", "", "&e蹲下&右鍵點擊 &7設置起始點", "&e右鍵點擊 &7進行測量");
 
@@ -51,31 +51,31 @@ public final class SlimefunItems {
     public static final SlimefunItemStack GRAPPLING_HOOK = new SlimefunItemStack("GRAPPLING_HOOK", Material.LEAD, "&6鉤爪", "", LoreBuilder.RIGHT_CLICK_TO_USE);
     public static final SlimefunItemStack SOLAR_HELMET = new SlimefunItemStack("SOLAR_HELMET", Material.IRON_HELMET, "&b太陽能頭盔", "", "&a&o戴在頭上會讓手持物品與裝備充電");
     public static final SlimefunItemStack CLOTH = new SlimefunItemStack("CLOTH", Material.PAPER, "&b布");
-    public static final SlimefunItemStack REINFORCED_CLOTH = new SlimefunItemStack("REINFORCED_CLOTH", Material.PAPER, "&b加強布", "", "&f這塊布已經用&b鉛&f加固", "&f以防止放射性物質");
+    public static final SlimefunItemStack REINFORCED_CLOTH = new SlimefunItemStack("REINFORCED_CLOTH", Material.PAPER, "&b加強布", "", "&f這塊布已經用&b鉛&f加固", "&f以防止放射性物質洩漏");
     public static final SlimefunItemStack TIN_CAN = new SlimefunItemStack("CAN", HeadTexture.TIN_CAN, "&f錫罐");
     public static final SlimefunItemStack NIGHT_VISION_GOGGLES = new SlimefunItemStack("NIGHT_VISION_GOGGLES", Material.LEATHER_HELMET, Color.BLACK, "&a夜視鏡", "", "&9+ 夜視效果");
-    public static final SlimefunItemStack ELYTRA_CAP = new SlimefunItemStack("ELYTRA_CAP", Material.LEATHER_HELMET, Color.PURPLE, "&5鞘翅帽", "", "&7這個帽子可以保護你免受於", "&7鞘翅飛行時墜毀.");
+    public static final SlimefunItemStack ELYTRA_CAP = new SlimefunItemStack("ELYTRA_CAP", Material.LEATHER_HELMET, Color.PURPLE, "&5鞘翅帽", "", "&7這個帽子可以保護你免受於", "&7鞘翅飛行時墜毀");
     public static final SlimefunItemStack FARMER_SHOES = new SlimefunItemStack("FARMER_SHOES", Material.LEATHER_BOOTS, Color.YELLOW, "&e農夫鞋", "", "&6&o防止你踩壞作物");
     public static final SlimefunItemStack INFUSED_MAGNET = new SlimefunItemStack("INFUSED_MAGNET", HeadTexture.MAGNET, "&a魔法磁鐵", "", "&f注入魔法的磁鐵", "&f能吸引附近的物品", "&f到你的背包", "", "&7按住 &eShift&7 拿起附近的物品");
-    public static final SlimefunItemStack RAG = new SlimefunItemStack("RAG", Material.PAPER, "&c紗布", "", "&a一級醫療用品", "", "&f恢復2顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack BANDAGE = new SlimefunItemStack("BANDAGE", Material.PAPER, "&c繃帶", "", "&a二級醫療用品", "", "&f恢復4顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack SPLINT = new SlimefunItemStack("SPLINT", Material.STICK, "&c夾板", "", "&a一級醫療用品", "", "&f恢復2顆心", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack VITAMINS = new SlimefunItemStack("VITAMINS", Material.NETHER_WART, "&c維他命", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治癒中毒/凋零/放射", "", LoreBuilder.RIGHT_CLICK_TO_USE);
-    public static final SlimefunItemStack MEDICINE = new SlimefunItemStack("MEDICINE", Material.POTION, Color.RED, "&c醫療品", "", "&a三級醫療用品", "", "&f恢復4顆心", "&f滅火", "&f治癒中毒/凋零/放射");
+    public static final SlimefunItemStack RAG = new SlimefunItemStack("RAG", Material.PAPER, "&c紗布", "", "&a一級醫療用品", "", "&f恢復 2 顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
+    public static final SlimefunItemStack BANDAGE = new SlimefunItemStack("BANDAGE", Material.PAPER, "&c繃帶", "", "&a二級醫療用品", "", "&f恢復 4 顆心", "&f滅火", "", LoreBuilder.RIGHT_CLICK_TO_USE);
+    public static final SlimefunItemStack SPLINT = new SlimefunItemStack("SPLINT", Material.STICK, "&c夾板", "", "&a一級醫療用品", "", "&f恢復 2 顆心", "", LoreBuilder.RIGHT_CLICK_TO_USE);
+    public static final SlimefunItemStack VITAMINS = new SlimefunItemStack("VITAMINS", Material.NETHER_WART, "&c維他命", "", "&a三級醫療用品", "", "&f恢復 4 顆心", "&f滅火", "&f治癒中毒、凋零、放射", "", LoreBuilder.RIGHT_CLICK_TO_USE);
+    public static final SlimefunItemStack MEDICINE = new SlimefunItemStack("MEDICINE", Material.POTION, Color.RED, "&c醫療品", "", "&a三級醫療用品", "", "&f恢復 4 顆心", "&f滅火", "&f治癒中毒、凋零、放射");
     public static final SlimefunItemStack MAGICAL_ZOMBIE_PILLS = new SlimefunItemStack("MAGICAL_ZOMBIE_PILLS", Material.NETHER_WART, "&6神奇的殭屍藥丸", "", "&e右鍵點擊 &7殭屍村民", "&e或 &7殭屍化豬布林", "&7將立即從詛咒中治癒");
 
-    public static final SlimefunItemStack FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FLASK_OF_KNOWLEDGE", Material.GLASS_BOTTLE, "&c學識之瓶", "", "&f你可以把一些經驗", "&f存在瓶子裡", "&7消耗: &a1 個等級");
+    public static final SlimefunItemStack FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FLASK_OF_KNOWLEDGE", Material.GLASS_BOTTLE, "&c學識之瓶", "", "&f你可以把一些經驗", "&f儲存到瓶子裡", "&7消耗：&a1 等經驗等級");
     public static final SlimefunItemStack FILLED_FLASK_OF_KNOWLEDGE = new SlimefunItemStack("FILLED_FLASK_OF_KNOWLEDGE", Material.EXPERIENCE_BOTTLE, "&a學識之瓶");
 
     /*		Backpacks		*/
-    public static final SlimefunItemStack BACKPACK_SMALL = new SlimefunItemStack("SMALL_BACKPACK", HeadTexture.BACKPACK, "&e小背包", "", "&7大小: &e9格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BACKPACK_MEDIUM = new SlimefunItemStack("MEDIUM_BACKPACK", HeadTexture.BACKPACK, "&e背包", "", "&7大小: &e18格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BACKPACK_LARGE = new SlimefunItemStack("LARGE_BACKPACK", HeadTexture.BACKPACK, "&e大背包", "", "&7大小: &e27格(1個箱子)", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack WOVEN_BACKPACK = new SlimefunItemStack("WOVEN_BACKPACK", HeadTexture.BACKPACK, "&e編織背包", "", "&7大小: &e36格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack GILDED_BACKPACK = new SlimefunItemStack("GILDED_BACKPACK", HeadTexture.BACKPACK, "&e鍍金背包", "", "&7大小: &e45格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack RADIANT_BACKPACK = new SlimefunItemStack("RADIANT_BACKPACK", HeadTexture.BACKPACK, "&e登山背包", "", "&7大小: &e54格 (2個箱子)", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack BOUND_BACKPACK = new SlimefunItemStack("BOUND_BACKPACK", HeadTexture.ENDER_BACKPACK, "&c靈魂綁定背包", "", "&7大小: &e36格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
-    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能儲存果汁/冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包才有效", "", "&7大小: &e27格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_SMALL = new SlimefunItemStack("SMALL_BACKPACK", HeadTexture.BACKPACK, "&e小背包", "", "&7大小：&e9 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_MEDIUM = new SlimefunItemStack("MEDIUM_BACKPACK", HeadTexture.BACKPACK, "&e背包", "", "&7大小：&e18 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BACKPACK_LARGE = new SlimefunItemStack("LARGE_BACKPACK", HeadTexture.BACKPACK, "&e大背包", "", "&7大小：&e27 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack WOVEN_BACKPACK = new SlimefunItemStack("WOVEN_BACKPACK", HeadTexture.BACKPACK, "&e編織背包", "", "&7大小：&e36 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack GILDED_BACKPACK = new SlimefunItemStack("GILDED_BACKPACK", HeadTexture.BACKPACK, "&e鍍金背包", "", "&7大小：&e45 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack RADIANT_BACKPACK = new SlimefunItemStack("RADIANT_BACKPACK", HeadTexture.BACKPACK, "&e登山背包", "", "&7大小：&e54 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack BOUND_BACKPACK = new SlimefunItemStack("BOUND_BACKPACK", HeadTexture.ENDER_BACKPACK, "&c靈魂綁定背包", "", "&7大小：&e36 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
+    public static final SlimefunItemStack COOLER = new SlimefunItemStack("COOLER", HeadTexture.COOLER, "&b冰箱", "&f只能儲存果汁、冰沙", "&f並在飢餓時自動消耗", "&f只有放在你的背包中才有效", "", "&7大小：&e27 格", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
     public static final SlimefunItemStack RESTORED_BACKPACK = new SlimefunItemStack("RESTORED_BACKPACK", HeadTexture.RESTORED_BACKPACK, "&e還原的背包", "", "&7找回丟失的物品", PlayerBackpack.LORE_OWNER, "", LoreBuilder.RIGHT_CLICK_TO_OPEN);
 
     /*		 Jetpacks		*/
