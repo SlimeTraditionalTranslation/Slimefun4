@@ -318,7 +318,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         new Thread(metricsService::start, "Slimefun Metrics").start();
 
         // Registering all GEO Resources
-        logger.log(Level.INFO, "載入礦物資源...");
+        logger.log(Level.INFO, "載入 GEO-資源...");
         GEOResourcesSetup.setup();
 
         logger.log(Level.INFO, "載入自訂標籤...");
