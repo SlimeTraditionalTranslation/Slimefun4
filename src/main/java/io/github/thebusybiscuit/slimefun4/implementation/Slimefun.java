@@ -333,7 +333,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         PostSetup.setupWiki();
 
         // All Slimefun Listeners
-        logger.log(Level.INFO, "正在註冊監聽器...");
+        logger.log(Level.INFO, "註冊接聽器...");
         registerListeners();
 
         // Initiating various Stuff and all items with a slight delay (0ms after the Server finished loading)
