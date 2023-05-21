@@ -308,7 +308,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
 
         // Make sure that the network size is a valid input
         if (networkSize < 1) {
-            logger.log(Level.WARNING, "'networks.max-size' 大小設置錯誤! 它必須大於1, 而你設置的是: {0}", networkSize);
+            logger.log(Level.WARNING, "你的「networks.max-size」設定錯誤！必須大於 1，目前設定：{0}", networkSize);
             networkSize = 1;
         }
 
