@@ -263,7 +263,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
 
         // Check if Paper (<3) is installed
         if (PaperLib.isPaper()) {
-            logger.log(Level.INFO, "檢測到你正在使用 Paper 服務端! 性能最佳化已應用.");
+            logger.log(Level.INFO, "已偵測到 Paper 伺服器端！效能最佳化已套用。);
         } else {
             LangUtil.suggestPaper(this);
         }
