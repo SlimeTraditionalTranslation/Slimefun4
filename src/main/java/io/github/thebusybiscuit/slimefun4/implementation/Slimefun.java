@@ -284,7 +284,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         isNewlyInstalled = !new File("data-storage/Slimefun").exists();
 
         // Creating all necessary Folders
-        logger.log(Level.INFO, "正在創建文件夾...");
+        logger.log(Level.INFO, "正在建立目錄...");
         createDirectories();
 
         // Load various config settings into our cache
