@@ -297,7 +297,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         databaseManager.init();
 
         // Set up localization
-        logger.log(Level.INFO, "正在載入語言文件...");
+        logger.log(Level.INFO, "載入語言檔案...");
 
         var config = cfgManager.getPluginConfig();
         String chatPrefix = config.getString("options.chat-prefix");
