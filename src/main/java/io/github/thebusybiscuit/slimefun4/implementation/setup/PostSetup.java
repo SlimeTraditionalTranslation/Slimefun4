@@ -28,7 +28,7 @@ public final class PostSetup {
     private PostSetup() {}
 
     public static void setupWiki() {
-        Slimefun.logger().log(Level.INFO, "加载 Wiki 页面...");
+        Slimefun.logger().log(Level.INFO, "載入 Wiki 頁...");
 
         WikiUtils.setupJson(Slimefun.instance(), (page) -> page.replace("#", "?id="));
     }
@@ -62,13 +62,14 @@ public final class PostSetup {
         sender.sendMessage("");
         sender.sendMessage(ChatColor.GREEN + "######################### - Slimefun v" + Slimefun.getVersion() + " - #########################");
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.GREEN + "成功加载了 " + total + " 个物品和 " + Slimefun.getRegistry().getResearches().size() + " 个研究");
-        sender.sendMessage(ChatColor.GREEN + "( " + slimefunOnly + " 物品来自本体, " + (total - slimefunOnly) + " 个物品来自 " + Slimefun.getInstalledAddons().size() + " 扩展 )");
+        sender.sendMessage(ChatColor.GREEN + "成功載入 " + total + " 個物品和 " + Slimefun.getRegistry().getResearches().size() + " 個研究");
+        sender.sendMessage(ChatColor.GREEN + "( " + slimefunOnly + " 物品來自Slimefun, " + (total - slimefunOnly) + " 個物品來自 " + Slimefun.getInstalledAddons().size() + " 附加 )");
         sender.sendMessage("");
 
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.GREEN + " - 源码:      https://github.com/StarWishsama/Slimefun4");
-        sender.sendMessage(ChatColor.GREEN + " - Bug 反馈:  https://github.com/StarWishsama/Slimefun4/issues");
+        sender.sendMessage(ChatColor.GREEN + " - 源代碼: https://github.com/xMikux/Slimefun4");
+        sender.sendMessage(ChatColor.GREEN + " - 此為繁體翻譯版 - 無官方支持");
+        sender.sendMessage(ChatColor.RED + " - 請勿在黏液科技伺服器官方問!");
 
         sender.sendMessage("");
 
