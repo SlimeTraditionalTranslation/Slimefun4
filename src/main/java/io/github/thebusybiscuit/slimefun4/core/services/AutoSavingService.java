@@ -62,7 +62,7 @@ public class AutoSavingService {
         }
 
         if (players > 0) {
-            Slimefun.logger().log(Level.INFO, "成功保存了 {0} 个玩家的数据!", players);
+            Slimefun.logger().log(Level.INFO, "自動儲存所有玩家資料，已儲存 {0} 位玩家資料！", players);
         }
     }
 }

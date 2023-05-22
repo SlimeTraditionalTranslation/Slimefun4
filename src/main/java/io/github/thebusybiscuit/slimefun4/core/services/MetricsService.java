@@ -74,17 +74,17 @@ public class MetricsService {
     static {
         // @formatter:off (We want this to stay this nicely aligned :D )
         Unirest.config()
-            .concurrency(2, 1)
-            .setDefaultHeader("User-Agent", "MetricsModule Auto-Updater")
-            .setDefaultHeader("Accept", "application/vnd.github.v3+json")
-            .enableCookieManagement(false)
-            .cookieSpec("ignoreCookies");
+                .concurrency(2, 1)
+                .setDefaultHeader("User-Agent", "MetricsModule Auto-Updater")
+                .setDefaultHeader("Accept", "application/vnd.github.v3+json")
+                .enableCookieManagement(false)
+                .cookieSpec("ignoreCookies");
         // @formatter:on
     }
 
     /**
      * This constructs a new instance of our {@link MetricsService}.
-     * 
+     *
      * @param plugin
      *            Our {@link Slimefun} instance
      */
@@ -104,10 +104,10 @@ public class MetricsService {
      */
     public void start() {
         if (!metricsModuleFile.exists()) {
-            plugin.getLogger().info(JAR_NAME + " does not exist, downloading...");
+            plugin.getLogger().info(JAR_NAME + " 並不存在，下載中...");
 
             if (!download(getLatestVersion())) {
-                plugin.getLogger().warning("Failed to start metrics as the file could not be downloaded.");
+                plugin.getLogger().warning("由於無法下載檔案，因此不會啟動指標收集。");
                 return;
             }
         }
@@ -127,7 +127,7 @@ public class MetricsService {
              * AND there's a new version then cleanup, download and start
              */
             if (!hasDownloadedUpdate && hasAutoUpdates() && checkForUpdate(metricVersion)) {
-                plugin.getLogger().info("Cleaned up, now re-loading Metrics-Module!");
+                plugin.getLogger().info("清理完畢，現在重新載入指標模組！");
                 start();
                 return;
             }
@@ -140,15 +140,15 @@ public class MetricsService {
             Slimefun.runSync(() -> {
                 try {
                     start.invoke(null);
-                    plugin.getLogger().info("Metrics build #" + version + " started.");
+                    plugin.getLogger().info("指標建構 #" + version + " 啟動。");
                 } catch (InvocationTargetException e) {
                     plugin.getLogger().log(Level.WARNING, "An exception was thrown while starting the metrics module", e.getCause());
                 } catch (Exception | LinkageError e) {
-                    plugin.getLogger().log(Level.WARNING, "Failed to start metrics.", e);
+                    plugin.getLogger().log(Level.WARNING, "無法啟動指標模組。", e);
                 }
             });
         } catch (Exception | LinkageError e) {
-            plugin.getLogger().log(Level.WARNING, "Failed to load the metrics module. Maybe the jar is corrupt?", e);
+            plugin.getLogger().log(Level.WARNING, "無法載入指標模組。可能 Jar 損壞了？", e);
         }
     }
 
@@ -162,7 +162,7 @@ public class MetricsService {
                 moduleClassLoader.close();
             }
         } catch (IOException e) {
-            plugin.getLogger().log(Level.WARNING, "Could not clean up module class loader. Some memory may have been leaked.");
+            plugin.getLogger().log(Level.WARNING, "無法清理模組載入。可能發生了記憶體洩漏問題。");
         }
     }
 
@@ -172,7 +172,7 @@ public class MetricsService {
      *
      * @param currentVersion
      *            The current version which is being used.
-     * 
+     *
      * @return if there is an update available.
      */
     public boolean checkForUpdate(@Nullable String currentVersion) {
@@ -213,7 +213,7 @@ public class MetricsService {
 
             return node.getObject().getInt("tag_name");
         } catch (UnirestException e) {
-            plugin.getLogger().log(Level.WARNING, "Failed to fetch latest builds for Metrics: {0}", e.getMessage());
+            plugin.getLogger().log(Level.WARNING, "無法獲取指標模組的最新建構：{0}", e.getMessage());
             return -1;
         }
     }
@@ -228,7 +228,7 @@ public class MetricsService {
         File file = new File(parentFolder, "Metrics-" + version + ".jar");
 
         try {
-            plugin.getLogger().log(Level.INFO, "# Starting download of MetricsModule build: #{0}", version);
+            plugin.getLogger().log(Level.INFO, "# 開始下載指標模組建構：#{0}", version);
 
             if (file.exists()) {
                 // Delete the file in case we accidentally downloaded it before
@@ -242,13 +242,13 @@ public class MetricsService {
                 int percent = (int) (20 * (Math.round((((double) bytesWritten / totalBytes) * 100) / 20)));
 
                 if (percent != 0 && percent != lastPercentPosted.get()) {
-                    plugin.getLogger().info("# Downloading... " + percent + "% " + "(" + bytesWritten + "/" + totalBytes + " bytes)");
+                    plugin.getLogger().info("# 下載中... " + percent + "% " + "(" + bytesWritten + "/" + totalBytes + " bytes)");
                     lastPercentPosted.set(percent);
                 }
             }).asFile(file.getPath());
 
             if (response.isSuccess()) {
-                plugin.getLogger().log(Level.INFO, "Successfully downloaded {0} build: #{1}", new Object[] { JAR_NAME, version });
+                plugin.getLogger().log(Level.INFO, "成功下載 {0} 建構：#{1}", new Object[] { JAR_NAME, version });
 
                 // Replace the metric file with the new one
                 cleanUp();
@@ -259,9 +259,9 @@ public class MetricsService {
                 return true;
             }
         } catch (UnirestException e) {
-            plugin.getLogger().log(Level.WARNING, "Failed to fetch the latest jar file from the builds page. Perhaps GitHub is down? Response: {0}", e.getMessage());
+            plugin.getLogger().log(Level.WARNING, "無法從建構頁面獲取最新的 Jar 檔案。也許 GitHub 服務中斷？回應：{0}", e.getMessage());
         } catch (IOException e) {
-            plugin.getLogger().log(Level.WARNING, "Failed to replace the old metric file with the new one. Please do this manually! Error: {0}", e.getMessage());
+            plugin.getLogger().log(Level.WARNING, "無法將舊的指標模組檔案替換為新的。請手動執行此操作！錯誤：{0}", e.getMessage());
         }
 
         return false;
