@@ -101,4 +101,8 @@ public final class LoreBuilder {
         return "&8\u21E8 &7穩定性：&c" + accuracy + "%";
     }
 
+    public static @Nonnull String capacity(int capacity) {
+        return "&8\u21E8 &e\u26A1 &7" + capacity + " J 容量";
+    }
+
 }
