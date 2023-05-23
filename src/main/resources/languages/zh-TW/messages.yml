@@ -173,7 +173,7 @@ messages:
   deprecated-item: '&4這個物品已被棄用，將在不久後從 Slimefun 中移除。'
   researching-is-disabled: '&c研究已在此伺服器停用。預設所有研究解鎖！'
   multi-tool:
-    mode-change: '&b%device% 模式切換成：&9%mode%'
+    mode-change: '&b%device%模式切換成：&9%mode%'
     not-shears: '&c多功能工具不能當作剪刀來使用！'
   auto-crafting:
     select-a-recipe: '&7拿著你想製作的物品，&e蹲下並右鍵點擊&7此方塊。'
