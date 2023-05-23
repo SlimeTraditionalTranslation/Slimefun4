@@ -602,7 +602,7 @@ public final class SlimefunItems {
     public static final SlimefunItemStack CRUCIBLE = new SlimefunItemStack("CRUCIBLE", Material.CAULDRON, "&c坩鍋", "", "&a&o將物品熔化成液體");
     public static final SlimefunItemStack OUTPUT_CHEST = new SlimefunItemStack("OUTPUT_CHEST", Material.CHEST, "&4輸出箱", "", "&c&o如果將此箱子放置在基礎機器旁", "&c則機器會優先將物品放入此箱子");
     public static final SlimefunItemStack IGNITION_CHAMBER = new SlimefunItemStack("IGNITION_CHAMBER", Material.DROPPER, "&4自動點火器", "", "&f放置在冶煉爐(發射器)旁邊,然後把「打火石」放入", "&f冶煉爐就會優先消耗自動點火器裡的的打火石", "&f以防止冶煉爐下方的火熄滅");
-    public static final SlimefunItemStack HOLOGRAM_PROJECTOR = new SlimefunItemStack("HOLOGRAM_PROJECTOR", Material.QUARTZ_SLAB, "&b全息投影機", "", "&f可以編輯漂浮文字");
+    public static final SlimefunItemStack HOLOGRAM_PROJECTOR = new SlimefunItemStack("HOLOGRAM_PROJECTOR", Material.QUARTZ_SLAB, "&b全像投影機", "", "&f可以編輯漂浮文字");
     public static final SlimefunItemStack BLOCK_PLACER = new SlimefunItemStack("BLOCK_PLACER", Material.DISPENSER, "&a方塊放置器", "", "&f自動放置此機器中的方塊");
 
     /*		 Enhanced Furnaces 		*/
