@@ -304,10 +304,10 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             if (VaultIntegration.isUsable()) {
                 lore = String.format("%.2f", research.getCurrencyCost()) + " 遊戲幣";
             } else {
-                lore = research.getLevelCost() + " 級經驗";
+                lore = research.getLevelCost() + " 經驗等級";
             }
 
-            menu.addItem(index, new CustomItemStack(new CustomItemStack(ChestMenuUtils.getNoPermissionItem(), "&f" + ItemUtils.getItemName(sfitem.getItem()), "&7" + sfitem.getId(), "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"), "", "&a> 點擊解鎖", "", "&7需要 &b", lore)));
+            menu.addItem(index, new CustomItemStack(new CustomItemStack(ChestMenuUtils.getNoPermissionItem(), "&f" + ItemUtils.getItemName(sfitem.getItem()), "&7" + sfitem.getId(), "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"), "", "&a> 點擊解鎖", "", "&7消耗：&b" + lore)));
             menu.addMenuClickHandler(index, (pl, slot, item, action) -> {
                 research.unlockFromGuide(this, p, profile, sfitem, itemGroup, page);
                 return false;
