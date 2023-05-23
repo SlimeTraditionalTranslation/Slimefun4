@@ -307,7 +307,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
                 lore = research.getLevelCost() + " 級經驗";
             }
 
-            menu.addItem(index, new CustomItemStack(new CustomItemStack(ChestMenuUtils.getNoPermissionItem(), "&f" + ItemUtils.getItemName(sfitem.getItem()), "&7" + sfitem.getId(), "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"), "", "&a> 单击解锁", "", "&7需要 &b", lore)));
+            menu.addItem(index, new CustomItemStack(new CustomItemStack(ChestMenuUtils.getNoPermissionItem(), "&f" + ItemUtils.getItemName(sfitem.getItem()), "&7" + sfitem.getId(), "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"), "", "&a> 點擊解鎖", "", "&7需要 &b", lore)));
             menu.addMenuClickHandler(index, (pl, slot, item, action) -> {
                 research.unlockFromGuide(this, p, profile, sfitem, itemGroup, page);
                 return false;
