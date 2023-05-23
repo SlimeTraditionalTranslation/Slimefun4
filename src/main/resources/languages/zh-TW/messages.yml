@@ -9,6 +9,8 @@ commands:
   search: 在指南中搜索輸入的字句
   open_guide: 打開 Slimefun 指南（不使用書本）
   stats: 顯示玩家的統計數據
+  transform: 將物品轉換成英文物品
+  id: 獲得手持物品的 Slimefun ID
   research:
     description: 解鎖/重置玩家的研究項目
     reset: '&c你已重置了 %player% 的所有研究'
@@ -18,6 +20,7 @@ commands:
     invalid-id: '&4ID 不能是負數！'
     player-never-joined: '&4找不到該名稱的玩家'
     backpack-does-not-exist: '&4該背包不存在！'
+    searching: '&e搜尋中...'
     restored-backpack-given: '&a你的背包已還原並放到你的物品欄中！'
   charge:
     description: 為你手中的物品充電
@@ -34,6 +37,20 @@ commands:
     none-running: '&7目前沒有正在執行的測試事件！'
     running: '&7正在運行除錯測試：&6%test%'
     disabled: '&7停用除錯模式。'
+  reload:
+    description: '重新載入 Slimefun 設定檔案'
+    success: '&a已成功重新載入設定檔案。'
+    failed: '&c重新載入設定檔案時失敗！你可能需要重開伺服器來套用修改，查看控制台來獲得更多資訊。'
+  migrate:
+    description: "轉移舊資料"
+    confirm: "&c你確定要進行資料轉移嗎？確定請輸入 /sf migrate confirm 開始轉移\n轉移過程中請勿讓玩家進入伺服器使用任何 Slimefun 相關的機器與物品！"
+    started: "&a正在轉移舊資料..."
+    success: "&a轉移舊資料至資料庫成功。"
+    failed: "&c轉移資料時出現問題，請查看控制台。"
+    already-migrated: "&a暫無可轉移的資料。"
+    in-progress: "&a轉移正在進行中..."
+  blockdata:
+    description: "修改你所看著的方塊資料"
 placeholderapi:
   profile-loading: '載入中...'
 guide:
@@ -125,6 +142,12 @@ guide:
       resourcepack: '&7資源包製作人員'
       translator: '&9翻譯人員'
 messages:
+  android-no-permission: "&c你的機器人在某個你沒有權限的保護區中，無法工作，該機器人已自動暫停運作。"
+  transform:
+    success: "&a物品轉換成功！"
+    warning: "&c&l警告：&f該轉換會影響其他非黏液科技且物品名稱或帶有敘述與顏色的物品\n&f請先&c從背包中拿出&f再進行轉換\n&f如果要繼續轉換，請再輸入一次 /sf transform update"
+    in-progress: "&f正在轉換中..."
+    wrong-type: "&c目前支援轉換的方塊：已修復的生怪磚"
   not-researched: '&4你沒有足夠的學識來理解它。&c你需要研究解鎖&f「%item%&f」'
   not-enough-xp: '&4你沒有足夠的經驗值來解鎖該研究'
   unlocked: '&b你已解鎖&7「%research%」'
@@ -287,6 +310,8 @@ machines:
     full-chest: '&c此工業挖礦機的儲物箱已滿！'
     no-permission: '&4你沒有權限在此使用工業挖礦機！'
     finished: '&e你的工業挖礦機已挖掘完畢，共挖掘 %ores% 個礦物！'
+  TABLE_SAW:
+    no-slimefun-item: '&c你不能在鋸木機上使用科技物品！'
 anvil:
   not-working: '&4科技物品需要用自動鐵砧+修理膠帶！'
   mcmmo-salvaging: '&4你不能回收利用科技物品！'
@@ -301,6 +326,9 @@ villagers:
 backpack:
   already-open: '&c別人正在使用這個背包！'
   no-stack: '&c背包不能堆疊！'
+  set-name: '&e請輸入背包名稱'
+  not-backpack-owner: '&c該背包的擁有者不在線上，你無法使用！'
+  not-original-item: '&c輸入名稱時請不要切換手上的物品！'
 workbench:
   not-enhanced: '&4科技物品不可在普通合成台使用'
 cauldron:
@@ -366,6 +394,22 @@ android:
     rating:
       own: '&4你不能評價自己的程式！'
       already: '&4你已經評價過此程式！'
+  access-manager:
+    title: '&b機器人權限管理器'
+    subtitle: '&8⇨ &7點擊打開管理器'
+    menu:
+      add-player-title: '&a新增信任玩家'
+      add-player: '&a左鍵 > 新增信任玩家'
+      delete-player: '&c左鍵 > 刪除信任玩家'
+    messages:
+      input: '請輸入你想新增的信任玩家 ID。'
+      cannot-find-player: '&c找不到你要新增的玩家：%player%'
+      is-trusted-player: '&a%player% 已經是你所信任的玩家了！'
+      is-not-trusted-player: "&c%player% 不是你信任的玩家！"
+      cannot-add-yourself: '&c你不能將自己加入信任清單中！'
+      add-success: '&a成功新增信任玩家 %player%.'
+      delete-success: '&a成功刪除信任玩家 %player%.'
+      reach-limit: '&c信任玩家數量已達到上限（10），請先刪除已有的玩家再新增！'
 languages:
   default: '預設'
   en: '英語'

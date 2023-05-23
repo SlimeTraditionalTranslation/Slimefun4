@@ -8,6 +8,8 @@ commands:
   search: Searches your Guide for the given term
   open_guide: Opens Slimefun's guide without using the book
   stats: Shows some Stats about a Player
+  transform: Transform Chinese item to English
+  id: Get your holding item Slimefun ID
 
   research:
     description: Unlock/Reset researches for a player
@@ -19,6 +21,7 @@ commands:
     invalid-id: '&4The id must be a non-negative number!'
     player-never-joined: '&4No player with that name could be found!'
     backpack-does-not-exist: '&4The specified backpack does not exist!'
+    searching: '&eSearching...'
     restored-backpack-given: '&aYour backpack has been restored and was added to your inventory!'
 
   charge:
@@ -43,6 +46,18 @@ commands:
     description: "Reload config file"
     reload-success: "&aReloaded config file successfully."
     reload-failed: "&cReload config failed, you may need restart server to apply change, see console for more info."
+
+  migrate:
+    description: "Migrate old BlockStorage data to new database tyep"
+    confirm: "&cAre you sure you want to migrate? Type /sf migrate confirm to start migrating.\nWhen migrating, please don't let player join the server to use anything related to Slimefun!"
+    started: "&aMigrating old data..."
+    success: "&aSuccess migrate old data to database. 轉移舊資料至資料庫成功。"
+    failed: "&cAn error occurred on migrating data, check the console. 轉移資料時出現問題，請查看控制台。"
+    already-migrated: "&aNothing to migrate."
+    in-progress: "&aMigrate is ongoing..."
+
+  blockdata:
+    description: "Modify the block data you are looking at"
 
 placeholderapi:
   profile-loading: 'Loading...'
@@ -150,6 +165,12 @@ guide:
       translator: '&9Translator'
 
 messages:
+  android-no-permission: "&cYour android is in a protected area where you don't have access rights. It cannot function, and the android has been automatically suspended."
+  transform:
+    success: "&aItem success transform!"
+    warning: "&c&lWarning: &fThe conversion will affect other non Slimefun items with names, descriptions, and colors.\n&fPlease &cfirst remove it from your backpack &fbefore proceeding with the conversion.\n&fIf you wish to continue the transformation, please enter /sf transform update again."
+    in-progress: "&fTransforming..."
+    wrong-type: "&cCurrent support transform block: Reinforced Spawner"
   not-researched: '&4You do not have enough knowledge to understand this. &cYou will need to unlock &f"%item%&f"'
   not-enough-xp: '&4You do not have enough XP to unlock this'
   unlocked: '&bYou have unlocked &7"%research%"'
@@ -333,6 +354,9 @@ machines:
     no-permission: '&4You do not seem to have permission to operate an Industrial Miner here!'
     finished: '&eYour Industrial Miner has finished! It obtained a total of %ores% ore(s)!'
 
+    TABLE_SAW:
+      no-slimefun-item: '&cYou cannot use Slimefun items in Table Saw!'
+
 anvil:
   not-working: '&4You cannot use Slimefun items in an anvil!'
   mcmmo-salvaging: '&4You cannot salvage Slimefun items!'
@@ -352,6 +376,9 @@ villagers:
 backpack:
   already-open: '&cSorry, this Backpack is open somewhere else!'
   no-stack: '&cYou cannot stack Backpacks'
+  set-name: '&eType your backpack name'
+  not-backpack-owner: '&cThis backpack owner is not online, you cannot use!'
+  not-original-item: "&cWhen typing the name, please don't swap you item!"
 
 workbench:
   not-enhanced: '&4You cannot use Slimefun items in a normal workbench'
@@ -432,7 +459,7 @@ android:
 
   access-manager:
     title: '&bAndroid Access Manager'
-    subtitle: '&8\u21E8 &7Click to open the Access Manager'
+    subtitle: '&8⇨ &7Click to open the Access Manager'
 
     menu:
       add-player-title: '&aAdd a trusted player'
@@ -447,6 +474,7 @@ android:
       cannot-add-yourself: '&cYou cannot add yourself!'
       add-success: '&aAdded trusted player %player% successfully.'
       delete-success: '&aDeleted trusted player %player% successfully.'
+      reach-limit: '&cThe maximum number of trusted players (10) has been reached. Please delete existing players before adding new ones!'
 
 languages:
   default: 'Server-Default'
