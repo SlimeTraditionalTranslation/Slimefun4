@@ -302,9 +302,9 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             String lore;
 
             if (VaultIntegration.isUsable()) {
-                lore = String.format("%.2f", research.getCurrencyCost()) + " 游戏币";
+                lore = String.format("%.2f", research.getCurrencyCost()) + " 遊戲幣";
             } else {
-                lore = research.getLevelCost() + " 级经验";
+                lore = research.getLevelCost() + " 級經驗";
             }
 
             menu.addItem(index, new CustomItemStack(new CustomItemStack(ChestMenuUtils.getNoPermissionItem(), "&f" + ItemUtils.getItemName(sfitem.getItem()), "&7" + sfitem.getId(), "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"), "", "&a> 单击解锁", "", "&7需要 &b", lore)));
@@ -459,7 +459,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             recipeType = new RecipeType(optional.get());
             result = recipe.getResult();
         } else {
-            recipeItems = new ItemStack[]{null, null, null, null, new CustomItemStack(Material.BARRIER, "&4在显示合成配方时发生了异常 :/"), null, null, null, null};
+            recipeItems = new ItemStack[]{null, null, null, null, new CustomItemStack(Material.BARRIER, "&4在顯示合成配方時發生了異常 :/"), null, null, null, null};
         }
 
         ChestMenu menu = create(p);
