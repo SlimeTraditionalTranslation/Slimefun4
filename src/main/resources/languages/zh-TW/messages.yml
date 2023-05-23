@@ -158,6 +158,7 @@ messages:
   not-online: '&4%player% &c 還未上線！'
   invalid-item: '&4%item% &c不存在！'
   invalid-amount: '&4%amount% &c不是有效數量：數值必須大於 0！'
+  invalid-item-in-hand: '&e你手裡拿的不是黏液科技的物品!'
   given-item: '&b你已獲得 &a%amount%&7「%item%&7」'
   give-item: '&b你已給予 %player% &a%amount%&7「%item%&7」'
   invalid-research: '&4%research% &c不存在！'
@@ -273,6 +274,7 @@ machines:
     unknown-recipe: '&4未知合成配方！&c請檢查合成配方！'
   ANCIENT_PEDESTAL:
     obstructed: '&4基座被擋住了！&c請移除上方的方塊！'
+    in-use: "&4基座上還有東西沒拿下來!"
   HOLOGRAM_PROJECTOR:
     enter-text: '&7請輸入你想要顯示的文字訊息。&r（可以輸入顏色代碼）'
     inventory-title: '全息投影編輯器'
@@ -397,10 +399,12 @@ android:
   access-manager:
     title: '&b機器人權限管理器'
     subtitle: '&8⇨ &7點擊打開管理器'
+
     menu:
       add-player-title: '&a新增信任玩家'
       add-player: '&a左鍵 > 新增信任玩家'
       delete-player: '&c左鍵 > 刪除信任玩家'
+
     messages:
       input: '請輸入你想新增的信任玩家 ID。'
       cannot-find-player: '&c找不到你要新增的玩家：%player%'
