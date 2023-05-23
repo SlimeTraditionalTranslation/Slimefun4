@@ -29,7 +29,7 @@ public class Compressor extends MultiBlockMachine {
 
     @ParametersAreNonnullByDefault
     public Compressor(ItemGroup itemGroup, SlimefunItemStack item) {
-        super(itemGroup, item, new ItemStack[] { null, null, null, null, new ItemStack(Material.NETHER_BRICK_FENCE), null, new ItemStack(Material.PISTON), new CustomItemStack(Material.DISPENSER, "发射器 (朝上)"), new ItemStack(Material.PISTON) }, BlockFace.SELF);
+        super(itemGroup, item, new ItemStack[] { null, null, null, null, new ItemStack(Material.NETHER_BRICK_FENCE), null, new ItemStack(Material.PISTON), new CustomItemStack(Material.DISPENSER, "發射器（朝上）"), new ItemStack(Material.PISTON) }, BlockFace.SELF);
     }
 
     @Override

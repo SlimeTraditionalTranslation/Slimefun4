@@ -62,7 +62,7 @@ public class IndustrialMiner extends MultiBlockMachine {
         // @formatter:off
         super(itemGroup, item, new ItemStack[] {
             null, null, null,
-            new CustomItemStack(Material.PISTON, "活塞 (朝上)"), new ItemStack(Material.CHEST), new CustomItemStack(Material.PISTON, "活塞 (朝上)"),
+            new CustomItemStack(Material.PISTON, "活塞（朝上）"), new ItemStack(Material.CHEST), new CustomItemStack(Material.PISTON, "活塞（朝上）"),
             new ItemStack(baseMaterial), new ItemStack(Material.BLAST_FURNACE), new ItemStack(baseMaterial)
         }, BlockFace.UP);
         // @formatter:on
@@ -145,7 +145,7 @@ public class IndustrialMiner extends MultiBlockMachine {
      *            The item that shall be consumed
      */
     public void addFuelType(int ores, @Nonnull ItemStack item) {
-        Validate.isTrue(ores > 1 && ores % 2 == 0, "矿石的数量必须 >= 2 且为 2 的倍数.");
+        Validate.isTrue(ores > 1 && ores % 2 == 0, "礦物數量必須至少是 2，而且是 2 的倍數。");
         Validate.notNull(item, "The fuel item cannot be null");
 
         fuelTypes.add(new MachineFuel(ores / 2, item));
@@ -164,7 +164,7 @@ public class IndustrialMiner extends MultiBlockMachine {
             ItemStack item = fuel.getInput().clone();
             ItemMeta im = item.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add(ChatColors.color("&8\u21E8 &7剩余最多 " + fuel.getTicks() + " 个矿石"));
+            lore.add(ChatColors.color("&8\u21E8 &7剩餘最多 " + fuel.getTicks() + " 個礦物"));
             im.setLore(lore);
             item.setItemMeta(im);
             list.add(item);

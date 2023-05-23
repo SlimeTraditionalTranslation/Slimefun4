@@ -133,8 +133,8 @@ abstract class AbstractCraftingTable extends MultiBlockMachine {
     private @Nonnull Optional<String> retrieveID(@Nullable ItemStack backpack) {
         if (backpack != null) {
             for (String line : backpack.getItemMeta().getLore()) {
-                if (line.startsWith(ChatColors.color("&7ID: ")) && line.contains("#")) {
-                    return Optional.of(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID: "), ""))[1]);
+                if (line.startsWith(ChatColors.color("&7ID：")) && line.contains("#")) {
+                    return Optional.of(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID："), ""))[1]);
                 }
             }
         }

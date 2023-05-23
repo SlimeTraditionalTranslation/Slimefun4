@@ -72,14 +72,14 @@ public class Talisman extends SlimefunItem {
         this.chance = chance;
 
         if (!(this instanceof EnderTalisman)) {
-            String name = "&5末影" + ChatColor.stripColor(getItem().getItemMeta().getDisplayName());
+            String name = "&5終界" + ChatColor.stripColor(getItem().getItemMeta().getDisplayName());
             List<String> lore = new ArrayList<>();
-            lore.add("&7&o注入末影精华");
-            lore.add("");
+            lore.add("&7&o注入終界能量");
+            lore.add("&7&o要放在「終界箱」才能使用");
 
             for (String line : getItem().getItemMeta().getLore()) {
                 if (line.contains("背包")) {
-                    line = line.replace("背包", "末影箱");
+                    line = line.replace("背包", "終界箱");
                 }
                 lore.add(line);
             }
