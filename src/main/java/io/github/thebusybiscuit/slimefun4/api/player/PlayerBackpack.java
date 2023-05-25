@@ -134,9 +134,9 @@ public class PlayerBackpack {
         }
 
         for (String line : meta.getLore()) {
-            if (line.startsWith(ChatColors.color("&7ID：")) && line.contains("#")) {
+            if (line.startsWith(ChatColors.color("&7ID: ")) && line.contains("#")) {
                 try {
-                    return OptionalInt.of(Integer.parseInt(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID："), ""))[1]));
+                    return OptionalInt.of(Integer.parseInt(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID: "), ""))[1]));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
