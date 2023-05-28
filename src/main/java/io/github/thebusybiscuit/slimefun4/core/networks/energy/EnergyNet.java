@@ -160,6 +160,17 @@ public class EnergyNet extends Network implements HologramOwner {
 
             for (Map.Entry<Location, EnergyNetComponent> entry : consumers.entrySet()) {
                 Location loc = entry.getKey();
+
+                var data = StorageCacheUtils.getBlock(loc);
+                if (data == null || data.isPendingRemove()) {
+                    continue;
+                }
+
+                if (!data.isDataLoaded()) {
+                    StorageCacheUtils.requestLoad(data);
+                    continue;
+                }
+
                 EnergyNetComponent component = entry.getValue();
                 int capacity = component.getCapacity();
                 int charge = component.getCharge(loc);
@@ -191,6 +202,12 @@ public class EnergyNet extends Network implements HologramOwner {
     private void storeRemainingEnergy(int remainingEnergy) {
         for (Map.Entry<Location, EnergyNetComponent> entry : capacitors.entrySet()) {
             Location loc = entry.getKey();
+
+            var data = StorageCacheUtils.getBlock(loc);
+            if (data == null || data.isPendingRemove() || !data.isDataLoaded()) {
+                continue;
+            }
+
             EnergyNetComponent component = entry.getValue();
 
             if (remainingEnergy > 0) {
@@ -210,6 +227,12 @@ public class EnergyNet extends Network implements HologramOwner {
 
         for (Map.Entry<Location, EnergyNetProvider> entry : generators.entrySet()) {
             Location loc = entry.getKey();
+
+            var data = StorageCacheUtils.getBlock(loc);
+            if (data == null || data.isPendingRemove() || !data.isDataLoaded()) {
+                continue;
+            }
+
             EnergyNetProvider component = entry.getValue();
             int capacity = component.getCapacity();
 

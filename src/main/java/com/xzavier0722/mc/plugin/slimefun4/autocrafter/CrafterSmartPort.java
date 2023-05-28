@@ -156,4 +156,9 @@ public class CrafterSmartPort extends SlimefunItem {
         countItem.setItemMeta(im);
         return countItem;
     }
+
+    @Override
+    public boolean loadDataByDefault() {
+        return true;
+    }
 }
