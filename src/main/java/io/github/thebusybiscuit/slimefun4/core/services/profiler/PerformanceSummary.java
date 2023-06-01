@@ -78,14 +78,14 @@ class PerformanceSummary {
             int count = profiler.getBlocksInChunk(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
 
-            return entry.getKey() + " - " + count + " 個方塊" + (count != 1 ? 's' : "") + "（" + time + "）";
+            return entry.getKey() + " - " + count + " 個方塊" + "（" + time + "）";
         });
 
         summarizeTimings(plugins.size(), "個插件", sender, plugins, entry -> {
             int count = profiler.getBlocksFromPlugin(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
 
-            return entry.getKey() + " - " + count + " 個方塊" + (count != 1 ? 's' : "") + "（" + time + "）";
+            return entry.getKey() + " - " + count + " 個方塊" + "（" + time + "）";
         });
     }
 
@@ -93,7 +93,7 @@ class PerformanceSummary {
     private void summarizeTimings(int count, String name, PerformanceInspector inspector, Map<String, Long> map, Function<Map.Entry<String, Long>, String> formatter) {
         Stream<Map.Entry<String, Long>> stream = map.entrySet().stream();
         List<Entry<String, Long>> results = stream.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
-        String prefix = count + " " + name + (count != 1 ? 's' : "");
+        String prefix = count + " " + name;
 
         if (inspector instanceof PlayerPerformanceInspector playerPerformanceInspector) {
             TextComponent component = summarizeAsTextComponent(count, prefix, results, formatter);
