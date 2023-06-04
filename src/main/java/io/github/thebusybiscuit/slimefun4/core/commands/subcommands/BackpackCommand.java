@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
  * @see RestoredBackpack
  */
 class BackpackCommand extends SubCommand {
-    private final int DISPLAY_START_SLOT = 9;
+    private static final int DISPLAY_START_SLOT = 9;
 
     @ParametersAreNonnullByDefault
     BackpackCommand(Slimefun plugin, SlimefunCommand cmd) {
@@ -43,7 +43,7 @@ class BackpackCommand extends SubCommand {
     }
 
     @Override
-    public void onExecute(CommandSender sender, String[] args) {
+    public void onExecute(@Nonnull CommandSender sender, @Nonnull String[] args) {
         if (sender instanceof Player player) {
             if (sender.hasPermission("slimefun.command.backpack")) {
                 if (args.length < 1) {
@@ -60,7 +60,7 @@ class BackpackCommand extends SubCommand {
                                         if (!player.isOnline()) {
                                             return;
                                         }
-                                        openBackpackMenu(Bukkit.getOfflinePlayer(result), player, 1);
+                                        openBackpackMenu(Bukkit.getOfflinePlayer(result), player);
                                     }
 
                                     @Override
@@ -73,7 +73,7 @@ class BackpackCommand extends SubCommand {
                         return;
                     }
                 } else {
-                    openBackpackMenu(player, player, 1);
+                    openBackpackMenu(player, player);
                 }
 
                 Slimefun.getLocalization().sendMessage(player, "commands.backpack.searching");
@@ -85,9 +85,8 @@ class BackpackCommand extends SubCommand {
         }
     }
 
-    private void openBackpackMenu(@Nonnull OfflinePlayer owner, @Nonnull Player p, int page) {
+    private void openBackpackMenu(@Nonnull OfflinePlayer owner, @Nonnull Player p) {
         Validate.notNull(p, "The player cannot be null!");
-        Validate.isTrue(page > 0, "Backpack page must greater than 0!");
 
         Slimefun.getDatabaseManager().getProfileDataController()
                 .getBackpacksAsync(owner.getUniqueId().toString(), new IAsyncReadCallback<>() {
@@ -101,7 +100,7 @@ class BackpackCommand extends SubCommand {
                         if (!p.isOnline()) {
                             return;
                         }
-                        showBackpackMenu(owner, p, result, page);
+                        showBackpackMenu(owner, p, result, 1);
                     }
 
                     @Override

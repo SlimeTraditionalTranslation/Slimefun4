@@ -2,9 +2,11 @@ package io.github.thebusybiscuit.slimefun4.core.config;
 
 import io.github.bakedlibs.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
@@ -96,8 +98,10 @@ public class SlimefunConfigManager {
             isSuccessful = false;
         }
 
+        var researchSnapshot = new ArrayList<>(Slimefun.getRegistry().getResearches());
+
         // Reload Research costs
-        for (Research research : Slimefun.getRegistry().getResearches()) {
+        for (Research research : researchSnapshot) {
             try {
                 NamespacedKey key = research.getKey();
                 int cost = researchesConfig.getInt(key.getNamespace() + '.' + key.getKey() + ".cost");
@@ -117,14 +121,18 @@ public class SlimefunConfigManager {
             }
         }
 
-        for (SlimefunItem item : Slimefun.getRegistry().getAllSlimefunItems()) {
-            var itemStatus = itemsConfig.getBoolean(item.getId() + ".enabled");
-            if (item.isDisabled() != !itemStatus && item.getAddon() != null) {
-                if (itemStatus && SlimefunItem.getById(item.getId()) == null) {
-                    item.register(item.getAddon());
-                } else {
-                    Slimefun.logger().log(Level.WARNING, "物品停用暫時不支援熱重載，請手動重開伺服器。");
-                    isSuccessful = false;
+        var enabledItemSnapshot = new ArrayList<>(Slimefun.getRegistry().getAllSlimefunItems());
+
+        for (SlimefunItem item : enabledItemSnapshot) {
+            var newState = itemsConfig.getBoolean(item.getId() + ".enabled") ? ItemState.ENABLED : ItemState.DISABLED;
+
+            if (item.getState() != newState) {
+                switch (newState) {
+                    case ENABLED -> item.enable();
+                    case DISABLED -> {
+                        item.disable();
+                        continue;
+                    }
                 }
             }
 
