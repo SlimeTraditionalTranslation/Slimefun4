@@ -55,37 +55,37 @@ class PerformanceSummary {
 
     public void send(@Nonnull PerformanceInspector sender) {
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.GREEN + "===== Slimefun Lag Profiler =====");
-        sender.sendMessage(ChatColor.GOLD + "Total time: " + ChatColor.YELLOW + NumberUtils.getAsMillis(totalElapsedTime));
-        sender.sendMessage(ChatColor.GOLD + "Running every: " + ChatColor.YELLOW + NumberUtils.roundDecimalNumber(tickRate / 20.0) + "s (" + tickRate + " ticks)");
-        sender.sendMessage(ChatColor.GOLD + "Performance: " + getPerformanceRating());
+        sender.sendMessage(ChatColor.GREEN + "===== Slimefun 效能分析報告 =====");
+        sender.sendMessage(ChatColor.GOLD + "總時間：" + ChatColor.YELLOW + NumberUtils.getAsMillis(totalElapsedTime));
+        sender.sendMessage(ChatColor.GOLD + "每次執行時間：" + ChatColor.YELLOW + NumberUtils.roundDecimalNumber(tickRate / 20.0) + "秒（" + tickRate + " ticks）");
+        sender.sendMessage(ChatColor.GOLD + "效能：" + getPerformanceRating());
         sender.sendMessage("");
 
-        summarizeTimings(totalTickedBlocks, "block", sender, items, entry -> {
+        summarizeTimings(totalTickedBlocks, "個方塊", sender, items, entry -> {
             int count = profiler.getBlocksOfId(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
 
             if (count > 1) {
                 String average = NumberUtils.getAsMillis(entry.getValue() / count);
 
-                return entry.getKey() + " - " + count + "x (" + time + " | avg: " + average + ')';
+                return entry.getKey() + " - " + count + "x（" + time + "｜平均：" + average + '）';
             } else {
-                return entry.getKey() + " - " + count + "x (" + time + ')';
+                return entry.getKey() + " - " + count + "x（" + time + '）';
             }
         });
 
-        summarizeTimings(chunks.size(), "chunk", sender, chunks, entry -> {
+        summarizeTimings(chunks.size(), "個區塊", sender, chunks, entry -> {
             int count = profiler.getBlocksInChunk(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
 
-            return entry.getKey() + " - " + count + " block" + (count != 1 ? 's' : "") + " (" + time + ")";
+            return entry.getKey() + " - " + count + " 個方塊" + "（" + time + "）";
         });
 
-        summarizeTimings(plugins.size(), "plugin", sender, plugins, entry -> {
+        summarizeTimings(plugins.size(), "個插件", sender, plugins, entry -> {
             int count = profiler.getBlocksFromPlugin(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
 
-            return entry.getKey() + " - " + count + " block" + (count != 1 ? 's' : "") + " (" + time + ")";
+            return entry.getKey() + " - " + count + " 個方塊" + "（" + time + "）";
         });
     }
 
@@ -93,7 +93,7 @@ class PerformanceSummary {
     private void summarizeTimings(int count, String name, PerformanceInspector inspector, Map<String, Long> map, Function<Map.Entry<String, Long>, String> formatter) {
         Stream<Map.Entry<String, Long>> stream = map.entrySet().stream();
         List<Entry<String, Long>> results = stream.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
-        String prefix = count + " " + name + (count != 1 ? 's' : "");
+        String prefix = count + " " + name;
 
         if (inspector instanceof PlayerPerformanceInspector playerPerformanceInspector) {
             TextComponent component = summarizeAsTextComponent(count, prefix, results, formatter);
@@ -111,7 +111,7 @@ class PerformanceSummary {
         component.setColor(ChatColor.YELLOW);
 
         if (count > 0) {
-            TextComponent hoverComponent = new TextComponent("  (Hover for details)");
+            TextComponent hoverComponent = new TextComponent("（懸浮來獲得更多資訊）");
             hoverComponent.setColor(ChatColor.GRAY);
             StringBuilder builder = new StringBuilder();
 
@@ -128,7 +128,7 @@ class PerformanceSummary {
             }
 
             if (hiddenEntries > 0) {
-                builder.append("\n\n&c+ &6").append(hiddenEntries).append(" more");
+                builder.append("\n\n&c+ &6").append(hiddenEntries).append(" 更多");
             }
 
             Content content = new Text(TextComponent.fromLegacyText(ChatColors.color(builder.toString())));
@@ -163,7 +163,7 @@ class PerformanceSummary {
             }
 
             if (hiddenEntries > 0) {
-                builder.append("\n+ ").append(hiddenEntries).append(" more...");
+                builder.append("\n+ ").append(hiddenEntries).append(" 更多...");
             }
         }
 
@@ -177,24 +177,24 @@ class PerformanceSummary {
 
         int rest = 20;
         for (int i = (int) Math.min(percentage, 100); i >= 5; i = i - 5) {
-            builder.append(':');
+            builder.append('：');
             rest--;
         }
 
         builder.append(ChatColor.DARK_GRAY);
 
         for (int i = 0; i < rest; i++) {
-            builder.append(':');
+            builder.append('：');
         }
 
         builder.append(" - ");
 
-        builder.append(rating.getColor() + ChatUtils.humanize(rating.name()));
+        builder.append(rating.getColor() + rating.getDisplayname());
 
         builder.append(ChatColor.GRAY);
-        builder.append(" (");
+        builder.append("（");
         builder.append(NumberUtils.roundDecimalNumber(percentage));
-        builder.append("%)");
+        builder.append("%）");
 
         return builder.toString();
     }

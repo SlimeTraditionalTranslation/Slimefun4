@@ -10,11 +10,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacitor;
 import io.github.thebusybiscuit.slimefun4.utils.NumberUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import java.util.logging.Level;
+import javax.annotation.Nonnull;
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
-
-import javax.annotation.Nonnull;
-import java.util.logging.Level;
 
 /**
  * This Interface, when attached to a class that inherits from {@link SlimefunItem}, marks
@@ -86,10 +86,34 @@ public interface EnergyNetComponent extends ItemAttribute {
         return getCharge(l, blockData);
     }
 
+    @Deprecated
+    default int getCharge(@Nonnull Location l, @Nonnull Config config) {
+        Slimefun.logger().log(Level.FINE, "正在調用舊 BlockStorage 的方法，建議使用對應附加的新方塊儲存配接版。");
+
+        Validate.notNull(l, "Location was null!");
+
+        // Emergency fallback, this cannot hold a charge, so we'll just return zero
+        if (!isChargeable()) {
+            return 0;
+        }
+
+        var blockData = StorageCacheUtils.getBlock(l);
+        if (blockData == null || blockData.isPendingRemove()) {
+            return 0;
+        }
+
+        if (!blockData.isDataLoaded()) {
+            StorageCacheUtils.requestLoad(blockData);
+            return 0;
+        }
+
+        return getCharge(l, blockData);
+    }
+
     /**
      * This returns the currently stored charge at a given {@link Location}.
      * object for this {@link Location}.
-     * 
+     *
      * @param l
      *            The target {@link Location}
      * @param data
@@ -138,7 +162,18 @@ public interface EnergyNetComponent extends ItemAttribute {
 
                 // Do we even need to update the value?
                 if (charge != getCharge(l)) {
-                    StorageCacheUtils.setData(l, "energy-charge", String.valueOf(charge));
+                    var blockData = StorageCacheUtils.getBlock(l);
+
+                    if (blockData == null || blockData.isPendingRemove()) {
+                        return;
+                    }
+
+                    if (!blockData.isDataLoaded()) {
+                        StorageCacheUtils.requestLoad(blockData);
+                        return;
+                    }
+
+                    blockData.setData("energy-charge", String.valueOf(charge));
 
                     // Update the capacitor texture
                     if (getEnergyComponentType() == EnergyNetComponentType.CAPACITOR) {

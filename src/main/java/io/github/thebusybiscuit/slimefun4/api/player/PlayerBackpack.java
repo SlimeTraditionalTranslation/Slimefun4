@@ -80,11 +80,11 @@ public class PlayerBackpack {
         String uuid = "";
 
         for (String line : item.getItemMeta().getLore()) {
-            if (line.startsWith(ChatColors.color("&7ID：")) && line.indexOf('#') != -1) {
+            if (line.startsWith(ChatColors.color("&7ID: ")) && line.indexOf('#') != -1) {
                 String[] splitLine = CommonPatterns.HASH.split(line);
 
                 if (CommonPatterns.NUMERIC.matcher(splitLine[1]).matches()) {
-                    uuid = splitLine[0].replace(ChatColors.color("&7ID："), "");
+                    uuid = splitLine[0].replace(ChatColors.color("&7ID: "), "");
                     id = OptionalInt.of(Integer.parseInt(splitLine[1]));
                 }
             }
@@ -134,9 +134,9 @@ public class PlayerBackpack {
         }
 
         for (String line : meta.getLore()) {
-            if (line.startsWith(ChatColors.color("&7ID：")) && line.contains("#")) {
+            if (line.startsWith(ChatColors.color("&7ID: ")) && line.contains("#")) {
                 try {
-                    return OptionalInt.of(Integer.parseInt(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID："), ""))[1]));
+                    return OptionalInt.of(Integer.parseInt(CommonPatterns.HASH.split(line.replace(ChatColors.color("&7ID: "), ""))[1]));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }

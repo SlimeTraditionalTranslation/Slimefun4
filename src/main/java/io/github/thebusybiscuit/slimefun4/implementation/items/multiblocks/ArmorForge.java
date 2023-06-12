@@ -26,7 +26,7 @@ import io.papermc.lib.PaperLib;
 public class ArmorForge extends AbstractCraftingTable {
 
     public ArmorForge(ItemGroup itemGroup, SlimefunItemStack item) {
-        super(itemGroup, item, new ItemStack[] { null, null, null, null, new ItemStack(Material.ANVIL), null, null, new CustomItemStack(Material.DISPENSER, "发射器 (朝上)"), null }, BlockFace.SELF);
+        super(itemGroup, item, new ItemStack[] { null, null, null, null, new ItemStack(Material.ANVIL), null, null, new CustomItemStack(Material.DISPENSER, "發射器（朝上）"), null }, BlockFace.SELF);
     }
 
     @Override

@@ -1,9 +1,8 @@
 package io.github.thebusybiscuit.slimefun4.implementation.items.altar;
 
-import org.bukkit.inventory.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.inventory.ItemStack;
 
 public class AltarRecipe {
 
@@ -40,4 +39,12 @@ public class AltarRecipe {
         return this.input;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AltarRecipe ar) {
+            return ar.getCatalyst().equals(getCatalyst()) && ar.getInput().equals(getInput()) && ar.getOutput().equals(getOutput());
+        } else {
+            return false;
+        }
+    }
 }

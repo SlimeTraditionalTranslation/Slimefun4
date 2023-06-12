@@ -5,7 +5,8 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.common.FieldKey;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.FieldMapper;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.RecordSet;
 import io.github.bakedlibs.dough.collections.Pair;
-
+import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
+import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
 import java.sql.Connection;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -15,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_ID;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_NAME;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_NUM;
@@ -142,6 +142,8 @@ public class SqlUtils {
     }
 
     public static void execSql(Connection conn, String sql) throws SQLException {
+        Debug.log(TestCase.DATABASE, "Executing sql statement: " + sql);
+
         try (var stmt = conn.createStatement()) {
             stmt.execute(sql);
         }

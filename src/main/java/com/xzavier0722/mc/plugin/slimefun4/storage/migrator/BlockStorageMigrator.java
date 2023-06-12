@@ -2,7 +2,6 @@ package com.xzavier0722.mc.plugin.slimefun4.storage.migrator;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.FileUtils;
 import io.github.bakedlibs.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -17,24 +16,41 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class BlockStorageMigrator {
+public class BlockStorageMigrator implements IMigrator {
+    private static final BlockStorageMigrator instance = new BlockStorageMigrator();
+
     private static final File invFolder = new File("data-storage/Slimefun/stored-inventories/");
     private static final File chunk = new File("data-storage/Slimefun/stored-chunks/chunks.sfc");
     private static final File blockFolder = new File("data-storage/Slimefun/stored-blocks/");
     private static final Gson gson = new Gson();
     private static volatile boolean migrateLock = false;
 
-    public static boolean isOldDataExists() {
-        return hasBlockData() || chunk.exists();
+    private BlockStorageMigrator() {
     }
 
-    public static void checkOldData() {
+    public static BlockStorageMigrator getInstance() {
+        return instance;
+    }
+
+    @Override
+    public String getName() {
+        return "BlockStorage";
+    }
+
+    @Override
+    public boolean isOldDataExists() {
+        return MigratorUtil.checkMigrateMark() || hasBlockData() || chunk.exists();
+    }
+
+    @Override
+    public void checkOldData() {
         if (isOldDataExists()) {
             Slimefun.logger().log(Level.WARNING, "偵測到舊型檔案式儲存資料，請使用 /sf migrate 轉移到新的資料庫中！");
         }
     }
 
-    public static MigrateStatus migrateData() {
+    @Override
+    public MigrateStatus migrateData() {
         Slimefun.getTickerTask().setPaused(true);
 
         var controller = Slimefun.getDatabaseManager().getBlockDataController();
@@ -56,14 +72,14 @@ public class BlockStorageMigrator {
             Slimefun.logger().log(Level.WARNING, "未偵測到區塊資料，跳過轉移。");
         }
 
-        Bukkit.getWorlds().forEach(BlockStorageMigrator::migrateWorld);
+        Bukkit.getWorlds().forEach(this::migrateWorld);
 
         if (MigratorUtil.createDirBackup(invFolder)) {
-            FileUtils.deleteDir(invFolder);
+            MigratorUtil.deleteOldFolder(invFolder);
         }
 
         if (MigratorUtil.createDirBackup(blockFolder)) {
-            FileUtils.deleteDir(blockFolder);
+            MigratorUtil.deleteOldFolder(blockFolder);
         }
 
         try {
@@ -72,6 +88,7 @@ public class BlockStorageMigrator {
             Files.delete(chunk.toPath());
         } catch (Exception e) {
             Slimefun.logger().log(Level.WARNING, "備份舊資料 " + chunk.getName() + " 時發生錯誤", e);
+            status = MigrateStatus.FAILED;
         }
 
         migrateLock = false;
@@ -83,7 +100,7 @@ public class BlockStorageMigrator {
         return status;
     }
 
-    private static boolean hasBlockData() {
+    private boolean hasBlockData() {
         for (var world : Bukkit.getWorlds()) {
             var f = new File(blockFolder, world.getName());
             var fList = f.listFiles();
@@ -94,7 +111,7 @@ public class BlockStorageMigrator {
         return false;
     }
 
-    private static void migrateWorld(World w) {
+    private void migrateWorld(World w) {
         Slimefun.logger().log(Level.INFO, "開始轉移方塊資料：" + w.getName());
         var fList = new File(blockFolder, w.getName()).listFiles();
         if (fList == null) {
@@ -120,7 +137,7 @@ public class BlockStorageMigrator {
         }
     }
 
-    private static void migrateBlock(World world, String sfId, String locStr, String jsonStr) {
+    private void migrateBlock(World world, String sfId, String locStr, String jsonStr) {
         try {
             var arr = locStr.split(";");
             var x = Integer.parseInt(arr[1]);
@@ -152,7 +169,7 @@ public class BlockStorageMigrator {
         }
     }
 
-    private static void migrateInv(BlockMenu menu, File f) {
+    private void migrateInv(BlockMenu menu, File f) {
         var cfg = new Config(f);
         var preset = menu.getPreset().getPresetSlots();
         for (var key : cfg.getKeys()) {
@@ -180,7 +197,7 @@ public class BlockStorageMigrator {
         }
     }
 
-    private static void migrateChunks() {
+    private void migrateChunks() {
         var cfg = new Config(chunk);
         var keys = cfg.getKeys();
         var total = keys.size();

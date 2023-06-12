@@ -68,10 +68,10 @@ public class CargoManager extends SlimefunItem implements HologramOwner {
                     var blockData = StorageCacheUtils.getBlock(b.getLocation());
                     if (blockData.getData("visualizer") == null) {
                         blockData.setData("visualizer", "disabled");
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c货运网络可视化: " + "&4\u2718"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c視覺化物流網路：" + "&4\u2718"));
                     } else {
                         blockData.removeData("visualizer");
-                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c货运网络可视化: " + "&2\u2714"));
+                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c視覺化物流網路：" + "&2\u2714"));
                     }
                 }
             }

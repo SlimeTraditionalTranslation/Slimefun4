@@ -249,7 +249,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         local = new LocalizationService(this, "", null);
         networkManager = new NetworkManager(200);
         command.register();
-        cfgManager.reload();
+        cfgManager.load();
         registry.load(this);
         loadTags();
     }
@@ -263,7 +263,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
 
         // Check if Paper (<3) is installed
         if (PaperLib.isPaper()) {
-            logger.log(Level.INFO, "检测到你正在使用 Paper 服务端! 性能优化已应用.");
+            logger.log(Level.INFO, "已偵測到 Paper 伺服器端！效能最佳化已套用。");
         } else {
             LangUtil.suggestPaper(this);
         }
@@ -284,20 +284,20 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         isNewlyInstalled = !new File("data-storage/Slimefun").exists();
 
         // Creating all necessary Folders
-        logger.log(Level.INFO, "正在创建文件夹...");
+        logger.log(Level.INFO, "正在建立目錄...");
         createDirectories();
 
         // Load various config settings into our cache
-        cfgManager.reload();
+        cfgManager.load();
         registry.load(this);
 
-        logger.log(Level.INFO, "正在加载数据库...");
-        PlayerProfileMigrator.checkOldData();
-        BlockStorageMigrator.checkOldData();
+        logger.log(Level.INFO, "載入資料庫...");
+        PlayerProfileMigrator.getInstance().checkOldData();
+        BlockStorageMigrator.getInstance().checkOldData();
         databaseManager.init();
 
         // Set up localization
-        logger.log(Level.INFO, "正在加载语言文件...");
+        logger.log(Level.INFO, "載入語言檔案...");
 
         var config = cfgManager.getPluginConfig();
         String chatPrefix = config.getString("options.chat-prefix");
@@ -308,7 +308,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
 
         // Make sure that the network size is a valid input
         if (networkSize < 1) {
-            logger.log(Level.WARNING, "'networks.max-size' 大小设置错误! 它必须大于1, 而你设置的是: {0}", networkSize);
+            logger.log(Level.WARNING, "你的「networks.max-size」設定錯誤！必須大於 1，目前設定：{0}", networkSize);
             networkSize = 1;
         }
 
@@ -318,22 +318,22 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         new Thread(metricsService::start, "Slimefun Metrics").start();
 
         // Registering all GEO Resources
-        logger.log(Level.INFO, "加载矿物资源...");
+        logger.log(Level.INFO, "載入 GEO-資源...");
         GEOResourcesSetup.setup();
 
-        logger.log(Level.INFO, "加载自定义标签...");
+        logger.log(Level.INFO, "載入標籤...");
         loadTags();
 
-        logger.log(Level.INFO, "加载物品...");
+        logger.log(Level.INFO, "載入物品...");
         loadItems();
 
-        logger.log(Level.INFO, "加载研究项目...");
+        logger.log(Level.INFO, "載入研究...");
         loadResearches();
 
         PostSetup.setupWiki();
 
         // All Slimefun Listeners
-        logger.log(Level.INFO, "正在注册监听器...");
+        logger.log(Level.INFO, "註冊接聽器...");
         registerListeners();
 
         // Initiating various Stuff and all items with a slight delay (0ms after the Server finished loading)
@@ -372,18 +372,18 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         hologramsService.start();
         ticker.start(this);
 
-        logger.log(Level.INFO, "正在加载第三方插件支持...");
+        logger.log(Level.INFO, "載入第三方插件整合...");
         integrations.start();
 
         gitHubService.start(this);
 
         if (cfgManager.isAutoUpdate()) {
-            // 汉化版自动更新
+            // 漢化版自動更新
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, new AutoUpdateTask(this, getFile()));
         }
 
         // Hooray!
-        logger.log(Level.INFO, "Slimefun 完成加载, 耗时 {0}", getStartupTime(timestamp));
+        logger.log(Level.INFO, "Slimefun 已完成載入，耗時 {0}", getStartupTime(timestamp));
     }
 
     @Override
@@ -525,7 +525,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
                 StartupWarnings.invalidMinecraftVersion(getLogger(), version, getDescription().getVersion());
                 return true;
             } else {
-                getLogger().log(Level.WARNING, "我们无法识别你正在使用的 Minecraft 版本 (1.{0}.x)", version);
+                getLogger().log(Level.WARNING, "我們無法判斷你所使用的 Minecraft 版本？（1.{0}.x）", version);
 
                 /*
                  * If we are unsure about it, we will assume "supported".
@@ -536,7 +536,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
                 return false;
             }
         } catch (Exception | LinkageError x) {
-            getLogger().log(Level.SEVERE, x, () -> "错误: 无法识别服务器 Minecraft 版本, Slimefun v" + getDescription().getVersion());
+            getLogger().log(Level.SEVERE, x, () -> "錯誤：無法判斷環境或 Minecraft 的版本，Slimefun v" + getDescription().getVersion());
 
             // We assume "unsupported" if something went wrong.
             return true;

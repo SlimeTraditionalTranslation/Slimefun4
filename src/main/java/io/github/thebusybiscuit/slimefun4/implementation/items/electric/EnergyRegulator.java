@@ -55,7 +55,7 @@ public class EnergyRegulator extends SlimefunItem implements HologramOwner {
 
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
-                updateHologram(e.getBlock(), "&7连接中...");
+                updateHologram(e.getBlock(), "&7連接中...");
             }
 
         };

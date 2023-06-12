@@ -60,7 +60,7 @@ import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
 public final class SlimefunUtils {
 
     private static final String NO_PICKUP_METADATA = "no_pickup";
-    private static final String SOULBOUND_LORE = ChatColor.GRAY + "灵魂绑定";
+    private static final String SOULBOUND_LORE = ChatColor.GRAY + "靈魂綁定";
 
     private SlimefunUtils() {}
 

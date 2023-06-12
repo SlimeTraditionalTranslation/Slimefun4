@@ -15,6 +15,7 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.util.DataUtils;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.InvStorageUtils;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.LocationUtils;
 import io.github.bakedlibs.dough.collections.Pair;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -268,13 +269,21 @@ public class BlockDataController extends ADataController {
         getData(key).forEach(block -> {
             var lKey = block.get(FieldKey.LOCATION);
             var sfId = block.get(FieldKey.SLIMEFUN_ID);
+            var sfItem = SlimefunItem.getById(sfId);
+            if (sfItem == null) {
+                return;
+            }
+
             var cache = getBlockDataFromCache(chunkData.getKey(), lKey);
             var blockData = cache == null ? new SlimefunBlockData(LocationUtils.toLocation(lKey), sfId) : cache;
             chunkData.addBlockCacheInternal(blockData, false);
-            if (Slimefun.getRegistry().getTickerBlocks().contains(sfId)) {
+
+            if (sfItem.loadDataByDefault()) {
                 scheduleReadTask(() -> {
                     loadBlockData(blockData);
-                    Slimefun.getTickerTask().enableTicker(blockData.getLocation());
+                    if (sfItem.isTicking()) {
+                        Slimefun.getTickerTask().enableTicker(blockData.getLocation());
+                    }
                 });
             }
         });
@@ -288,8 +297,9 @@ public class BlockDataController extends ADataController {
         key.addField(FieldKey.DATA_KEY);
         key.addField(FieldKey.DATA_VALUE);
         key.addCondition(FieldKey.CHUNK, chunkData.getKey());
+
+        lock.lock(key);
         try {
-            lock.lock(key);
             if (chunkData.isDataLoaded()) {
                 return;
             }
@@ -314,8 +324,8 @@ public class BlockDataController extends ADataController {
         key.addField(FieldKey.DATA_KEY);
         key.addField(FieldKey.DATA_VALUE);
 
+        lock.lock(key);
         try {
-            lock.lock(key);
             if (blockData.isDataLoaded()) {
                 return;
             }
@@ -324,18 +334,19 @@ public class BlockDataController extends ADataController {
                     recordSet -> blockData.setCacheInternal(
                             recordSet.get(FieldKey.DATA_KEY),
                             DataUtils.blockDataDebase64(recordSet.get(FieldKey.DATA_VALUE)),
-                            false)
+                            false
+                    )
             );
 
             var menuPreset = BlockMenuPreset.getPreset(blockData.getSfId());
             if (menuPreset != null) {
-                key = new RecordKey(DataScope.BLOCK_INVENTORY);
-                key.addCondition(FieldKey.LOCATION, blockData.getKey());
-                key.addField(FieldKey.INVENTORY_SLOT);
-                key.addField(FieldKey.INVENTORY_ITEM);
+                var menuKey = new RecordKey(DataScope.BLOCK_INVENTORY);
+                menuKey.addCondition(FieldKey.LOCATION, blockData.getKey());
+                menuKey.addField(FieldKey.INVENTORY_SLOT);
+                menuKey.addField(FieldKey.INVENTORY_ITEM);
 
                 var inv = new ItemStack[54];
-                getData(key).forEach(record -> inv[record.getInt(FieldKey.INVENTORY_SLOT)] = record.getItemStack(FieldKey.INVENTORY_ITEM));
+                getData(menuKey).forEach(record -> inv[record.getInt(FieldKey.INVENTORY_SLOT)] = record.getItemStack(FieldKey.INVENTORY_ITEM));
                 blockData.setBlockMenu(new BlockMenu(menuPreset, blockData.getLocation(), inv));
             }
 

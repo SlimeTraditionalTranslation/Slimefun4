@@ -45,7 +45,7 @@ public class VaultIntegration {
         econ.withdrawPlayer(p, withdraw);
     }
 
-    public static boolean isUsable() {
+    public static boolean isEnabled() {
         return econ != null && Slimefun.getConfigManager().isUseMoneyUnlock();
     }
 }

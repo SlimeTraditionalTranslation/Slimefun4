@@ -20,23 +20,26 @@ public enum PerformanceRating implements Predicate<Float> {
 
     // Thresholds might change in the future!
 
-    UNKNOWN(ChatColor.WHITE, -1),
+    UNKNOWN(ChatColor.WHITE, -1, "未知"),
 
-    GOOD(ChatColor.DARK_GREEN, 10),
-    FINE(ChatColor.DARK_GREEN, 20),
-    OKAY(ChatColor.GREEN, 30),
-    MODERATE(ChatColor.YELLOW, 55),
-    SEVERE(ChatColor.RED, 85),
-    HURTFUL(ChatColor.DARK_RED, 500),
-    BAD(ChatColor.DARK_RED, Float.MAX_VALUE);
+    GOOD(ChatColor.DARK_GREEN, 10, "良好"),
+    FINE(ChatColor.DARK_GREEN, 20, "普通"),
+    OKAY(ChatColor.GREEN, 30, "尚可"),
+    MODERATE(ChatColor.YELLOW, 55, "中等"),
+    SEVERE(ChatColor.RED, 85, "嚴重"),
+    HURTFUL(ChatColor.DARK_RED, 500, "有害"),
+    BAD(ChatColor.DARK_RED, Float.MAX_VALUE, "糟糕");
 
     private final ChatColor color;
     private final float threshold;
 
-    PerformanceRating(@Nonnull ChatColor color, float threshold) {
+    private final String displayname;
+
+    PerformanceRating(@Nonnull ChatColor color, float threshold, String displayname) {
         Validate.notNull(color, "Color cannot be null");
         this.color = color;
         this.threshold = threshold;
+        this.displayname = displayname;
     }
 
     @Override
@@ -52,6 +55,11 @@ public enum PerformanceRating implements Predicate<Float> {
     @Nonnull
     public ChatColor getColor() {
         return color;
+    }
+
+    @Nonnull
+    public String getDisplayname() {
+        return displayname;
     }
 
 }

@@ -1,26 +1,5 @@
 package io.github.thebusybiscuit.slimefun4.api.recipes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.function.BiConsumer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Keyed;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
 import io.github.bakedlibs.dough.items.CustomItemStack;
 import io.github.bakedlibs.dough.recipes.MinecraftRecipe;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -30,6 +9,24 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.altar.AltarRecipe;
 import io.github.thebusybiscuit.slimefun4.implementation.items.altar.AncientAltar;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import org.bukkit.ChatColor;
+import org.bukkit.Keyed;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 // TODO: Remove this class and rewrite the recipe system
 public class RecipeType implements Keyed {
@@ -51,6 +48,10 @@ public class RecipeType implements Keyed {
         AltarRecipe altarRecipe = new AltarRecipe(Arrays.asList(recipe), output);
         AncientAltar altar = ((AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem());
         altar.getRecipes().add(altarRecipe);
+    }, (recipe, output) -> {
+        AltarRecipe altarRecipe = new AltarRecipe(Arrays.asList(recipe), output);
+        AncientAltar altar = ((AncientAltar) SlimefunItems.ANCIENT_ALTAR.getItem());
+        altar.getRecipes().removeIf(ar -> ar.equals(altarRecipe));
     });
 
     public static final RecipeType MOB_DROP = new RecipeType(new NamespacedKey(Slimefun.instance(), "mob_drop"), new CustomItemStack(Material.IRON_SWORD, "&bMob Drop"), RecipeType::registerMobDrop, "", "&rKill the specified Mob to obtain this Item");
@@ -71,7 +72,8 @@ public class RecipeType implements Keyed {
     private final ItemStack item;
     private final NamespacedKey key;
     private final String machine;
-    private BiConsumer<ItemStack[], ItemStack> consumer;
+    private BiConsumer<ItemStack[], ItemStack> registerConsumer;
+    private BiConsumer<ItemStack[], ItemStack> unregisterConsumer;
 
     private RecipeType() {
         this.item = null;
@@ -97,7 +99,20 @@ public class RecipeType implements Keyed {
     public RecipeType(NamespacedKey key, ItemStack item, BiConsumer<ItemStack[], ItemStack> callback, String... lore) {
         this.item = new CustomItemStack(item, null, lore);
         this.key = key;
-        this.consumer = callback;
+        this.registerConsumer = callback;
+
+        if (item instanceof SlimefunItemStack slimefunItemStack) {
+            this.machine = slimefunItemStack.getItemId();
+        } else {
+            this.machine = "";
+        }
+    }
+
+    public RecipeType(NamespacedKey key, ItemStack item, BiConsumer<ItemStack[], ItemStack> registerCallback, BiConsumer<ItemStack[], ItemStack> unregisterCallback, String... lore) {
+        this.item = new CustomItemStack(item, null, lore);
+        this.key = key;
+        this.registerConsumer = registerCallback;
+        this.unregisterConsumer = unregisterCallback;
 
         if (item instanceof SlimefunItemStack slimefunItemStack) {
             this.machine = slimefunItemStack.getItemId();
@@ -119,13 +134,25 @@ public class RecipeType implements Keyed {
     }
 
     public void register(ItemStack[] recipe, ItemStack result) {
-        if (consumer != null) {
-            consumer.accept(recipe, result);
+        if (registerConsumer != null) {
+            registerConsumer.accept(recipe, result);
         } else {
             SlimefunItem slimefunItem = SlimefunItem.getById(this.machine);
 
             if (slimefunItem instanceof MultiBlockMachine mbm) {
                 mbm.addRecipe(recipe, result);
+            }
+        }
+    }
+
+    public void unregister(ItemStack[] recipe, ItemStack result) {
+        if (unregisterConsumer != null) {
+            unregisterConsumer.accept(recipe, result);
+        } else {
+            SlimefunItem slimefunItem = SlimefunItem.getById(this.machine);
+
+            if (slimefunItem instanceof MultiBlockMachine mbm) {
+                mbm.clearRecipe();
             }
         }
     }
