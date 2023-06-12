@@ -71,7 +71,11 @@ public class SlimefunConfigManager {
         }
     }
 
-    public boolean reload() {
+    public boolean load() {
+        return load(false);
+    }
+
+    public boolean load(boolean reload) {
         boolean isSuccessful = true;
 
         try {
@@ -92,10 +96,15 @@ public class SlimefunConfigManager {
             showHiddenItemGroupsInSearch = pluginConfig.getBoolean("guide.show-hidden-item-groups-in-search");
             autoUpdate = pluginConfig.getBoolean("options.auto-update");
 
+            researchesConfig.setDefaultValue("researches.currency-cost-convert-rate", 25.0);
             researchCurrencyCostConvertRate = researchesConfig.getDouble("researches.currency-cost-convert-rate");
         } catch (Exception x) {
             plugin.getLogger().log(Level.SEVERE, x, () -> "An Exception was caught while (re)loading the config files for Slimefun v" + plugin.getDescription().getVersion());
             isSuccessful = false;
+        }
+
+        if (!reload) {
+            return true;
         }
 
         var researchSnapshot = new ArrayList<>(Slimefun.getRegistry().getResearches());

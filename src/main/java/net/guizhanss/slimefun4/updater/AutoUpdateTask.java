@@ -38,12 +38,12 @@ public class AutoUpdateTask implements Runnable {
         }
         try {
             // use updater in lib plugin
-            Class<?> clazz = Class.forName("net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper");
-            Method updaterStart = clazz.getDeclaredMethod("start", Plugin.class, File.class, String.class, String.class, String.class, Boolean.class);
-            updaterStart.invoke(null, plugin, file, GITHUB_USER, GITHUB_REPO, branch, false);
+            Class<?> clazz = Class.forName("net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater");
+            Method updaterStart = clazz.getDeclaredMethod("start", Plugin.class, File.class, String.class, String.class, String.class);
+            updaterStart.invoke(null, plugin, file, GITHUB_USER, GITHUB_REPO, branch);
         } catch (Exception ignored) {
             // use updater in lib
-            new GuizhanBuildsCNUpdater(plugin, file, GITHUB_USER, GITHUB_REPO, branch, false).start();
+            new GuizhanBuildsCNUpdater(plugin, file, GITHUB_USER, GITHUB_REPO, branch).start();
         }
     }
 

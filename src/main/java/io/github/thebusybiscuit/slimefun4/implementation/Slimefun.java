@@ -249,7 +249,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         local = new LocalizationService(this, "", null);
         networkManager = new NetworkManager(200);
         command.register();
-        cfgManager.reload();
+        cfgManager.load();
         registry.load(this);
         loadTags();
     }
@@ -288,12 +288,12 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         createDirectories();
 
         // Load various config settings into our cache
-        cfgManager.reload();
+        cfgManager.load();
         registry.load(this);
 
         logger.log(Level.INFO, "載入資料庫...");
-        PlayerProfileMigrator.checkOldData();
-        BlockStorageMigrator.checkOldData();
+        PlayerProfileMigrator.getInstance().checkOldData();
+        BlockStorageMigrator.getInstance().checkOldData();
         databaseManager.init();
 
         // Set up localization

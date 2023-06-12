@@ -93,7 +93,6 @@ public class Research implements Keyed {
      *            The Cost in XP levels to unlock this {@link Research}
      *
      */
-    @Deprecated
     public Research(@Nonnull NamespacedKey key, int id, @Nonnull String defaultName, int defaultCost) {
         Validate.notNull(key, "A NamespacedKey must be provided");
         Validate.notNull(defaultName, "A default name must be specified");
@@ -305,7 +304,7 @@ public class Research implements Keyed {
 
         boolean canUnlock;
 
-        if (VaultIntegration.isUsable()) {
+        if (VaultIntegration.isEnabled()) {
             canUnlock = VaultIntegration.getPlayerBalance(p) >= currencyCost;
         } else {
             canUnlock = p.getLevel() >= levelCost;
@@ -361,11 +360,11 @@ public class Research implements Keyed {
         }
 
         Slimefun.getResearchCfg().setDefaultValue(path + ".cost", getLevelCost());
-        Slimefun.getResearchCfg().setDefaultValue(path + ".moneycost", getCurrencyCost());
+        Slimefun.getResearchCfg().setDefaultValue(path + ".currency-cost", getCurrencyCost());
         Slimefun.getResearchCfg().setDefaultValue(path + ".enabled", true);
 
         setLevelCost(Slimefun.getResearchCfg().getInt(path + ".cost"));
-        setCurrencyCost(Slimefun.getResearchCfg().getInt(path + ".moneycost"));
+        setCurrencyCost(Slimefun.getResearchCfg().getInt(path + ".currency-cost"));
         enabled = true;
 
         Slimefun.getRegistry().getResearches().add(this);

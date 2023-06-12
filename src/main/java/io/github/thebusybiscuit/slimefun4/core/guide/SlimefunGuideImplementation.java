@@ -68,7 +68,7 @@ public interface SlimefunGuideImplementation {
         if (p.getGameMode() == GameMode.CREATIVE && Slimefun.getConfigManager().isFreeCreativeResearchingEnabled()) {
             research.unlock(p, true, callback);
         } else {
-            if (VaultIntegration.isUsable()) {
+            if (VaultIntegration.isEnabled()) {
                 VaultIntegration.withdrawPlayer(p, research.getCurrencyCost());
             } else {
                 p.setLevel(p.getLevel() - research.getLevelCost());
