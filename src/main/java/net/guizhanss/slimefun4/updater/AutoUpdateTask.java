@@ -49,9 +49,9 @@ public class AutoUpdateTask implements Runnable {
 
     @Nullable
     private String getBranch() {
-        if (version.endsWith("release")) {
+        if (version.endsWith("release-disable")) {
             return GITHUB_BRANCH_RELEASE;
-        } else if (version.endsWith("canary")) {
+        } else if (version.endsWith("canary-disable")) {
             return GITHUB_BRANCH_CANARY;
         } else {
             return null;
