@@ -40,7 +40,7 @@ public class DataUtils {
             Debug.log(TestCase.BACKPACK, "Deserialized itemstack: " + result);
 
             if (result.getType().isAir()) {
-                Slimefun.logger().log(Level.WARNING, "反序列化数据库中的物品失败! 对应物品无法显示.");
+                Slimefun.logger().log(Level.WARNING, "還原序列化資料庫中的物品失敗！對應物品無法顯示。");
             }
 
             return result;

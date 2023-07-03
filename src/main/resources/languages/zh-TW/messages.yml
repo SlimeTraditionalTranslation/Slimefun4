@@ -45,7 +45,7 @@ commands:
     description: "轉移舊資料"
     confirm: "&c你確定要進行資料轉移嗎？確定請輸入 /sf migrate confirm 開始轉移\n轉移過程中請勿讓玩家進入伺服器使用任何 Slimefun 相關的機器與物品！"
     started: "&a正在轉移舊資料..."
-    success: "&a轉移舊資料至資料庫成功。"
+    success: "&a轉移舊資料（%migrate_type%）至資料庫成功。"
     failed: "&c轉移資料時出現問題，請查看控制台。"
     already-migrated: "&a暫無可轉移的資料。"
     in-progress: "&a轉移正在進行中..."

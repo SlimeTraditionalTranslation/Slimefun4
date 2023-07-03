@@ -13,7 +13,7 @@ class EnvironmentChecker {
     static void checkUnsupportedPlugins(@Nonnull Slimefun sf, @Nonnull Logger logger) {
         for (String name : UNSUPPORTED_PLUGINS) {
             if (sf.getServer().getPluginManager().isPluginEnabled(name)) {
-                logger.log(Level.WARNING, "检测到安装了 {0}, 该插件已不再兼容新版 Slimefun!", name);
+                logger.log(Level.WARNING, "偵測到安裝了 {0}，該插件已不再相容新版 Slimefun！", name);
             }
         }
     }
@@ -21,7 +21,7 @@ class EnvironmentChecker {
     static boolean checkHybridServer(@Nonnull Slimefun sf, @Nonnull Logger logger) {
         try {
             Class.forName("net/minecraftforge/common/MinecraftForge");
-            logger.log(Level.WARNING, "检测到正在使用混合端, Slimefun 将会被禁用!");
+            logger.log(Level.WARNING, "偵測到正在使用混合伺服器端，Slimefun 將被停用！");
             Bukkit.getPluginManager().disablePlugin(sf);
 
             return true;
@@ -33,8 +33,8 @@ class EnvironmentChecker {
     static void scheduleSlimeGlueCheck(@Nonnull Slimefun sf, @Nonnull Logger logger) {
         Bukkit.getScheduler().runTaskLater(sf, () -> {
             if (Bukkit.getPluginManager().getPlugin("SlimeGlue") == null) {
-                logger.log(Level.WARNING, "检测到没有安装 SlimeGlue (粘液胶), 你将缺失对一些插件的额外保护检查!");
-                logger.log(Level.WARNING, "下载: https://github.com/Xzavier0722/SlimeGlue");
+                logger.log(Level.WARNING, "偵測到沒有安裝 SlimeGlue（黏液膠），你將缺少對一些插件的額外保護檢查！");
+                logger.log(Level.WARNING, "下載：https://github.com/Xzavier0722/SlimeGlue");
             }
         }, 300); // 15s
     }

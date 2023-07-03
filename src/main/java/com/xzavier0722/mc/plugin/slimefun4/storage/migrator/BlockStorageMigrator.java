@@ -74,7 +74,7 @@ public class BlockStorageMigrator implements IMigrator {
                 Files.copy(chunk.toPath(), chunkBak, StandardCopyOption.REPLACE_EXISTING);
                 Files.delete(chunk.toPath());
             } catch (Exception e) {
-                Slimefun.logger().log(Level.WARNING, "备份旧数据 " + chunk.getName() + " 时出现问题", e);
+                Slimefun.logger().log(Level.WARNING, "備份舊資料 " + chunk.getName() + " 時發生錯誤", e);
                 status = MigrateStatus.FAILED;
             }
         } else {

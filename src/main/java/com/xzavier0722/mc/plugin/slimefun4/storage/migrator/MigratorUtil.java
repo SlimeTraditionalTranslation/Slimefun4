@@ -18,7 +18,7 @@ class MigratorUtil {
             var backupPath = Path.of("data-storage/Slimefun/old_data/" + dir.getName() + ".zip");
 
             if (Files.exists(backupPath, LinkOption.NOFOLLOW_LINKS)) {
-                Slimefun.logger().log(Level.WARNING, "检测到已存在的备份数据, 跳过备份");
+                Slimefun.logger().log(Level.WARNING, "偵測到已存在的備份資料，跳過備份");
                 return true;
             }
 

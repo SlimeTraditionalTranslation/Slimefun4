@@ -51,8 +51,8 @@ commands:
     description: "Migrate old BlockStorage data to new database tyep"
     confirm: "&cAre you sure you want to migrate? Type /sf migrate confirm to start migrating.\nWhen migrating, please don't let player join the server to use anything related to Slimefun!"
     started: "&aMigrating old data..."
-    success: "&aSuccess migrate old data to database. 轉移舊資料至資料庫成功。"
-    failed: "&cAn error occurred on migrating data, check the console. 轉移資料時出現問題，請查看控制台。"
+    success: "&aSuccess migrate old data to database. (%migrate_type%)"
+    failed: "&cAn error occurred on migrating data, check the console."
     already-migrated: "&aNothing to migrate."
     in-progress: "&aMigrate is ongoing..."
 
