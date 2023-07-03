@@ -24,12 +24,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-
-import static com.xzavier0722.mc.plugin.slimefun4.autocrafter.SmartNamespacedKey.countKey;
 
 public class CrafterSmartPort extends SlimefunItem {
 
@@ -74,14 +71,7 @@ public class CrafterSmartPort extends SlimefunItem {
                 // Resume the ingredient count
                 String countStr = StorageCacheUtils.getData(b.getLocation(), "ingredientCount");
                 if (countStr != null) {
-                    var im = menu.getItemInSlot(6).getItemMeta();
-
-                    if (im != null) {
-                        im.setLore(List.of("數量：" + countStr));
-
-                        var pdc = im.getPersistentDataContainer();
-                        pdc.set(countKey, PersistentDataType.INTEGER, Integer.parseInt(countStr));
-                    }
+                    menu.getItemInSlot(6).setAmount(Math.max(1, Integer.parseInt(countStr)));
                 }
             }
 
@@ -95,21 +85,7 @@ public class CrafterSmartPort extends SlimefunItem {
                 if (flow == ItemTransportFlow.WITHDRAW) return OUTPUT_SLOTS;
 
                 ItemStackWrapper wrapper = ItemStackWrapper.wrap(item);
-                var im = menu.getItemInSlot(6).getItemMeta();
-                int count = 1;
-
-                if (im != null) {
-                    var pdcCount = menu.getItemInSlot(6).getItemMeta().getPersistentDataContainer().get(
-                            countKey,
-                            PersistentDataType.INTEGER
-                    );
-
-                    if (pdcCount != null) {
-                        count = pdcCount;
-                    }
-                }
-
-                int amountLimit = INPUT_SLOTS.length / count * wrapper.getMaxStackSize();
+                int amountLimit = INPUT_SLOTS.length / menu.getItemInSlot(6).getAmount() * wrapper.getMaxStackSize();
 
                 // Check the current amount
                 int itemAmount = wrapper.getAmount();

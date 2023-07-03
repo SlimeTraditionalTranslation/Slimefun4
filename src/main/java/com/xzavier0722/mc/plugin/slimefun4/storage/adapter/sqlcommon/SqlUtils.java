@@ -148,4 +148,12 @@ public class SqlUtils {
             stmt.execute(sql);
         }
     }
+
+    public static int execUpdate(Connection conn, String sql) throws SQLException {
+        Debug.log(TestCase.DATABASE, "Executing update statement: " + sql);
+
+        try (var stmt = conn.createStatement()) {
+            return stmt.executeUpdate(sql);
+        }
+    }
 }

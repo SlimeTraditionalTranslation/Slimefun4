@@ -9,6 +9,11 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.Predicate;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -18,12 +23,6 @@ import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 public class WoodcutterAndroid extends ProgrammableAndroid {
 
@@ -151,11 +150,23 @@ public class WoodcutterAndroid extends ProgrammableAndroid {
         if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_19)) {
             switch (logType) {
                 case MANGROVE_LOG,
-                    STRIPPED_MANGROVE_LOG -> {
+                        STRIPPED_MANGROVE_LOG -> {
                     saplingType = Material.MANGROVE_PROPAGULE;
                     soilRequirement = SlimefunTag.MANGROVE_BASE_BLOCKS::isTagged;
                 }
-                default -> {}
+                default -> {
+                }
+            }
+        }
+
+        if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_20)) {
+            switch (logType) {
+                case CHERRY_LOG, STRIPPED_CHERRY_LOG -> {
+                    saplingType = Material.CHERRY_SAPLING;
+                    soilRequirement = SlimefunTag.DIRT_VARIANTS::isTagged;
+                }
+                default -> {
+                }
             }
         }
 

@@ -16,6 +16,8 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.util.InvStorageUtils;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.LocationUtils;
 import io.github.bakedlibs.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
+import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,11 +62,17 @@ public class BlockDataController extends ADataController {
     }
 
     private void loadLoadedChunks() {
-        for (var world : Bukkit.getWorlds()) {
-            for (var chunk : world.getLoadedChunks()) {
-                loadChunk(chunk, false);
-            }
-        }
+        Bukkit.getScheduler().runTaskLater(
+                Slimefun.instance(),
+                () -> {
+                    for (var world : Bukkit.getWorlds()) {
+                        for (var chunk : world.getLoadedChunks()) {
+                            loadChunk(chunk, false);
+                        }
+                    }
+                },
+                1
+        );
     }
 
     public void initDelayedSaving(Plugin p, int delayedSecond, int forceSavePeriod) {
@@ -83,7 +91,7 @@ public class BlockDataController extends ADataController {
                 },
                 key -> {
                     synchronized (delayedWriteTasks) {
-                        delayedWriteTasks.keySet().remove(key);
+                        delayedWriteTasks.remove(key);
                     }
                 }
         ), 20, 20);
@@ -97,6 +105,13 @@ public class BlockDataController extends ADataController {
         enableDelayedSaving = isEnable;
     }
 
+    /**
+     * Creates a new slimefun block data at specific location
+     *
+     * @param l    slimefun block location {@link Location}
+     * @param sfId slimefun block id {@link SlimefunItem#getId()}
+     * @return {@link SlimefunBlockData}
+     */
     @Nonnull
     public SlimefunBlockData createBlock(Location l, String sfId) {
         checkDestroy();
@@ -123,8 +138,16 @@ public class BlockDataController extends ADataController {
         scheduleWriteTask(scopeKey, key, data, true);
     }
 
+    /**
+     * Remove slimefun block data at specific location
+     *
+     * @param l slimefun block location {@link Location}
+     */
     public void removeBlock(Location l) {
         checkDestroy();
+
+        Slimefun.getNetworkManager().updateAllNetworks(l);
+
         var removed = getChunkDataCache(l.getChunk(), true).removeBlockData(l);
         if (removed == null) {
             return;
@@ -150,6 +173,12 @@ public class BlockDataController extends ADataController {
         scheduleDeleteTask(scopeKey, key, true);
     }
 
+    /**
+     * Get slimefun block data at specific location
+     *
+     * @param l slimefun block location {@link Location}
+     * @return {@link SlimefunBlockData}
+     */
     @Nullable
     @ParametersAreNonnullByDefault
     public SlimefunBlockData getBlockData(Location l) {
@@ -178,22 +207,46 @@ public class BlockDataController extends ADataController {
         return re;
     }
 
+    /**
+     * Get slimefun block data at specific location async
+     *
+     * @param l slimefun block location {@link Location}
+     * @param callback operation when block data fetched {@link IAsyncReadCallback}
+     */
     public void getBlockDataAsync(Location l, IAsyncReadCallback<SlimefunBlockData> callback) {
         scheduleReadTask(() -> invokeCallback(callback, getBlockData(l)));
     }
 
+    /**
+     * Get slimefun block data at specific location from cache
+     *
+     * @param l slimefun block location {@link Location}
+     * @return {@link SlimefunBlockData}
+     */
     public SlimefunBlockData getBlockDataFromCache(Location l) {
         return getBlockDataFromCache(LocationUtils.getChunkKey(l.getChunk()), LocationUtils.getLocKey(l));
     }
 
+    /**
+     * Move block data to specific location
+     * <p>
+     * Similar to original BlockStorage#move.
+     *
+     * @param blockData the block data {@link SlimefunBlockData} need to move
+     * @param target    move target {@link Location}
+     */
     public void setBlockDataLocation(SlimefunBlockData blockData, Location target) {
+        Debug.log(TestCase.DATABASE, "Move block data location now, at " + target + ", with " + blockData);
+
         if (LocationUtils.isSameLoc(blockData.getLocation(), target)) {
             return;
         }
 
+        var hasTicker = false;
+
         if (Slimefun.getRegistry().getTickerBlocks().contains(blockData.getSfId())) {
             Slimefun.getTickerTask().disableTicker(blockData.getLocation());
-            Slimefun.getTickerTask().enableTicker(target);
+            hasTicker = true;
         }
 
         var chunk = blockData.getLocation().getChunk();
@@ -212,6 +265,7 @@ public class BlockDataController extends ADataController {
         } else {
             chunkData = getChunkDataCache(target.getChunk(), true);
         }
+
         chunkData.addBlockCacheInternal(newBlockData, true);
 
         var menu = blockData.getBlockMenu();
@@ -237,7 +291,12 @@ public class BlockDataController extends ADataController {
                 }
             }
         }
+
         scheduleWriteTask(scopeKey, key, data, true);
+
+        if (hasTicker) {
+            Slimefun.getTickerTask().enableTicker(target);
+        }
     }
 
     private SlimefunBlockData getBlockDataFromCache(String cKey, String lKey) {
@@ -337,6 +396,7 @@ public class BlockDataController extends ADataController {
                             false
                     )
             );
+            blockData.setIsDataLoaded(true);
 
             var menuPreset = BlockMenuPreset.getPreset(blockData.getSfId());
             if (menuPreset != null) {
@@ -348,9 +408,12 @@ public class BlockDataController extends ADataController {
                 var inv = new ItemStack[54];
                 getData(menuKey).forEach(record -> inv[record.getInt(FieldKey.INVENTORY_SLOT)] = record.getItemStack(FieldKey.INVENTORY_ITEM));
                 blockData.setBlockMenu(new BlockMenu(menuPreset, blockData.getLocation(), inv));
-            }
 
-            blockData.setIsDataLoaded(true);
+                var content = blockData.getMenuContents();
+                if (content != null) {
+                    invSnapshots.put(blockData.getKey(), InvStorageUtils.getInvSnapshot(content));
+                }
+            }
         } finally {
             lock.unlock(key);
         }
@@ -361,6 +424,11 @@ public class BlockDataController extends ADataController {
             loadBlockData(blockData);
             invokeCallback(callback, blockData);
         });
+    }
+
+    public void loadBlockDataAsync(List<SlimefunBlockData> blockDataList, IAsyncReadCallback<List<SlimefunBlockData>> callback) {
+        scheduleReadTask(() -> blockDataList.forEach(this::loadBlockData));
+        invokeCallback(callback, blockDataList);
     }
 
     public SlimefunChunkData getChunkData(Chunk chunk) {

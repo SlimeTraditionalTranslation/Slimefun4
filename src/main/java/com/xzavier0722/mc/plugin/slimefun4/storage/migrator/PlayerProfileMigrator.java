@@ -33,8 +33,7 @@ public class PlayerProfileMigrator implements IMigrator {
 
     @Override
     public boolean isOldDataExists() {
-        return MigratorUtil.checkMigrateMark()
-                || (playerFolder.exists() && playerFolder.listFiles() != null && playerFolder.listFiles().length > 0);
+        return !MigratorUtil.checkMigrateMark() && (playerFolder.exists() && playerFolder.listFiles() != null && playerFolder.listFiles().length > 0);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class PlayerProfileMigrator implements IMigrator {
 
         var listFiles = playerFolder.listFiles();
 
-        if (!isOldDataExists()) {
+        if (!isOldDataExists() || listFiles == null) {
             migrateLock = false;
             return MigrateStatus.MIGRATED;
         }

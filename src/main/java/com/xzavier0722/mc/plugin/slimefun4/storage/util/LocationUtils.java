@@ -36,4 +36,12 @@ public class LocationUtils {
     public static boolean isSameWorld(World w1, World w2) {
         return w1.getName().equals(w2.getName());
     }
+
+    public static String locationToString(Location location) {
+        if (location == null) {
+            return "";
+        }
+
+        return "[world=" + location.getWorld().getName() + ",x=" + location.getX() + ",y=" + location.getY() + ",z=" + location.getZ() + "]";
+    }
 }

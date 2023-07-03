@@ -29,6 +29,7 @@ public class BlockMenu extends DirtyChestMenu {
         this.getContents();
     }
 
+    @Deprecated
     public BlockMenu(BlockMenuPreset preset, Location l, Config cfg) {
         super(preset);
         this.location = l;

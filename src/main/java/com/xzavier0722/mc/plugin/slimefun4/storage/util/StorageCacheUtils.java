@@ -4,13 +4,13 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.callback.IAsyncReadCallback;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
-import org.bukkit.Location;
-
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
+import org.bukkit.Location;
 
 /**
  * Utils to access the cached block data.
@@ -54,7 +54,13 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     public static void setData(Location loc, String key, String val) {
-        getBlock(loc).setData(key, val);
+        var block = getBlock(loc);
+
+        if (block == null) {
+            Slimefun.logger().log(Level.WARNING, "The specifiy location {0} doesn't have block data!", LocationUtils.locationToString(loc));
+        } else {
+            block.setData(key, val);
+        }
     }
 
     @ParametersAreNonnullByDefault
@@ -100,6 +106,28 @@ public class StorageCacheUtils {
                     @Override
                     public void onResult(SlimefunBlockData result) {
                         loadingData.remove(blockData);
+                    }
+                }
+        );
+    }
+
+    public static void executeAfterLoad(SlimefunBlockData data, Runnable execute, boolean runOnMainThread) {
+        if (data.isDataLoaded()) {
+            execute.run();
+            return;
+        }
+
+        Slimefun.getDatabaseManager().getBlockDataController().loadBlockDataAsync(
+                data,
+                new IAsyncReadCallback<>() {
+                    @Override
+                    public boolean runOnMainThread() {
+                        return runOnMainThread;
+                    }
+
+                    @Override
+                    public void onResult(SlimefunBlockData result) {
+                        execute.run();
                     }
                 }
         );

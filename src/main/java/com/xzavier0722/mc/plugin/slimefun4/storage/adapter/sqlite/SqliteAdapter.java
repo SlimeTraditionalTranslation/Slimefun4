@@ -79,23 +79,26 @@ public class SqliteAdapter implements IDataSourceAdapter<SqliteConfig> {
 
         var updateFields = key.getFields();
         var table = SqlUtils.mapTable(key.getScope());
-        executeSql(
-                "INSERT OR IGNORE INTO " + table + " (" + fieldStr.get() + ") VALUES (" + valStr + ");"
-        );
 
-        if (updateFields.isEmpty()) {
-            return;
+
+        if (!updateFields.isEmpty()) {
+            var row = executeUpdate(
+                    "UPDATE " + table + " SET "
+                            + String.join(", ", updateFields.stream().map(field -> {
+                        var val = item.get(field);
+                        if (val == null) {
+                            throw new IllegalArgumentException("Cannot find value in RecordSet for the specific key: " + field);
+                        }
+                        return SqlUtils.buildKvStr(field, val);
+                    }).toList()) + SqlUtils.buildConditionStr(key.getConditions()) + ";"
+            );
+            if (row > 0) {
+                return;
+            }
         }
 
         executeSql(
-                "UPDATE " + table + " SET "
-                + String.join(", ", updateFields.stream().map(field -> {
-                    var val = item.get(field);
-                    if (val == null) {
-                        throw new IllegalArgumentException("Cannot find value in RecordSet for the specific key: " + field);
-                    }
-                    return SqlUtils.buildKvStr(field, val);
-                }).toList()) + SqlUtils.buildConditionStr(key.getConditions()) + ";"
+                "INSERT OR IGNORE INTO " + table + " (" + fieldStr.get() + ") VALUES (" + valStr + ");"
         );
     }
 
@@ -257,6 +260,14 @@ public class SqliteAdapter implements IDataSourceAdapter<SqliteConfig> {
     private synchronized void executeSql(String sql) {
         try {
             SqlUtils.execSql(conn, sql);
+        } catch (SQLException e) {
+            throw new IllegalStateException("An exception thrown while executing sql: " + sql, e);
+        }
+    }
+
+    private synchronized int executeUpdate(String sql) {
+        try {
+            return SqlUtils.execUpdate(conn, sql);
         } catch (SQLException e) {
             throw new IllegalStateException("An exception thrown while executing sql: " + sql, e);
         }

@@ -2,14 +2,13 @@ package com.xzavier0722.mc.plugin.slimefun4.storage.controller;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.LocationUtils;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
-import org.bukkit.Location;
-import org.bukkit.inventory.ItemStack;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.ParametersAreNullableByDefault;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
+import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 
 public class SlimefunBlockData extends ASlimefunDataContainer {
     private final Location location;
@@ -89,5 +88,10 @@ public class SlimefunBlockData extends ASlimefunDataContainer {
 
     public boolean isPendingRemove() {
         return pendingRemove;
+    }
+
+    @Override
+    public String toString() {
+        return "SlimefunBlockData [sfId=" + sfId + ", location=" + location + ", isPendingRemove=" + pendingRemove + "]";
     }
 }

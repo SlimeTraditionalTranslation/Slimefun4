@@ -18,7 +18,12 @@ public enum TestCase {
      */
     CARGO_INPUT_TESTING,
 
-    DATABASE;
+    DATABASE,
+
+    BACKPACK,
+
+
+    ENERGYNET;
 
     TestCase() {
     }

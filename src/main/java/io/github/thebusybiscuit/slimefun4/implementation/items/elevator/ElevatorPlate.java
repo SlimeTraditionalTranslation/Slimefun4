@@ -1,5 +1,7 @@
 package io.github.thebusybiscuit.slimefun4.implementation.items.elevator;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.callback.IAsyncReadCallback;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.bakedlibs.dough.common.ChatColors;
 import io.github.bakedlibs.dough.items.CustomItemStack;
@@ -25,11 +27,14 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * The {@link ElevatorPlate} is a quick way of teleportation.
@@ -87,27 +92,51 @@ public class ElevatorPlate extends SimpleSlimefunItem<BlockUseHandler> {
         };
     }
 
-    public @Nonnull List<ElevatorFloor> getFloors(@Nonnull Block b) {
-        LinkedList<ElevatorFloor> floors = new LinkedList<>();
-        int index = 0;
+    public void getFloors(@Nonnull Block b, @Nonnull Consumer<List<ElevatorFloor>> action) {
+        var blockDataList = new ArrayList<SlimefunBlockData>();
+        var shouldLoad = false;
 
         for (int y = b.getWorld().getMinHeight(); y < b.getWorld().getMaxHeight(); y++) {
-            if (y == b.getY()) {
-                String name = ChatColors.color(StorageCacheUtils.getData(b.getLocation(), DATA_KEY));
-                floors.addFirst(new ElevatorFloor(name, index, b));
-                index++;
-                continue;
-            }
+            var block = b.getWorld().getBlockAt(b.getX(), y, b.getZ());
+            var loc = block.getLocation();
 
-            Block block = b.getWorld().getBlockAt(b.getX(), y, b.getZ());
+            if (block.getType() == getItem().getType() && StorageCacheUtils.isBlock(loc, getId())) {
+                var blockData = StorageCacheUtils.getBlock(loc);
+                if (blockData.isPendingRemove()) {
+                    continue;
+                }
 
-            if (block.getType() == getItem().getType() && StorageCacheUtils.isBlock(block.getLocation(), getId())) {
-                String name = ChatColors.color(StorageCacheUtils.getData(block.getLocation(), DATA_KEY));
-                floors.addFirst(new ElevatorFloor(name, index, block));
-                index++;
+                if (!blockData.isDataLoaded() && !shouldLoad) {
+                    shouldLoad = true;
+                }
+
+                blockDataList.add(blockData);
             }
         }
 
+        if (shouldLoad) {
+            Slimefun.getDatabaseManager().getBlockDataController().loadBlockDataAsync(blockDataList, new IAsyncReadCallback<>() {
+                @Override
+                public boolean runOnMainThread() {
+                    return true;
+                }
+
+                @Override
+                public void onResult(List<SlimefunBlockData> result) {
+                    action.accept(toFloors(blockDataList));
+                }
+            });
+        } else {
+            action.accept(toFloors(blockDataList));
+        }
+    }
+
+    private List<ElevatorFloor> toFloors(List<SlimefunBlockData> blockDataList) {
+        var floors = new LinkedList<ElevatorFloor>();
+        for (var i = 0; i < blockDataList.size(); i++) {
+            var blockData = blockDataList.get(i);
+            floors.addFirst(new ElevatorFloor(ChatColors.color(blockData.getData(DATA_KEY)), i, blockData.getLocation().getBlock()));
+        }
         return floors;
     }
 
@@ -117,13 +146,13 @@ public class ElevatorPlate extends SimpleSlimefunItem<BlockUseHandler> {
             return;
         }
 
-        List<ElevatorFloor> floors = getFloors(b);
-
-        if (floors.size() < 2) {
-            Slimefun.getLocalization().sendMessage(p, "machines.ELEVATOR.no-destinations", true);
-        } else {
-            openFloorSelector(b, floors, p, 1);
-        }
+        getFloors(b, floors -> {
+            if (floors.size() < 2) {
+                Slimefun.getLocalization().sendMessage(p, "machines.ELEVATOR.no-destinations", true);
+            } else {
+                openFloorSelector(b, floors, p, 1);
+            }
+        });
     }
 
     @ParametersAreNonnullByDefault

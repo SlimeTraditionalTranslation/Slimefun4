@@ -1,17 +1,21 @@
 package com.xzavier0722.mc.plugin.slimefun4.storage.util;
 
+import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
+import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 public class DataUtils {
     public static String itemStack2String(ItemStack itemStack) {
+        Debug.log(TestCase.BACKPACK, "Serializing itemstack: " + itemStack);
+
         var stream = new ByteArrayOutputStream();
         try (var bs = new BukkitObjectOutputStream(stream)) {
             bs.writeObject(itemStack);
@@ -27,9 +31,19 @@ public class DataUtils {
             return null;
         }
 
+        Debug.log(TestCase.BACKPACK, "Deserializing itemstack: " + base64Str);
+
         var stream = new ByteArrayInputStream(Base64Coder.decodeLines(base64Str));
         try (var bs = new BukkitObjectInputStream(stream)) {
-            return (ItemStack) bs.readObject();
+            var result = (ItemStack) bs.readObject();
+
+            Debug.log(TestCase.BACKPACK, "Deserialized itemstack: " + result);
+
+            if (result.getType().isAir()) {
+                Slimefun.logger().log(Level.WARNING, "反序列化数据库中的物品失败! 对应物品无法显示.");
+            }
+
+            return result;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;

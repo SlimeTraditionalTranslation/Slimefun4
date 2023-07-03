@@ -45,7 +45,7 @@ commands:
     description: "迁移旧数据"
     confirm: "&c你确定要进行数据迁移吗? 确认请输入 /sf migrate confirm 开始迁移\n迁移过程中请不要让玩家进入服务器操作 Slimefun 相关机器及物品!"
     started: "&a正在迁移旧数据..."
-    success: "&a迁移旧数据至数据库成功."
+    success: "&a迁移旧数据 (%migrate_type%) 至数据库成功."
     failed: "&c迁移数据过程中出现了问题, 请查看后台."
     already-migrated: "&a暂无可迁移数据."
     in-progress: "&a迁移正在进行中..."

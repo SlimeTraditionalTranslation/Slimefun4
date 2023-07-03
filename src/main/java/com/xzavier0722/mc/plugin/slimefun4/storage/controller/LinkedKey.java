@@ -4,11 +4,13 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.common.ScopeKey;
 
 public class LinkedKey extends ScopeKey {
     private final ScopeKey self;
+    private final int hash;
     private ScopeKey parent;
 
     public LinkedKey(ScopeKey self) {
         super(self.getScope());
         this.self = self;
+        this.hash = self.hashCode();
     }
 
     public LinkedKey(ScopeKey parent, ScopeKey self) {
@@ -26,7 +28,7 @@ public class LinkedKey extends ScopeKey {
 
     @Override
     public int hashCode() {
-        return self.hashCode();
+        return hash;
     }
 
     @Override

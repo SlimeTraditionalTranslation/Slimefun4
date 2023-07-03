@@ -5,6 +5,8 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunChunkData;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Chunk;
@@ -12,9 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 // This class really needs a VERY big overhaul
 
@@ -202,5 +201,15 @@ public class BlockStorage {
     public static Config getLocationInfo(Location location) {
         var re = getBlockData(location);
         return re == null ? emptyData : new BlockDataConfigWrapper(re);
+    }
+
+    public static void deleteLocationInfoUnsafely(Location l, boolean destroy) {
+        var blockData = getBlockData(l);
+
+        if (blockData == null) {
+            return;
+        }
+
+        Slimefun.getDatabaseManager().getBlockDataController().removeBlock(l);
     }
 }

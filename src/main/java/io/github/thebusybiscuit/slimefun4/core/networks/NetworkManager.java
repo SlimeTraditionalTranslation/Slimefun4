@@ -1,25 +1,27 @@
 package io.github.thebusybiscuit.slimefun4.core.networks;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.LocationUtils;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.bakedlibs.dough.blocks.BlockPosition;
 import io.github.bakedlibs.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.network.Network;
+import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
+import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
 import io.github.thebusybiscuit.slimefun4.core.networks.cargo.CargoNet;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.listeners.NetworkListener;
-import org.apache.commons.lang.Validate;
-import org.bukkit.Location;
-import org.bukkit.Server;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
+import org.bukkit.Server;
 
 /**
  * The {@link NetworkManager} is responsible for holding all instances of {@link Network}
@@ -160,6 +162,9 @@ public class NetworkManager {
      */
     public void registerNetwork(@Nonnull Network network) {
         Validate.notNull(network, "Cannot register a null Network");
+
+        Debug.log(TestCase.ENERGYNET, "Registering network @ " + LocationUtils.locationToString(network.getRegulator()));
+
         networks.add(network);
     }
 
@@ -171,6 +176,9 @@ public class NetworkManager {
      */
     public void unregisterNetwork(@Nonnull Network network) {
         Validate.notNull(network, "Cannot unregister a null Network");
+
+        Debug.log(TestCase.ENERGYNET, "Unregistering network @ " + LocationUtils.locationToString(network.getRegulator()));
+
         networks.remove(network);
     }
 
@@ -183,6 +191,8 @@ public class NetworkManager {
      */
     public void updateAllNetworks(@Nonnull Location l) {
         Validate.notNull(l, "The Location cannot be null");
+
+        Debug.log(TestCase.ENERGYNET, "Updating all networks now.");
 
         try {
             /*
@@ -200,6 +210,7 @@ public class NetworkManager {
              * (Skip for Unit Tests as they don't support block info yet)
              */
             if (!StorageCacheUtils.hasBlock(l) && Slimefun.getMinecraftVersion() != MinecraftVersion.UNIT_TEST) {
+                Debug.log(TestCase.ENERGYNET, "No block data at " + LocationUtils.locationToString(l) + ", skipped.");
                 return;
             }
 

@@ -9,7 +9,7 @@ Looking for English (or Original) Version? [**Click here**](https://github.com/S
 
 MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
 
-⚡ 汉化不易, 欢迎支持[爱发电](http://afdian.net/@name1ess)
+⚡ 汉化不易, 欢迎支持[爱发电](https://afdian.net/a/nora1ncity)
 
 <img src="https://raw.githubusercontent.com/StarWishsama/StarWishsama/master/qrcode.png" width="25%" height="25%">
 
