@@ -38,15 +38,8 @@ public class BlockStorageMigrator implements IMigrator {
     }
 
     @Override
-    public boolean isOldDataExists() {
+    public boolean hasOldData() {
         return !MigratorUtil.checkMigrateMark() && (hasBlockData() || chunk.exists());
-    }
-
-    @Override
-    public void checkOldData() {
-        if (isOldDataExists()) {
-            Slimefun.logger().log(Level.WARNING, "偵測到舊型檔案式儲存資料，請使用 /sf migrate 轉移到新的資料庫中！");
-        }
     }
 
     @Override

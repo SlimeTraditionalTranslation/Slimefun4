@@ -14,8 +14,8 @@ public class SlimefunMigrateListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         var p = e.getPlayer();
 
-        if ((PlayerProfileMigrator.getInstance().isOldDataExists()
-                || BlockStorageMigrator.getInstance().isOldDataExists())
+        if ((PlayerProfileMigrator.getInstance().hasOldData()
+                || BlockStorageMigrator.getInstance().hasOldData())
                 && p.hasPermission("slimefun.command.migrate")) {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c偵測到舊型檔案式儲存資料，請使用 /sf migrate 轉移到新的資料庫中！"));
         }

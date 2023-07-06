@@ -291,9 +291,19 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
         cfgManager.load();
         registry.load(this);
 
-        logger.log(Level.INFO, "載入資料庫...");
-        PlayerProfileMigrator.getInstance().checkOldData();
-        BlockStorageMigrator.getInstance().checkOldData();
+        logger.log(Level.INFO, "正在載入資料庫...");
+        if (PlayerProfileMigrator.getInstance().hasOldData() || BlockStorageMigrator.getInstance().hasOldData()) {
+            Slimefun.logger().warning("====================================================");
+            Slimefun.logger().warning("\n");
+            Slimefun.logger().log(Level.WARNING, "！！！ 偵測到使用檔案儲存的舊玩家資料 ！！！");
+            Slimefun.logger().warning("請在伺服器載入完成後，使用 /sf migrate confirm 進行轉移！");
+            Slimefun.logger().warning("如果不轉移，你將會遺失先前版本的資料！！！");
+            Slimefun.logger().warning("\n");
+            Slimefun.logger().warning("需要使用 MySQL 資料庫的使用者，請關伺服器後修改兩個設定檔案");
+            Slimefun.logger().warning("block-storage.yml 和 profile-storage.yml");
+            Slimefun.logger().warning("\n");
+            Slimefun.logger().warning("====================================================");
+        }
         databaseManager.init();
 
         // Set up localization

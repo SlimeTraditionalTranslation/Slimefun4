@@ -1,6 +1,10 @@
 package io.github.thebusybiscuit.slimefun4.core.services.github;
 
+import io.github.bakedlibs.dough.skins.PlayerSkin;
+import io.github.bakedlibs.dough.skins.UUIDLookup;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -10,15 +14,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.bukkit.Bukkit;
-
-import io.github.bakedlibs.dough.skins.PlayerSkin;
-import io.github.bakedlibs.dough.skins.UUIDLookup;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 
 /**
  * This {@link GitHubTask} represents a {@link Runnable} that is run every X minutes.
@@ -111,18 +109,22 @@ class GitHubTask implements Runnable {
                 Slimefun.logger().log(Level.WARNING, "The contributors thread was interrupted!");
                 Thread.currentThread().interrupt();
             } catch (Exception x) {
-                // Too many requests
-                Slimefun.logger().log(Level.WARNING, "Attempted to refresh skin cache, got this response: {0}: {1}", new Object[] { x.getClass().getSimpleName(), x.getMessage() });
-                Slimefun.logger().log(Level.WARNING, "This usually means mojang.com is temporarily down or started to rate-limit this connection, nothing to worry about!");
+                if (x.getCause() instanceof FileNotFoundException) {
+                    contributor.setTexture(null);
+                } else {
+                    // Too many requests
+                    Slimefun.logger().log(Level.WARNING, "Attempted to refresh skin cache, got this response: {0}: {1}", new Object[]{x.getClass().getSimpleName(), x.getMessage()});
+                    Slimefun.logger().log(Level.WARNING, "This usually means mojang.com is temporarily down or started to rate-limit this connection, nothing to worry about!");
 
-                String msg = x.getMessage();
+                    String msg = x.getMessage();
 
-                // Retry after 5 minutes if it was just rate-limiting
-                if (msg != null && msg.contains("429")) {
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(Slimefun.instance(), this::grabTextures, 5 * 60 * 20L);
+                    // Retry after 5 minutes if it was just rate-limiting
+                    if (msg != null && msg.contains("429")) {
+                        Bukkit.getScheduler().runTaskLaterAsynchronously(Slimefun.instance(), this::grabTextures, 5 * 60 * 20L);
+                    }
+
+                    return -1;
                 }
-
-                return -1;
             }
         }
 

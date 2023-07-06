@@ -13,13 +13,13 @@ public final class SlimefunExtended {
     public static void register(@Nonnull Slimefun sf) {
         logger = sf.getLogger();
 
-        EnvironmentChecker.checkUnsupportedPlugins(sf, logger);
-
         if (EnvironmentChecker.checkHybridServer(sf, logger)) {
             return;
         }
 
+        EnvironmentChecker.checkUnsupportedPlugins(sf, logger);
         EnvironmentChecker.scheduleSlimeGlueCheck(sf, logger);
+
         VaultIntegration.register(sf);
 
         migrateListener.register(sf);
