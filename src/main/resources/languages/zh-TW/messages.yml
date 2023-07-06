@@ -315,7 +315,7 @@ machines:
   TABLE_SAW:
     no-slimefun-item: '&c你不能在鋸木機上使用科技物品！'
 anvil:
-  not-working: '&4科技物品需要用自動鐵砧+修理膠帶！'
+  not-working: '&4科技物品需要用自動鐵砧+強力膠帶！'
   mcmmo-salvaging: '&4你不能回收利用科技物品！'
 brewing_stand:
   not-working: '&4你不能用科技物品釀造！'

@@ -79,7 +79,7 @@ public final class SlimefunItems {
     /*		 Jetpacks		*/
     public static final SlimefunItemStack DURALUMIN_JETPACK = new SlimefunItemStack("DURALUMIN_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eI", "", LoreBuilder.material("硬鋁"), LoreBuilder.powerCharged(0, 20), LoreBuilder.thrust(0.35f), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack SOLDER_JETPACK = new SlimefunItemStack("SOLDER_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eII", "", LoreBuilder.material("焊錫"), LoreBuilder.powerCharged(0, 30), LoreBuilder.thrust(0.4f), "", LoreBuilder.CROUCH_TO_USE);
-    public static final SlimefunItemStack BILLON_JETPACK = new SlimefunItemStack("BILLON_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eIII", "", LoreBuilder.material("銀銅合金"), LoreBuilder.powerCharged(0, 45), LoreBuilder.thrust(0.45f), "", LoreBuilder.CROUCH_TO_USE);
+    public static final SlimefunItemStack BILLON_JETPACK = new SlimefunItemStack("BILLON_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eIII", "", LoreBuilder.material("銀銅合金錠"), LoreBuilder.powerCharged(0, 45), LoreBuilder.thrust(0.45f), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack STEEL_JETPACK = new SlimefunItemStack("STEEL_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eIV", "", LoreBuilder.material("鋼"), LoreBuilder.powerCharged(0, 60), LoreBuilder.thrust(0.5f), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack DAMASCUS_STEEL_JETPACK = new SlimefunItemStack("DAMASCUS_STEEL_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eV", "", LoreBuilder.material("大馬士革鋼"), LoreBuilder.powerCharged(0, 75), LoreBuilder.thrust(0.55f), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack REINFORCED_ALLOY_JETPACK = new SlimefunItemStack("REINFORCED_ALLOY_JETPACK", Material.LEATHER_CHESTPLATE, Color.SILVER, "&9電動噴氣背包 &7- &eVI", "", LoreBuilder.material("強化合金"), LoreBuilder.powerCharged(0, 100), LoreBuilder.thrust(0.6f), "", LoreBuilder.CROUCH_TO_USE);
@@ -89,7 +89,7 @@ public final class SlimefunItems {
     /*		 Jetboots		*/
     public static final SlimefunItemStack DURALUMIN_JETBOOTS = new SlimefunItemStack("DURALUMIN_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eI", "", LoreBuilder.material("硬鋁"), LoreBuilder.powerCharged(0, 20), LoreBuilder.speed(0.35F), LoreBuilder.accuracy(50), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack SOLDER_JETBOOTS = new SlimefunItemStack("SOLDER_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eII", "", LoreBuilder.material("焊錫"), LoreBuilder.powerCharged(0, 30), LoreBuilder.speed(0.4F), LoreBuilder.accuracy(60), "", LoreBuilder.CROUCH_TO_USE);
-    public static final SlimefunItemStack BILLON_JETBOOTS = new SlimefunItemStack("BILLON_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eIII", "", LoreBuilder.material("銀銅合金"), LoreBuilder.powerCharged(0, 40), LoreBuilder.speed(0.45F), LoreBuilder.accuracy(65), "", LoreBuilder.CROUCH_TO_USE);
+    public static final SlimefunItemStack BILLON_JETBOOTS = new SlimefunItemStack("BILLON_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eIII", "", LoreBuilder.material("銀銅合金錠"), LoreBuilder.powerCharged(0, 40), LoreBuilder.speed(0.45F), LoreBuilder.accuracy(65), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack STEEL_JETBOOTS = new SlimefunItemStack("STEEL_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eIV", "", LoreBuilder.material("鋼"), LoreBuilder.powerCharged(0, 50), LoreBuilder.speed(0.5F), LoreBuilder.accuracy(70), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack DAMASCUS_STEEL_JETBOOTS = new SlimefunItemStack("DAMASCUS_STEEL_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eV", "", LoreBuilder.material("大馬士革鋼"), LoreBuilder.powerCharged(0, 75), LoreBuilder.speed(0.55F), LoreBuilder.accuracy(75), "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack REINFORCED_ALLOY_JETBOOTS = new SlimefunItemStack("REINFORCED_ALLOY_JETBOOTS", Material.LEATHER_BOOTS, Color.SILVER, "&9噴射靴 &7- &eVI", "", LoreBuilder.material("強化合金"), LoreBuilder.powerCharged(0, 100), LoreBuilder.speed(0.6F), LoreBuilder.accuracy(80), "", LoreBuilder.CROUCH_TO_USE);
@@ -100,7 +100,7 @@ public final class SlimefunItems {
     private static final String MULTI_TOOL_LORE = "&e蹲下+右鍵點擊&7 切換模式";
     public static final SlimefunItemStack DURALUMIN_MULTI_TOOL = new SlimefunItemStack("DURALUMIN_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eI", "", LoreBuilder.material("硬鋁"), LoreBuilder.powerCharged(0, 20), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
     public static final SlimefunItemStack SOLDER_MULTI_TOOL = new SlimefunItemStack("SOLDER_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eII", "", LoreBuilder.material("焊錫"), LoreBuilder.powerCharged(0, 30), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
-    public static final SlimefunItemStack BILLON_MULTI_TOOL = new SlimefunItemStack("BILLON_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eIII", "", LoreBuilder.material("銀銅合金"), LoreBuilder.powerCharged(0, 40), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
+    public static final SlimefunItemStack BILLON_MULTI_TOOL = new SlimefunItemStack("BILLON_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eIII", "", LoreBuilder.material("銀銅合金錠"), LoreBuilder.powerCharged(0, 40), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
     public static final SlimefunItemStack STEEL_MULTI_TOOL = new SlimefunItemStack("STEEL_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eIV", "", LoreBuilder.material("鋼"), LoreBuilder.powerCharged(0, 50), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
     public static final SlimefunItemStack DAMASCUS_STEEL_MULTI_TOOL = new SlimefunItemStack("DAMASCUS_STEEL_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eV", "", LoreBuilder.material("大馬士革鋼"), LoreBuilder.powerCharged(0, 60), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
     public static final SlimefunItemStack REINFORCED_ALLOY_MULTI_TOOL = new SlimefunItemStack("REINFORCED_ALLOY_MULTI_TOOL", Material.SHEARS, "&9多功能工具 &7- &eVI", "", LoreBuilder.material("強化合金"), LoreBuilder.powerCharged(0, 75), "", LoreBuilder.RIGHT_CLICK_TO_USE, MULTI_TOOL_LORE);
@@ -466,7 +466,7 @@ public final class SlimefunItems {
     /*		Alloy (Copper + Aluminum)	*/
     public static final SlimefunItemStack DURALUMIN_INGOT = new SlimefunItemStack("DURALUMIN_INGOT", Material.IRON_INGOT, "&b硬鋁錠");
     /*		Alloy (Copper + Silver)	*/
-    public static final SlimefunItemStack BILLON_INGOT = new SlimefunItemStack("BILLON_INGOT", Material.IRON_INGOT, "&b銀銅合金");
+    public static final SlimefunItemStack BILLON_INGOT = new SlimefunItemStack("BILLON_INGOT", Material.IRON_INGOT, "&b銀銅合金錠");
     /*		Alloy (Copper + Zinc)	*/
     public static final SlimefunItemStack BRASS_INGOT = new SlimefunItemStack("BRASS_INGOT", Material.GOLD_INGOT, "&b黃銅錠");
     /*		Alloy (Aluminum + Brass)	*/
@@ -480,11 +480,11 @@ public final class SlimefunItems {
     /*		Alloy (Steel + Iron + Carbon)	*/
     public static final SlimefunItemStack DAMASCUS_STEEL_INGOT = new SlimefunItemStack("DAMASCUS_STEEL_INGOT", Material.IRON_INGOT, "&b大馬士革鋼錠");
     /* Alloy (Damascus Steel + Duralumin + Compressed Carbon + Aluminium Bronze) */
-    public static final SlimefunItemStack HARDENED_METAL_INGOT = new SlimefunItemStack("HARDENED_METAL_INGOT", Material.IRON_INGOT, "&b&l硬化金屬");
+    public static final SlimefunItemStack HARDENED_METAL_INGOT = new SlimefunItemStack("HARDENED_METAL_INGOT", Material.IRON_INGOT, "&b&l硬化金屬錠");
     /* Alloy (Hardened Metal + Corinthian Bronze + Solder + Billon + Damascus Steel) */
     public static final SlimefunItemStack REINFORCED_ALLOY_INGOT = new SlimefunItemStack("REINFORCED_ALLOY_INGOT", Material.IRON_INGOT, "&b&l強化合金錠");
     /*		Alloy (Iron + Silicon)		*/
-    public static final SlimefunItemStack FERROSILICON = new SlimefunItemStack("FERROSILICON", Material.IRON_INGOT, "&b矽鐵");
+    public static final SlimefunItemStack FERROSILICON = new SlimefunItemStack("FERROSILICON", Material.IRON_INGOT, "&b矽鐵錠");
     /*		Alloy (Iron + Gold)			*/
     public static final SlimefunItemStack GILDED_IRON = new SlimefunItemStack("GILDED_IRON", Material.GOLD_INGOT, "&6&l鍍金鐵錠");
     /*		Alloy (Redstone + Ferrosilicon)	*/

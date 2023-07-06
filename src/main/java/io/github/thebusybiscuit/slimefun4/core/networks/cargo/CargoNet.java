@@ -133,7 +133,7 @@ public class CargoNet extends AbstractItemNetwork implements HologramOwner {
         if (connectorNodes.isEmpty() && terminusNodes.isEmpty()) {
             updateHologram(b, "&c找不到物流節點");
         } else {
-            updateHologram(b, "&7狀態：&a&l在線");
+            updateHologram(b, "&7狀態：&a&l線上");
 
             // Skip ticking if the threshold is not reached. The delay is not same as minecraft tick,
             // but it's based on 'custom-ticker-delay' config.
