@@ -5,15 +5,18 @@ Looking for English (or Original) Version? [**Click here**](https://github.com/S
 想要直接下载吗? [**单击此处
 **](https://github.com/StarWishsama/Slimefun4/blob/master/README.md#%e4%b8%8b%e8%bd%bd-Slimefun4)
 
+欢迎加入 QQ 交流群：807302496
+
 本插件的额外保护检查现已移至 [SlimeGlue(粘液胶)](https://github.com/Xzavier0722/SlimeGlue/) 处理，请下载此插件以获得对其他插件的额外保护检查。
 
 MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
 
+### 订阅计划
 ⚡ 汉化不易, 欢迎支持[爱发电](https://afdian.net/a/nora1ncity)
 
-<img src="https://raw.githubusercontent.com/StarWishsama/StarWishsama/master/qrcode.png" width="25%" height="25%">
+加入爱发电订阅计划可抢先获得最新版本的 Slimefun 构建, 以及优先技术支持。
 
-QQ 交流群：807302496
+了解订阅计划：[订阅计划](https://builds.guizhanss.com/sf-subscription)
 
 ![目前版本](https://img.shields.io/github/v/release/StarWishSama/Slimefun4?include_prereleases)
 ![编译状态](https://github.com/StarWishsama/Slimefun4/workflows/Java%20CI/badge.svg)
