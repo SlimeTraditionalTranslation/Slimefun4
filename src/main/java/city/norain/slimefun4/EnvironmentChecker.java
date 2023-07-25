@@ -12,8 +12,8 @@ class EnvironmentChecker {
         if (Bukkit.getPluginManager().getPlugin("MiraiMC") != null) {
             System.setProperty("MiraiMC.StandWithNpp", "true");
             var logger = Logger.getLogger("Slimefun");
-            logger.log(Level.WARNING, "检测到 MiraiMC, 已自动添加参数防止服务器被恶意阻塞");
-            logger.log(Level.WARNING, "我用 Notepad++ 怎么你了?");
+            logger.log(Level.WARNING, "偵測到 MiraiMC，已自動新增參數防止伺服器被惡意阻塞");
+            logger.log(Level.WARNING, "我用 Notepad++ 怎麼你了？");
         }
     }
 
@@ -22,7 +22,7 @@ class EnvironmentChecker {
     static boolean checkIncompatiblePlugins(@Nonnull Slimefun sf, @Nonnull Logger logger) {
         for (String name : UNSUPPORTED_PLUGINS) {
             if (sf.getServer().getPluginManager().getPlugin(name) != null) {
-                logger.log(Level.WARNING, "检测到安装了 {0}, 该插件已不再兼容新版 Slimefun, 可能会带来不良效果!", name);
+                logger.log(Level.WARNING, "偵測到安裝了 {0}，該插件已不再相容新版 Slimefun，可能會帶來不良效果！", name);
                 Bukkit.getPluginManager().disablePlugin(sf);
                 return true;
             }

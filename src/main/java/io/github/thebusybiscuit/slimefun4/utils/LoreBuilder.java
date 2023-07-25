@@ -23,11 +23,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
  */
 public final class LoreBuilder {
 
-    public static final String HAZMAT_SUIT_REQUIRED = "&8\u21E8 &4需要防化服!";
-    public static final String RAINBOW = "&d轮番展现彩虹的颜色!";
-    public static final String RIGHT_CLICK_TO_USE = "&e右键&7 使用";
-    public static final String RIGHT_CLICK_TO_OPEN = "&e右键&7 打开";
-    public static final String CROUCH_TO_USE = "&e按住 &e蹲下&7 使用";
+    public static final String HAZMAT_SUIT_REQUIRED = "&8\u21E8 &4需要穿上防護套裝！";
+    public static final String RAINBOW = "&d永遠循環彩虹的所有顏色！";
+    public static final String RIGHT_CLICK_TO_USE = "&e右鍵點擊&7 使用";
+    public static final String RIGHT_CLICK_TO_OPEN = "&e右鍵點擊&7 打開";
+    public static final String CROUCH_TO_USE = "&e蹲下&7 使用";
     private static final DecimalFormat hungerFormat = new DecimalFormat("#.0", DecimalFormatSymbols.getInstance(Locale.ROOT));
 
     private LoreBuilder() {}

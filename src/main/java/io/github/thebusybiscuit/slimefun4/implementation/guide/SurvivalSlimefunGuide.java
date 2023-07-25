@@ -452,7 +452,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             recipeType = new RecipeType(optional.get());
             result = recipe.getResult();
         } else {
-            recipeItems = new ItemStack[] { null, null, null, null, new CustomItemStack(Material.BARRIER, "&4We are somehow unable to show you this Recipe :/"), null, null, null, null };
+            recipeItems = new ItemStack[] { null, null, null, null, new CustomItemStack(Material.BARRIER, "&4我們目前無法顯示這個配方給你 :/"), null, null, null, null };
         }
 
         ChestMenu menu = create(p);

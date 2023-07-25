@@ -141,6 +141,8 @@ guide:
       wiki: '&3Wiki 編輯人員'
       resourcepack: '&7資源包製作人員'
       translator: '&9翻譯人員'
+actionbar:
+  radiation: '&6輻射暴露等級：&c%level%&7/&e100'
 messages:
   android-no-permission: "&c你的機器人在某個你沒有權限的保護區中，無法工作，該機器人已自動暫停運作。"
   transform:
