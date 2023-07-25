@@ -162,7 +162,7 @@ public abstract class Reactor extends AbstractEnergyProvider implements Hologram
                 break;
         }
 
-        BlockMenu port = getAccessPort(b.getLocation());
+        BlockMenu port = getAccessPort(menu, b.getLocation());
 
         if (port != null) {
             menu.replaceExistingItem(INFO_SLOT, new CustomItemStack(Material.GREEN_WOOL, "&7反應爐端口", "", "&6已偵測到", "", "&7> 點擊查看反應爐端口"));
@@ -286,7 +286,7 @@ public abstract class Reactor extends AbstractEnergyProvider implements Hologram
     @Override
     public int getGeneratedOutput(Location l, SlimefunBlockData data) {
         BlockMenu inv = StorageCacheUtils.getMenu(l);
-        BlockMenu accessPort = getAccessPort(l);
+        BlockMenu accessPort = getAccessPort(inv, l);
         FuelOperation operation = processor.getOperation(l);
 
         if (operation != null) {
@@ -482,11 +482,22 @@ public abstract class Reactor extends AbstractEnergyProvider implements Hologram
     }
 
     @Nullable
-    protected BlockMenu getAccessPort(@Nonnull Location l) {
-        Location port = new Location(l.getWorld(), l.getX(), l.getY() + 3, l.getZ());
+    protected BlockMenu getAccessPort(BlockMenu menu, @Nonnull Location l) {
+        Location portLoc = new Location(l.getWorld(), l.getX(), l.getY() + 3, l.getZ());
+        var controller = Slimefun.getDatabaseManager().getBlockDataController();
+        var port = controller.getBlockData(portLoc);
 
-        if (StorageCacheUtils.isBlock(port, SlimefunItems.REACTOR_ACCESS_PORT.getItemId())) {
-            return StorageCacheUtils.getMenu(port);
+        if (port == null || port.isPendingRemove()) {
+            return null;
+        }
+
+        if (!port.isDataLoaded()) {
+            StorageCacheUtils.executeAfterLoad(port, () -> updateInventory(menu, l.getBlock()), false);
+            return null;
+        }
+
+        if (port.getSfId().equals(SlimefunItems.REACTOR_ACCESS_PORT.getItemId())) {
+            return port.getBlockMenu();
         } else {
             return null;
         }

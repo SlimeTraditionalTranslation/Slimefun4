@@ -470,6 +470,14 @@ public class SlimefunItem implements Placeable {
             // Now we can be certain this item should be enabled
             if (state == ItemState.ENABLED) {
                 onEnable();
+            } else {
+                // Clear item handlers if we are disabled so that calling them isn't possible later on
+                for (ItemHandler handler : this.itemhandlers.values()) {
+                    if (handler instanceof BlockTicker) {
+                        Slimefun.getRegistry().getTickerBlocks().remove(getId());
+                    }
+                }
+                this.itemhandlers.clear();
             }
 
             // Lock the SlimefunItemStack from any accidental manipulations
@@ -788,13 +796,7 @@ public class SlimefunItem implements Placeable {
             }
         }
 
-        // Backwards compatibility
-        if (Slimefun.getConfigManager().isBackwardsCompatible()) {
-            boolean loreInsensitive = this instanceof Rechargeable || this instanceof SlimefunBackpack || id.equals("BROKEN_SPAWNER") || id.equals("REINFORCED_SPAWNER");
-            return SlimefunUtils.isItemSimilar(item, this.itemStackTemplate, !loreInsensitive);
-        } else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -1225,28 +1227,6 @@ public class SlimefunItem implements Placeable {
 
         if (itemID.isPresent()) {
             return getById(itemID.get());
-        }
-
-        // Backwards compatibility
-        if (Slimefun.getConfigManager().isBackwardsCompatible()) {
-            // This wrapper improves the heavy ItemStack#getItemMeta() call by caching it.
-            ItemStackWrapper wrapper = ItemStackWrapper.wrap(item);
-
-            /*
-             * Quite expensive performance-wise.
-             * But necessary for supporting legacy items
-             */
-            for (SlimefunItem sfi : Slimefun.getRegistry().getAllSlimefunItems()) {
-                if (sfi.isItem(wrapper)) {
-                    /*
-                     * If we have to loop all items for the given item, then at least
-                     * set the id via PersistentDataAPI for future performance boosts
-                     */
-                    Slimefun.getItemDataService().setItemData(item, sfi.getId());
-
-                    return sfi;
-                }
-            }
         }
 
         return null;

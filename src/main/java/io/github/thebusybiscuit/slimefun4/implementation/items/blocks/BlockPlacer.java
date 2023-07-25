@@ -258,4 +258,9 @@ public class BlockPlacer extends SlimefunItem {
             }
         }, 2L);
     }
+
+    @Override
+    public boolean loadDataByDefault() {
+        return true;
+    }
 }

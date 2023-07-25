@@ -47,4 +47,9 @@ public class PersonalActivationPlate extends AbstractTeleporterPlate {
     public boolean hasAccess(Player p, Block b) {
         return p.getUniqueId().toString().equals(StorageCacheUtils.getData(b.getLocation(), "owner"));
     }
+
+    @Override
+    public boolean loadDataByDefault() {
+        return true;
+    }
 }

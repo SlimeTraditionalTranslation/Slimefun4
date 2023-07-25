@@ -2,14 +2,13 @@ package io.github.thebusybiscuit.slimefun4.implementation.listeners;
 
 import io.github.thebusybiscuit.slimefun4.api.events.CoolerFeedPlayerEvent;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerBackpack;
+import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.backpacks.Cooler;
 import io.github.thebusybiscuit.slimefun4.implementation.items.food.Juice;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -119,7 +118,7 @@ public class CoolerListener implements Listener {
                 }
 
                 p.setSaturation(6F);
-                p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1F, 1F);
+                SoundEffect.COOLER_CONSUME_SOUND.playFor(p);
                 inv.setItem(slot, null);
                 Slimefun.getDatabaseManager().getProfileDataController().saveBackpackInventory(backpack, slot);
 

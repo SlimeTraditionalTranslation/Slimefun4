@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_ID;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_NAME;
@@ -283,8 +284,10 @@ public class SqliteAdapter implements IDataSourceAdapter<SqliteConfig> {
 
     private Connection createConn() {
         try {
+            // Manually trigger sqlite jdbc init, thanks MiraiMC screw up this.
+            Class.forName("org.sqlite.JDBC");
             return DriverManager.getConnection("jdbc:sqlite:" + config.path());
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new IllegalStateException("Failed to create Sqlite connection: ", e);
         }
     }

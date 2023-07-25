@@ -34,6 +34,13 @@ public class MysqlAdapter implements IDataSourceAdapter<MysqlConfig> {
 
     @Override
     public void prepare(MysqlConfig config) {
+        // Manually trigger sqlite jdbc init, thanks MiraiMC screw up this.
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("No suitable jdbc driver found.", e);
+        }
+
         pool = new ConnectionPool(() -> {
             try {
                 return DriverManager.getConnection(config.jdbcUrl(), config.user(), config.passwd());

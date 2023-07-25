@@ -270,9 +270,4 @@ public final class SlimefunRegistry {
     public boolean isFreeCreativeResearchingEnabled() {
         return Slimefun.getConfigManager().isFreeCreativeResearchingEnabled();
     }
-
-    @Deprecated
-    public boolean isBackwardsCompatible() {
-        return Slimefun.getConfigManager().isBackwardsCompatible();
-    }
 }

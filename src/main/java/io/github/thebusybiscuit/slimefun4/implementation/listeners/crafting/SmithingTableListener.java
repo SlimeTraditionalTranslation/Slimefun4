@@ -1,6 +1,7 @@
 package io.github.thebusybiscuit.slimefun4.implementation.listeners.crafting;
 
 import city.norain.slimefun4.utils.InventoryUtil;
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.LinkedList;
@@ -43,6 +44,10 @@ public class SmithingTableListener implements SlimefunCraftingListener {
     // Check
     @EventHandler(ignoreCancelled = true)
     public void onPrepareSmith(PrepareSmithingEvent e) {
+        if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_20)) {
+            return;
+        }
+
         if (!e.getViewers().isEmpty()) {
             var viewers = new LinkedList<>(e.getViewers());
             var materialItem = e.getInventory().getContents()[2];

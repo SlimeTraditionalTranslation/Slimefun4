@@ -67,6 +67,7 @@ class GitHubTask implements Runnable {
 
         for (Contributor contributor : gitHubService.getContributors().values()) {
             int newRequests = requestTexture(contributor, skins);
+
             requests += newRequests;
 
             if (newRequests < 0 || requests >= MAX_REQUESTS_PER_MINUTE) {
@@ -109,22 +110,18 @@ class GitHubTask implements Runnable {
                 Slimefun.logger().log(Level.WARNING, "The contributors thread was interrupted!");
                 Thread.currentThread().interrupt();
             } catch (Exception x) {
-                if (x.getCause() instanceof FileNotFoundException) {
-                    contributor.setTexture(null);
-                } else {
-                    // Too many requests
-                    Slimefun.logger().log(Level.WARNING, "Attempted to refresh skin cache, got this response: {0}: {1}", new Object[]{x.getClass().getSimpleName(), x.getMessage()});
-                    Slimefun.logger().log(Level.WARNING, "This usually means mojang.com is temporarily down or started to rate-limit this connection, nothing to worry about!");
+                // Too many requests
+                Slimefun.logger().log(Level.WARNING, "Attempted to refresh skin cache, got this response: {0}: {1}", new Object[]{x.getClass().getSimpleName(), x.getMessage()});
+                Slimefun.logger().log(Level.WARNING, "This usually means mojang.com is temporarily down or started to rate-limit this connection, nothing to worry about!");
 
-                    String msg = x.getMessage();
+                String msg = x.getMessage();
 
-                    // Retry after 5 minutes if it was just rate-limiting
-                    if (msg != null && msg.contains("429")) {
-                        Bukkit.getScheduler().runTaskLaterAsynchronously(Slimefun.instance(), this::grabTextures, 5 * 60 * 20L);
-                    }
-
-                    return -1;
+                // Retry after 5 minutes if it was just rate-limiting
+                if (msg != null && msg.contains("429")) {
+                    Bukkit.getScheduler().runTaskLaterAsynchronously(Slimefun.instance(), this::grabTextures, 5 * 60 * 20L);
                 }
+
+                return -1;
             }
         }
 
@@ -137,6 +134,10 @@ class GitHubTask implements Runnable {
         if (!uuid.isPresent()) {
             CompletableFuture<UUID> future = UUIDLookup.forUsername(Slimefun.instance(), contributor.getMinecraftName());
 
+            if (future.isCompletedExceptionally()) {
+                return null;
+            }
+
             // Fixes #3241 - Do not wait for more than 30 seconds
             uuid = Optional.ofNullable(future.get(30, TimeUnit.SECONDS));
             uuid.ifPresent(contributor::setUniqueId);
@@ -144,6 +145,12 @@ class GitHubTask implements Runnable {
 
         if (uuid.isPresent()) {
             CompletableFuture<PlayerSkin> future = PlayerSkin.fromPlayerUUID(Slimefun.instance(), uuid.get());
+
+            if (future.isCompletedExceptionally()) {
+                skins.put(contributor.getMinecraftName(), "");
+                return null;
+            }
+
             Optional<String> skin = Optional.of(future.get().toString());
             skins.put(contributor.getMinecraftName(), skin.orElse(""));
             return skin.orElse(null);

@@ -23,7 +23,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.armor.SlimefunArm
  * The {@link Listener} for the {@link ElytraCap}.
  *
  * @author Seggan
- * 
+ *
  * @see ElytraCap
  */
 public class ElytraImpactListener implements Listener {

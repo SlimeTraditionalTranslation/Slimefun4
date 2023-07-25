@@ -17,7 +17,10 @@ public final class SlimefunExtended {
             return;
         }
 
-        EnvironmentChecker.checkUnsupportedPlugins(sf, logger);
+        if (EnvironmentChecker.checkIncompatiblePlugins(sf, logger)) {
+            return;
+        }
+
         EnvironmentChecker.scheduleSlimeGlueCheck(sf, logger);
 
         VaultIntegration.register(sf);

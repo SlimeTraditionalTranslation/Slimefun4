@@ -44,7 +44,7 @@ public enum AndroidType {
     FIGHTER,
 
     /**
-     * The {@link FisherAndroid} can catch a fish and other materials.
+     * The {@link FishermanAndroid} can catch a fish and other materials.
      */
     FISHERMAN,
 

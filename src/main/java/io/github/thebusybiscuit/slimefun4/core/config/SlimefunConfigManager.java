@@ -36,8 +36,6 @@ public class SlimefunConfigManager {
      * Hold research config named "Researches.yml"
      */
     private final Config researchesConfig;
-
-    private boolean backwardsCompatibility;
     private boolean automaticallyLoadItems;
     private boolean enableResearches;
     private boolean freeCreativeResearches;
@@ -84,7 +82,6 @@ public class SlimefunConfigManager {
             researchesConfig.reload();
 
             researchesConfig.setDefaultValue("enable-researching", true);
-            backwardsCompatibility = pluginConfig.getBoolean("options.backwards-compatibility");
             enableResearches = researchesConfig.getBoolean("enable-researching");
             freeCreativeResearches = pluginConfig.getBoolean("researches.free-in-creative-mode");
             researchFireworks = pluginConfig.getBoolean("researches.enable-fireworks");
@@ -181,28 +178,6 @@ public class SlimefunConfigManager {
      */
     public boolean isAutoLoadingEnabled() {
         return automaticallyLoadItems;
-    }
-
-    /**
-     * This method returns whether backwards-compatibility is enabled.
-     * Backwards compatibility allows Slimefun to recognize items from older versions but comes
-     * at a huge performance cost.
-     *
-     * @return Whether backwards compatibility is enabled
-     */
-    public boolean isBackwardsCompatible() {
-        return backwardsCompatibility;
-    }
-
-    /**
-     * This method sets the status of backwards compatibility.
-     * Backwards compatibility allows Slimefun to recognize items from older versions but comes
-     * at a huge performance cost.
-     *
-     * @param compatible Whether backwards compatibility should be enabled
-     */
-    public void setBackwardsCompatible(boolean compatible) {
-        backwardsCompatibility = compatible;
     }
 
     /**

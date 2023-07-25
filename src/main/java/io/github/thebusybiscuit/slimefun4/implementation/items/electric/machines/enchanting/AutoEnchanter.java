@@ -122,6 +122,17 @@ public class AutoEnchanter extends AbstractEnchantmentMachine {
             enchantments.entrySet().removeIf(e -> target.getEnchantmentLevel(e.getKey()) >= e.getValue());
         }
 
+        /*
+         * When maxEnchants is set to -1 it will be ignored. When it's set to 0 it will not allow any enchants to go
+         * on an item. When maxEnchants is set to any other value it will allow that many enchants to go on the item.
+         */
+        int preExistingEnchants = 0;
+        for (Map.Entry<Enchantment, Integer> entry : target.getEnchantments().entrySet()) {
+            if (meta.hasEnchant(entry.getKey())) {
+                preExistingEnchants++;
+            }
+        }
+
         // Check if we found any valid enchantments
         if (!enchantments.isEmpty()) {
             ItemStack enchantedItem = target.clone();

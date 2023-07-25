@@ -1,9 +1,9 @@
-# Slimefun
+# Slimefun 中文版
 
 Looking for English (or Original) Version? [**Click here**](https://github.com/Slimefun/Slimefun4/)
 
 想要直接下载吗? [**单击此处
-**](https://github.com/StarWishsama/Slimefun4/blob/master/README.md#%e4%b8%8b%e8%bd%bd-Slimefun4)
+**](https://github.com/StarWishsama/Slimefun4/blob/master/README.md#floppy_disk-下载-slimefun4)
 
 欢迎加入 QQ 交流群：807302496
 
@@ -12,14 +12,16 @@ Looking for English (or Original) Version? [**Click here**](https://github.com/S
 MCBBS 链接: https://www.mcbbs.net/thread-827594-1-1.html
 
 ### 订阅计划
+
 ⚡ 汉化不易, 欢迎支持[爱发电](https://afdian.net/a/nora1ncity)
 
-加入爱发电订阅计划可抢先获得最新版本的 Slimefun 构建, 以及优先技术支持。
+加入爱发电订阅计划可抢先获得最新版本的 Slimefun 构建，以及是优先技术支持。
+注意：**非年度计划用户**可在距上次公开仓库更新后 15 天获取自动同步的源代码，并非闭源。我们十分遵循 GPLv3 协议 :)
 
 了解订阅计划：[订阅计划](https://builds.guizhanss.com/sf-subscription)
 
 ![目前版本](https://img.shields.io/github/v/release/StarWishSama/Slimefun4?include_prereleases)
-![编译状态](https://github.com/StarWishsama/Slimefun4/workflows/Java%20CI/badge.svg)
+![构建状态](https://builds.guizhanss.com/StarWishsama/Slimefun4/master/badge.svg)
 [![Issues](https://img.shields.io/github/issues/StarWishsama/Slimefun4.svg?style=popout)](https://github.com/StarWishsama/Slimefun4/issues)
 ![下载数](https://img.shields.io/github/downloads/StarWishsama/Slimefun4/total)
 

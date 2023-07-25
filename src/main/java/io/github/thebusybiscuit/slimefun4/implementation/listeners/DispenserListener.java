@@ -42,7 +42,8 @@ public class DispenserListener implements Listener {
             var blockData = StorageCacheUtils.getBlock(b.getLocation());
             SlimefunItem machine = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
 
-            if (machine != null) {
+            // Fixes #2959
+            if (machine != null && !machine.isDisabledIn(e.getBlock().getWorld())) {
                 machine.callItemHandler(BlockDispenseHandler.class, handler -> {
                     BlockState state = PaperLib.getBlockState(b, false).getState();
 

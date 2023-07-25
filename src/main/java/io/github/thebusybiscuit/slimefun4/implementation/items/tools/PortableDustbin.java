@@ -5,7 +5,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +14,9 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
+import io.github.thebusybiscuit.slimefun4.implementation.items.cargo.TrashCan;
 
 /**
  * The {@link PortableDustbin} is one of the oldest items in Slimefun.
@@ -24,7 +25,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
  * will be voided.
  * 
  * @author TheBusyBiscuit
- *
  */
 public class PortableDustbin extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
@@ -39,8 +39,8 @@ public class PortableDustbin extends SimpleSlimefunItem<ItemUseHandler> implemen
             e.cancel();
 
             Player p = e.getPlayer();
-            p.openInventory(Bukkit.createInventory(null, 9 * 3, ChatColor.DARK_RED + "刪除物品"));
-            p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+            p.openInventory(Bukkit.createInventory(null, 9 * 3, ChatColor.DARK_RED + "Delete Items"));
+            SoundEffect.PORTABLE_DUSTBIN_OPEN_SOUND.playFor(p);
         };
     }
 }

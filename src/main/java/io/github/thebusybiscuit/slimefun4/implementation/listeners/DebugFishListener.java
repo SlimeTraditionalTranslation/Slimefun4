@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Skull;
@@ -31,6 +30,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+
+import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 
 /**
  * This {@link Listener} is responsible for handling our debugging tool, the debug fish.
@@ -96,7 +97,7 @@ public class DebugFishListener implements Listener {
                 block.setType(Material.PLAYER_HEAD);
 
                 PlayerHead.setSkin(block, HeadTexture.MISSING_TEXTURE.getAsSkin(), true);
-                p.playSound(block.getLocation(), Sound.BLOCK_BAMBOO_PLACE, 1, 1);
+                SoundEffect.DEBUG_FISH_CLICK_SOUND.playFor(p);
             }, 2L);
             return;
         }

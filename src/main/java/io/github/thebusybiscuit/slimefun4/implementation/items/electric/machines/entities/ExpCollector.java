@@ -18,6 +18,7 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -120,39 +121,52 @@ public class ExpCollector extends SlimefunItem implements InventoryBlock, Energy
         });
     }
 
-    protected void tick(Block b) {
-        Iterator<Entity> iterator = b.getWorld().getNearbyEntities(b.getLocation(), 4.0, 4.0, 4.0, n -> n instanceof ExperienceOrb && n.isValid()).iterator();
+    protected void tick(Block block) {
+        Location location = block.getLocation();
+        Iterator<Entity> iterator = block.getWorld().getNearbyEntities(location, 4.0, 4.0, 4.0, n -> n instanceof ExperienceOrb && n.isValid()).iterator();
         int experiencePoints = 0;
 
         while (iterator.hasNext() && experiencePoints == 0) {
-            Entity entity = iterator.next();
+            ExperienceOrb orb = (ExperienceOrb) iterator.next();
 
-            if (getCharge(b.getLocation()) < ENERGY_CONSUMPTION) {
+            if (getCharge(location) < ENERGY_CONSUMPTION) {
                 return;
             }
 
-            experiencePoints = getStoredExperience(b) + ((ExperienceOrb) entity).getExperience();
+            experiencePoints = getStoredExperience(location) + orb.getExperience();
 
-            removeCharge(b.getLocation(), ENERGY_CONSUMPTION);
-            entity.remove();
-
-            int withdrawn = 0;
-            var blockData = StorageCacheUtils.getBlock(b.getLocation());
-            BlockMenu menu = blockData.getBlockMenu();
-
-            for (int level = 0; level < getStoredExperience(b); level = level + 10) {
-                if (menu.fits(SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE, getOutputSlots())) {
-                    withdrawn = withdrawn + 10;
-                    menu.pushItem(SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE.clone(), getOutputSlots());
-                }
-            }
-
-            blockData.setData(DATA_KEY, String.valueOf(experiencePoints - withdrawn));
+            removeCharge(location, ENERGY_CONSUMPTION);
+            orb.remove();
+            produceFlasks(location, experiencePoints);
         }
     }
 
-    private int getStoredExperience(Block b) {
-        var blockData = StorageCacheUtils.getBlock(b.getLocation());
+    /**
+     * Produces Flasks of Knowledge for the given block until it either uses all stored
+     * experience or runs out of room.
+     *
+     * @param location
+     *                  The {@link Location} of the {@link ExpCollector} to produce flasks in.
+     * @param experiencePoints
+     *                  The number of experience points to use during production.
+     */
+    private void produceFlasks(@Nonnull Location location, int experiencePoints) {
+        int withdrawn = 0;
+        BlockMenu menu = StorageCacheUtils.getMenu(location);
+        for (int level = 0; level < getStoredExperience(location); level = level + 10) {
+            if (menu.fits(SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE, getOutputSlots())) {
+                withdrawn = withdrawn + 10;
+                menu.pushItem(SlimefunItems.FILLED_FLASK_OF_KNOWLEDGE.clone(), getOutputSlots());
+            } else {
+                // There is no room for more bottles, so lets stop checking if more will fit.
+                break;
+            }
+        }
+        StorageCacheUtils.setData(location, DATA_KEY, String.valueOf(experiencePoints - withdrawn));
+    }
+
+    private int getStoredExperience(Location location) {
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(location);
         String value = blockData.getData(DATA_KEY);
 
         if (value != null) {
@@ -162,5 +176,4 @@ public class ExpCollector extends SlimefunItem implements InventoryBlock, Energy
             return 0;
         }
     }
-
 }

@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import org.bukkit.Bukkit;
@@ -20,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * The {@link AutoDisenchanter}, in contrast to the {@link AutoEnchanter}, removes
@@ -130,17 +132,25 @@ public class AutoDisenchanter extends AbstractEnchantmentMachine {
         ItemMeta bookMeta = book.getItemMeta();
         ((Repairable) bookMeta).setRepairCost(((Repairable) itemMeta).getRepairCost());
         ((Repairable) itemMeta).setRepairCost(0);
-        item.setItemMeta(itemMeta);
         book.setItemMeta(bookMeta);
 
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
-        
-        ItemMeta tempItemMeta = item.getItemMeta();
+
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-            tempItemMeta.removeEnchant(entry.getKey());
-            meta.addStoredEnchant(entry.getKey(), entry.getValue(), true);
+            Enchantment enchantmentToTransfer = entry.getKey();
+            boolean wasEnchantmentRemoved = itemMeta.removeEnchant(enchantmentToTransfer);
+            boolean stillHasEnchantment = itemMeta.getEnchants().containsKey(enchantmentToTransfer);
+
+            // Prevent future enchantment duplication (#3837)
+            if (wasEnchantmentRemoved && !stillHasEnchantment) {
+                meta.addStoredEnchant(enchantmentToTransfer, entry.getValue(), true);
+            } else {
+                // Get Enchantment Name
+                Slimefun.logger().log(Level.SEVERE, "AutoDisenchanter has failed to remove enchantment \"{0}\"", enchantmentToTransfer.getKey().getKey());
+            }
         }
-        item.setItemMeta(tempItemMeta);
+
+        item.setItemMeta(itemMeta);
         book.setItemMeta(meta);
     }
 

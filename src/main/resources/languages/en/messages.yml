@@ -164,6 +164,9 @@ guide:
       resourcepack: '&cResourcepack Artist'
       translator: '&9Translator'
 
+actionbar:
+  radiation: '&6Radiation Exposure Level: &c%level%&7/&e100'
+
 messages:
   android-no-permission: "&cYour android is in a protected area where you don't have access rights. It cannot function, and the android has been automatically suspended."
   transform:
