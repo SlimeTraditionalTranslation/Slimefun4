@@ -44,7 +44,7 @@ public final class SlimefunItems {
 
     /*		 Gadgets 		*/
     public static final SlimefunItemStack GOLD_PAN = new SlimefunItemStack("GOLD_PAN", Material.BOWL, "&6掏金盤", "&a&o可以給你各式各樣的好東西...", "", "&7&e右鍵點擊&7 從「礫石」中取出各種東西");
-    public static final SlimefunItemStack NETHER_GOLD_PAN = new SlimefunItemStack("NETHER_GOLD_PAN", Material.BOWL, "&4地獄掏金盤", "", "&7&e右鍵點擊&7 從「靈魂沙」中挑出各種東西");
+    public static final SlimefunItemStack NETHER_GOLD_PAN = new SlimefunItemStack("NETHER_GOLD_PAN", Material.BOWL, "&4地獄掏金盤", "", "&7&e右鍵點擊&7 從「靈魂砂」中挑出各種東西");
     public static final SlimefunItemStack PARACHUTE = new SlimefunItemStack("PARACHUTE", Material.LEATHER_CHESTPLATE, Color.WHITE, "&f&l降落傘", "", LoreBuilder.CROUCH_TO_USE);
     public static final SlimefunItemStack GRAPPLING_HOOK = new SlimefunItemStack("GRAPPLING_HOOK", Material.LEAD, "&6鉤爪", "", LoreBuilder.RIGHT_CLICK_TO_USE);
     public static final SlimefunItemStack SOLAR_HELMET = new SlimefunItemStack("SOLAR_HELMET", Material.IRON_HELMET, "&b太陽能頭盔", "", "&a&o戴在頭上會讓手持物品與裝備充電");
