@@ -1,21 +1,22 @@
 package com.xzavier0722.mc.plugin.slimefun4.storage.controller;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.LocationUtils;
-import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
-import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SlimefunChunkData extends ASlimefunDataContainer {
     private static final SlimefunBlockData INVALID_BLOCK_DATA = new SlimefunBlockData(
@@ -53,11 +54,7 @@ public class SlimefunChunkData extends ASlimefunDataContainer {
             re.setBlockMenu(new BlockMenu(preset, l));
         }
 
-        Debug.log(TestCase.DATABASE, "creating block data: " + re);
-
         Slimefun.getDatabaseManager().getBlockDataController().saveNewBlock(l, sfId);
-
-        Debug.log(TestCase.DATABASE, "created block data: " + re);
 
         return re;
     }
@@ -124,5 +121,9 @@ public class SlimefunChunkData extends ASlimefunDataContainer {
         if (removeCacheInternal(key) != null) {
             Slimefun.getDatabaseManager().getBlockDataController().scheduleDelayedChunkDataUpdate(this, key);
         }
+    }
+
+    public Set<SlimefunBlockData> getAllBlockData() {
+        return getAllCacheInternal();
     }
 }

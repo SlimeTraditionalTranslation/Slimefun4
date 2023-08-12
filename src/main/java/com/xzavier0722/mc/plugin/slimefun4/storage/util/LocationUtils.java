@@ -33,6 +33,11 @@ public class LocationUtils {
         return l1 == l2 || (isSameChunk(l1.getChunk(), l2.getChunk()) && l1.getBlockX() == l2.getBlockX() && l1.getBlockY() == l2.getBlockY() && l1.getBlockZ() == l2.getBlockZ());
     }
 
+    public static Chunk toChunk(World w, String cKey) {
+        var loc = cKey.split(";")[1].split(":");
+        return w.getChunkAt(Integer.parseInt(loc[0]), Integer.parseInt(loc[1]));
+    }
+
     public static boolean isSameWorld(World w1, World w2) {
         return w1.getName().equals(w2.getName());
     }

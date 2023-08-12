@@ -55,6 +55,17 @@ public class SmithingTableListener implements SlimefunCraftingListener {
             // Checks if the item in the Material/Netherite slot is allowed to be used.
             if (isUnallowed(materialItem)) {
                 e.setResult(new ItemStack(Material.AIR));
+
+                if (!viewers.isEmpty()) {
+                    var viewer = viewers.getFirst();
+                    for (int i = 0; i < 2; i++) {
+                        var item = e.getInventory().getContents()[i];
+                        if (item != null) {
+                            viewer.getWorld().dropItemNaturally(viewer.getLocation(), materialItem.clone());
+                        }
+                    }
+                }
+
                 InventoryUtil.closeInventory(e.getInventory());
                 viewers.forEach(p -> Slimefun.getLocalization().sendMessage(p, "smithing_table.not-working", true));
             }

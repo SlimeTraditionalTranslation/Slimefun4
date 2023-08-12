@@ -8,12 +8,10 @@ import io.github.thebusybiscuit.slimefun4.api.ErrorReport;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -90,10 +88,10 @@ public class TickerTask implements Runnable {
 
             // Run our ticker code
             if (!halted) {
-                CopyOnWriteArraySet<Map.Entry<ChunkPosition, Set<Location>>> loc;
+                Set<Map.Entry<ChunkPosition, Set<Location>>> loc;
 
                 synchronized (tickingLocations) {
-                    loc = new CopyOnWriteArraySet<>(tickingLocations.entrySet());
+                    loc = new HashSet<>(tickingLocations.entrySet());
                 }
 
                 for (Map.Entry<ChunkPosition, Set<Location>> entry : loc) {

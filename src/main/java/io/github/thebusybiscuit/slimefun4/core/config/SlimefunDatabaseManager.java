@@ -3,11 +3,14 @@ package io.github.thebusybiscuit.slimefun4.core.config;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.IDataSourceAdapter;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.mysql.MysqlAdapter;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.mysql.MysqlConfig;
+import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.postgresql.PostgreSqlAdapter;
+import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.postgresql.PostgreSqlConfig;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlite.SqliteAdapter;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlite.SqliteConfig;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.DataType;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.BlockDataController;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.ControllerHolder;
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.ChunkDataLoadMode;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.ProfileDataController;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.StorageType;
 import io.github.bakedlibs.dough.config.Config;
@@ -45,10 +48,11 @@ public class SlimefunDatabaseManager {
     }
 
     public void init() {
+        initDefaultVal();
         try {
             blockDataStorageType = StorageType.valueOf(blockStorageConfig.getString("storageType"));
             var readExecutorThread = blockStorageConfig.getInt("readExecutorThread");
-            var writeExecutorThread = blockDataStorageType == StorageType.SQLITE ? 1 : blockStorageConfig.getInt("writeExecutorThread");
+            var writeExecutorThread = blockStorageConfig.getInt("writeExecutorThread");
 
             initAdapter(blockDataStorageType, DataType.BLOCK_STORAGE, blockStorageConfig);
 
@@ -56,6 +60,7 @@ public class SlimefunDatabaseManager {
             blockDataController.init(blockStorageAdapter, readExecutorThread, writeExecutorThread);
 
             if (blockStorageConfig.getBoolean("delayedWriting.enable")) {
+                plugin.getLogger().log(Level.INFO, "已启用延时写入功能");
                 blockDataController.initDelayedSaving(
                         plugin,
                         blockStorageConfig.getInt("delayedWriting.delayedSecond"),
@@ -117,8 +122,27 @@ public class SlimefunDatabaseManager {
                         blockStorageAdapter = adapter;
                     }
                 }
+                adapter.prepare(new SqliteConfig(databasePath.getAbsolutePath(), databaseConfig.getInt("sqlite.maxConnection")));
+            }
+            case POSTGRESQL -> {
+                var adapter = new PostgreSqlAdapter();
 
-                adapter.prepare(new SqliteConfig(databasePath.getAbsolutePath()));
+                adapter.prepare(
+                        new PostgreSqlConfig(
+                                databaseConfig.getString("postgresql.host"),
+                                databaseConfig.getInt("postgresql.port"),
+                                databaseConfig.getString("postgresql.database"),
+                                databaseConfig.getString("postgresql.tablePrefix"),
+                                databaseConfig.getString("postgresql.user"),
+                                databaseConfig.getString("postgresql.password"),
+                                databaseConfig.getBoolean("postgresql.useSSL"),
+                                databaseConfig.getInt("postgresql.maxConnection")
+                        ));
+
+                switch (dataType) {
+                    case BLOCK_STORAGE -> blockStorageAdapter = adapter;
+                    case PLAYER_PROFILE -> profileAdapter = adapter;
+                }
             }
         }
     }
@@ -133,8 +157,14 @@ public class SlimefunDatabaseManager {
     }
 
     public void shutdown() {
-        getProfileDataController().shutdown();
-        getBlockDataController().shutdown();
+        if (getProfileDataController() != null) {
+            getProfileDataController().shutdown();
+        }
+
+        if (getBlockDataController() != null) {
+            getBlockDataController().shutdown();
+        }
+
         blockStorageAdapter.shutdown();
         profileAdapter.shutdown();
         ControllerHolder.clearControllers();
@@ -148,11 +178,21 @@ public class SlimefunDatabaseManager {
         return profileConfig.getBoolean("base64EncodeVal");
     }
 
+    public ChunkDataLoadMode getChunkDataLoadMode() {
+        return ChunkDataLoadMode.valueOf(blockStorageConfig.getString("dataLoadMode"));
+    }
+
     public StorageType getBlockDataStorageType() {
         return blockDataStorageType;
     }
 
     public StorageType getProfileStorageType() {
         return profileStorageType;
+    }
+
+    private void initDefaultVal() {
+        profileConfig.setDefaultValue("sqlite.maxConnection", 5);
+        blockStorageConfig.setDefaultValue("sqlite.maxConnection", 5);
+        blockStorageConfig.setDefaultValue("dataLoadMode", "LOAD_WITH_CHUNK");
     }
 }

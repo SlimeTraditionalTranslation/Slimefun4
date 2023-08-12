@@ -8,12 +8,12 @@
        <ref type="branch">
            <pattern>dev</pattern>
            <version>
-               ${commit.timestamp.year.2digit}${commit.timestamp.month}${commit.timestamp.day}-${commit.short}-Insider
+               ${build.timestamp.year.2digit}${build.timestamp.month}${build.timestamp.day}-${commit.short}-Insider
            </version>
        </ref>
        <ref type="branch">
            <pattern>release</pattern>
-           <version>${commit.timestamp.year.2digit}.${commit.timestamp.month}.${commit.timestamp.day}-release</version>
+           <version>${build.timestamp.year.2digit}.${build.timestamp.month}.${build.timestamp.day}-release</version>
        </ref>
        <ref type="branch">
            <pattern>test/(.+)</pattern>

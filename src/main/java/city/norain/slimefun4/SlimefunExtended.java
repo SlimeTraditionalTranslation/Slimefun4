@@ -10,16 +10,18 @@ public final class SlimefunExtended {
 
     private static SlimefunMigrateListener migrateListener = new SlimefunMigrateListener();
 
-    public static void register(@Nonnull Slimefun sf) {
+    public static boolean checkEnvironment(@Nonnull Slimefun sf) {
         logger = sf.getLogger();
 
         if (EnvironmentChecker.checkHybridServer(sf, logger)) {
-            return;
+            return false;
         }
 
-        if (EnvironmentChecker.checkIncompatiblePlugins(sf, logger)) {
-            return;
-        }
+        return !EnvironmentChecker.checkIncompatiblePlugins(sf, logger);
+    }
+
+    public static void register(@Nonnull Slimefun sf) {
+        logger = sf.getLogger();
 
         EnvironmentChecker.scheduleSlimeGlueCheck(sf, logger);
 

@@ -1,4 +1,4 @@
-package com.xzavier0722.mc.plugin.slimefun4.chunk.listener;
+package com.xzavier0722.mc.plugin.slimefun4.storage.listener;
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import org.bukkit.event.EventHandler;

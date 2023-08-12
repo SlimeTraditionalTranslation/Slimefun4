@@ -12,7 +12,7 @@ public enum FieldKey {
     BACKPACK_NAME,
     BACKPACK_SIZE(true),
 
-    INVENTORY_SLOT(true),
+    INVENTORY_SLOT,
     INVENTORY_ITEM,
 
     LOCATION,
@@ -23,6 +23,7 @@ public enum FieldKey {
     DATA_VALUE;
 
     private final boolean isNumType;
+
     FieldKey() {
         this(false);
     }

@@ -1308,6 +1308,10 @@ public final class SlimefunItemSetup {
         new ItemStack[] {new ItemStack(Material.GOLDEN_APPLE), null, null, null, null, null, null, null, null})
         .register(plugin);
 
+        new VanillaItem(itemGroups.food, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE), "ENCHANTED_GOLDEN_APPLE", RecipeType.ENHANCED_CRAFTING_TABLE,
+        new ItemStack[] {SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, new ItemStack(Material.APPLE), SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK, SlimefunItems.GOLD_24K_BLOCK})
+        .register(plugin);
+
         new BrokenSpawner(itemGroups.magicalResources, SlimefunItems.BROKEN_SPAWNER, new RecipeType(new NamespacedKey(plugin, "pickaxe_of_containment"), SlimefunItems.PICKAXE_OF_CONTAINMENT),
         new ItemStack[] {null, null, null, null, new ItemStack(Material.SPAWNER), null, null, null, null})
         .register(plugin);
@@ -1924,12 +1928,12 @@ public final class SlimefunItemSetup {
             
             @Override
             public int getMultiplier(int y) {
-                return y * 64 + 600;
+                return y * 64 + 2100;
             }
 
             @Override
             public int getEnergyConsumption() {
-                return 46;
+                return 43;
             }
             
         }.register(plugin);

@@ -11,6 +11,9 @@ public interface IDataSourceAdapter<T> {
     void initStorage(DataType type);
     void shutdown();
     void setData(RecordKey key, RecordSet item);
-    List<RecordSet> getData(RecordKey key);
+    default List<RecordSet> getData(RecordKey key) {
+        return getData(key, false);
+    }
+    List<RecordSet> getData(RecordKey key, boolean distinct);
     void deleteData(RecordKey key);
 }

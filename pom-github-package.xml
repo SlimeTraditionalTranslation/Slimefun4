@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.slimefun</groupId>
-    <artifactId>Slimefun</artifactId>
+    <artifactId>slimefun</artifactId>
 
     <!-- Our default version will be UNOFFICIAL, this will prevent auto updates -->
     <!-- from overriding our local test file -->
-    <version>5.0-SNAPSHOT</version>
+    <version>5.0</version>
     <inceptionYear>2013</inceptionYear>
     <packaging>jar</packaging>
 
     <!-- Project Info -->
-    <description>Slimefun is a Spigot/Paper plugin that simulates a modpack-like atmosphere by adding over 500 new items and recipes to your Minecraft Server.</description>
+    <description>Slimefun is a Spigot/Paper plugin that simulates a modpack-like atmosphere by adding over 500 new items
+        and recipes to your Minecraft Server.
+    </description>
     <url>https://github.com/Slimefun/Slimefun4</url>
 
     <properties>
@@ -35,6 +37,14 @@
         <system>GitHub Issues</system>
         <url>https://github.com/Slimefun/Slimefun4/issues</url>
     </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub StarWishsama Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/StarWishsama/Slimefun-Secret</url>
+        </repository>
+    </distributionManagement>
 
     <licenses>
         <license>
@@ -232,7 +242,7 @@
         <dependency>
             <groupId>com.github.StarWishsama.dough</groupId>
             <artifactId>dough-api</artifactId>
-            <version>89e4d7e287</version>
+            <version>main-4aa436c908-1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

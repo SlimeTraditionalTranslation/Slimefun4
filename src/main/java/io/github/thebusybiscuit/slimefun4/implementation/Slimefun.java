@@ -176,7 +176,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
     private final CustomItemDataService itemDataService = new CustomItemDataService(this, "slimefun_item");
     private final BlockDataService blockDataService = new BlockDataService(this, "slimefun_block");
     private final CustomTextureService textureService = new CustomTextureService(new Config(this, "item-models.yml"));
-    private final GitHubService gitHubService = new GitHubService("Slimefun/Slimefun4");
+    private final GitHubService gitHubService = new GitHubService("StarWishsama/Slimefun4");
     private final UpdaterService updaterService = new UpdaterService(this, getDescription().getVersion(), getFile());
     private final MetricsService metricsService = new MetricsService(this);
     private final AutoSavingService autoSavingService = new AutoSavingService();
@@ -244,6 +244,9 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
             onUnitTestStart();
         } else if (isVersionUnsupported()) {
             // We wanna ensure that the Server uses a compatible version of Minecraft.
+            getServer().getPluginManager().disablePlugin(this);
+        } else if (!SlimefunExtended.checkEnvironment(this)) {
+            // We want to ensure that the Server uses a compatible server software and have no incompatible plugins
             getServer().getPluginManager().disablePlugin(this);
         } else {
             // The Environment has been validated.

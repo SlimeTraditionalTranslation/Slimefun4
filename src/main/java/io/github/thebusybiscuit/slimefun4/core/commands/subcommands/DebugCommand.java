@@ -4,8 +4,9 @@ import io.github.thebusybiscuit.slimefun4.core.commands.SlimefunCommand;
 import io.github.thebusybiscuit.slimefun4.core.commands.SubCommand;
 import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import javax.annotation.Nonnull;
 import org.bukkit.command.CommandSender;
+
+import javax.annotation.Nonnull;
 
 /**
  * The debug command will allow server owners to get information for us developers.
@@ -43,12 +44,15 @@ public class DebugCommand extends SubCommand {
 
         String test = args[1];
 
-        if (test.equalsIgnoreCase("disable") || test.equalsIgnoreCase("off")) {
-            Debug.disableTestCase();
-            Slimefun.getLocalization().sendMessage(sender, "commands.debug.disabled");
-        } else {
-            Debug.addTestCase(test);
-            Slimefun.getLocalization().sendMessage(sender, "commands.debug.running", msg -> msg.replace("%test%", test));
+        switch (test.toLowerCase()) {
+            case "disable", "off" -> {
+                Debug.disableTestCase();
+                Slimefun.getLocalization().sendMessage(sender, "commands.debug.disabled");
+            }
+            default -> {
+                Debug.addTestCase(test);
+                Slimefun.getLocalization().sendMessage(sender, "commands.debug.running", msg -> msg.replace("%test%", test));
+            }
         }
     }
 }

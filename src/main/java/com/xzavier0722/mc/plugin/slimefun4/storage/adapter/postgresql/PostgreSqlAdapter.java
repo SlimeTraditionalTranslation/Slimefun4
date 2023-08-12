@@ -1,4 +1,4 @@
-package com.xzavier0722.mc.plugin.slimefun4.storage.adapter.mysql;
+package com.xzavier0722.mc.plugin.slimefun4.storage.adapter.postgresql;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlCommonAdapter;
 import com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlUtils;
@@ -6,7 +6,11 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.common.DataScope;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.DataType;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.RecordKey;
 import com.xzavier0722.mc.plugin.slimefun4.storage.common.RecordSet;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_ID;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_NAME;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_BACKPACK_NUM;
@@ -22,7 +26,7 @@ import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlC
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_RESEARCH_KEY;
 import static com.xzavier0722.mc.plugin.slimefun4.storage.adapter.sqlcommon.SqlConstants.FIELD_SLIMEFUN_ID;
 
-public class MysqlAdapter extends SqlCommonAdapter<MysqlConfig> {
+public class PostgreSqlAdapter extends SqlCommonAdapter<PostgreSqlConfig> {
     @Override
     public void initStorage(DataType type) {
         switch (type) {
@@ -64,18 +68,20 @@ public class MysqlAdapter extends SqlCommonAdapter<MysqlConfig> {
         }
 
         var updateFields = key.getFields();
+        var contrastStr = Arrays.stream(key.getScope().getPrimaryKeys()).map(SqlUtils::mapField).collect(Collectors.joining(", "));
+
         executeSql(
                 "INSERT INTO " + mapTable(key.getScope()) + " (" + fieldStr.get() + ") "
-                + "VALUES (" + valStr + ")"
-                + (updateFields.isEmpty() ? "" : " ON DUPLICATE KEY UPDATE "
+                        + "VALUES (" + valStr + ")"
+                        + (contrastStr.isEmpty() ? "" : " ON CONFLICT (" + contrastStr + ") " + (updateFields.isEmpty() ? "DO NOTHING" : "DO UPDATE SET "
                         + String.join(", ", updateFields.stream().map(field -> {
-                            var val = item.get(field);
-                            if (val == null) {
-                                throw new IllegalArgumentException("Cannot find value in RecordSet for the specific key: " + field);
-                            }
-                            return SqlUtils.buildKvStr(field, val);
-                        }).toList())
-                ) + ";"
+                    var val = item.get(field);
+                    if (val == null) {
+                        throw new IllegalArgumentException("Cannot find value in RecordSet for the specific key: " + field);
+                    }
+                    return SqlUtils.buildKvStr(field, val);
+                }).toList())
+                )) + ";"
         );
     }
 
@@ -83,7 +89,7 @@ public class MysqlAdapter extends SqlCommonAdapter<MysqlConfig> {
     public List<RecordSet> getData(RecordKey key, boolean distinct) {
         return executeQuery(
                 (distinct ? "SELECT DISTINCT " : "SELECT ") + SqlUtils.buildFieldStr(key.getFields()).orElse("*")
-                        +" FROM " + mapTable(key.getScope())
+                        + " FROM " + mapTable(key.getScope())
                         + SqlUtils.buildConditionStr(key.getConditions()) + ";"
         );
     }
@@ -92,6 +98,7 @@ public class MysqlAdapter extends SqlCommonAdapter<MysqlConfig> {
     public void deleteData(RecordKey key) {
         executeSql("DELETE FROM " + mapTable(key.getScope()) + SqlUtils.buildConditionStr(key.getConditions()) + ";");
     }
+
 
     private void createProfileTables() {
         createProfileTable();
@@ -110,112 +117,116 @@ public class MysqlAdapter extends SqlCommonAdapter<MysqlConfig> {
     private void createProfileTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + profileTable + "("
-                + FIELD_PLAYER_UUID + " CHAR(64) PRIMARY KEY NOT NULL, "
-                + FIELD_PLAYER_NAME + " CHAR(64) NOT NULL, "
-                + FIELD_BACKPACK_NUM + " INT UNSIGNED DEFAULT 0, "
-                + "INDEX index_player_name (" + FIELD_PLAYER_NAME + ")"
-                + ");"
+                        + profileTable + "("
+                        + FIELD_PLAYER_UUID + " VARCHAR(64) PRIMARY KEY NOT NULL, "
+                        + FIELD_PLAYER_NAME + " VARCHAR(64) NOT NULL, "
+                        + FIELD_BACKPACK_NUM + " INT DEFAULT 0"
+                        + ");"
         );
+
+        executeSql("CREATE INDEX IF NOT EXISTS index_player_name ON " + profileTable + " (" + FIELD_PLAYER_NAME + ");");
     }
 
     private void createResearchTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + researchTable + "("
-                + FIELD_PLAYER_UUID + " CHAR(64) NOT NULL, "
-                + FIELD_RESEARCH_KEY + " CHAR(64) NOT NULL, "
-                + "FOREIGN KEY (" + FIELD_PLAYER_UUID + ") "
-                + "REFERENCES " + profileTable + "(" + FIELD_PLAYER_UUID + ") "
-                + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                + "INDEX index_player_research (" + FIELD_PLAYER_UUID + ", " + FIELD_RESEARCH_KEY + ")"
-                + ");"
+                        + researchTable + "("
+                        + FIELD_PLAYER_UUID + " VARCHAR(64) NOT NULL, "
+                        + FIELD_RESEARCH_KEY + " VARCHAR(64) NOT NULL, "
+                        + "FOREIGN KEY (" + FIELD_PLAYER_UUID + ") "
+                        + "REFERENCES " + profileTable + "(" + FIELD_PLAYER_UUID + ") "
+                        + "ON UPDATE CASCADE ON DELETE CASCADE"
+                        + ");"
         );
+
+        executeSql("CREATE INDEX IF NOT EXISTS index_player_research ON " + researchTable + " (" + FIELD_PLAYER_UUID + ", " + FIELD_RESEARCH_KEY + ");");
     }
 
     private void createBackpackTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + backpackTable + "("
-                + FIELD_BACKPACK_ID + " CHAR(64) PRIMARY KEY NOT NULL, "
-                + FIELD_PLAYER_UUID + " CHAR(64) NOT NULL, "
-                + FIELD_BACKPACK_NUM + " INT UNSIGNED NOT NULL, "
-                + FIELD_BACKPACK_NAME + " CHAR(64) NULL, "
-                + FIELD_BACKPACK_SIZE + " TINYINT UNSIGNED NOT NULL, "
-                + "FOREIGN KEY (" + FIELD_PLAYER_UUID + ") "
-                + "REFERENCES " + profileTable + "(" + FIELD_PLAYER_UUID + ") "
-                + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                + "INDEX index_player_backpack (" + FIELD_PLAYER_UUID + ", " + FIELD_BACKPACK_NUM + ")"
-                + ");"
+                        + backpackTable + "("
+                        + FIELD_BACKPACK_ID + " VARCHAR(64) PRIMARY KEY NOT NULL, "
+                        + FIELD_PLAYER_UUID + " VARCHAR(64) NOT NULL, "
+                        + FIELD_BACKPACK_NUM + " INT NOT NULL, "
+                        + FIELD_BACKPACK_NAME + " VARCHAR(64) NULL, "
+                        + FIELD_BACKPACK_SIZE + " SMALLINT NOT NULL, "
+                        + "FOREIGN KEY (" + FIELD_PLAYER_UUID + ") "
+                        + "REFERENCES " + profileTable + "(" + FIELD_PLAYER_UUID + ") "
+                        + "ON UPDATE CASCADE ON DELETE CASCADE"
+                        + ");"
         );
+
+        executeSql("CREATE INDEX IF NOT EXISTS index_player_backpack ON " + backpackTable + " (" + FIELD_PLAYER_UUID + ", " + FIELD_BACKPACK_NUM + ");");
     }
 
     private void createBackpackInventoryTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + bpInvTable + "("
-                + FIELD_BACKPACK_ID + " CHAR(64) NOT NULL, "
-                + FIELD_INVENTORY_SLOT + " TINYINT UNSIGNED NOT NULL, "
-                + FIELD_INVENTORY_ITEM + " TEXT NOT NULL, "
-                + "FOREIGN KEY (" + FIELD_BACKPACK_ID + ") "
-                + "REFERENCES " + backpackTable + "(" + FIELD_BACKPACK_ID + ") "
-                + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                + "PRIMARY KEY (" + FIELD_BACKPACK_ID + ", " + FIELD_INVENTORY_SLOT + ")"
-                + ");"
+                        + bpInvTable + "("
+                        + FIELD_BACKPACK_ID + " VARCHAR(64) NOT NULL, "
+                        + FIELD_INVENTORY_SLOT + " SMALLINT NOT NULL, "
+                        + FIELD_INVENTORY_ITEM + " TEXT NOT NULL, "
+                        + "FOREIGN KEY (" + FIELD_BACKPACK_ID + ") "
+                        + "REFERENCES " + backpackTable + "(" + FIELD_BACKPACK_ID + ") "
+                        + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                        + "PRIMARY KEY (" + FIELD_BACKPACK_ID + ", " + FIELD_INVENTORY_SLOT + ")"
+                        + ");"
         );
     }
 
     private void createBlockRecordTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + blockRecordTable + "("
-                + FIELD_LOCATION + " CHAR(64) PRIMARY KEY NOT NULL, "
-                + FIELD_CHUNK + " CHAR(64) NOT NULL, "
-                + FIELD_SLIMEFUN_ID + " CHAR(64) NOT NULL, "
-                + "INDEX index_ticking (" + FIELD_CHUNK + ")"
-                + ");"
+                        + blockRecordTable + "("
+                        + FIELD_LOCATION + " VARCHAR(64) PRIMARY KEY NOT NULL, "
+                        + FIELD_CHUNK + " VARCHAR(64) NOT NULL, "
+                        + FIELD_SLIMEFUN_ID + " VARCHAR(64) NOT NULL"
+                        + ");"
         );
+
+        executeSql("CREATE INDEX IF NOT EXISTS index_ticking ON " + blockRecordTable + " (" + FIELD_CHUNK + ");");
     }
 
     private void createBlockDataTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + blockDataTable + "("
-                + FIELD_LOCATION + " CHAR(64) NOT NULL, "
-                + FIELD_DATA_KEY + " CHAR(64) NOT NULL, "
-                + FIELD_DATA_VALUE + " TEXT NOT NULL, "
-                + "FOREIGN KEY (" + FIELD_LOCATION + ") "
-                + "REFERENCES " + blockRecordTable + "(" + FIELD_LOCATION + ") "
-                + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                + "PRIMARY KEY (" + FIELD_LOCATION + ", " + FIELD_DATA_KEY + ")"
-                + ");"
+                        + blockDataTable + "("
+                        + FIELD_LOCATION + " VARCHAR(64) NOT NULL, "
+                        + FIELD_DATA_KEY + " VARCHAR(64) NOT NULL, "
+                        + FIELD_DATA_VALUE + " TEXT NOT NULL, "
+                        + "FOREIGN KEY (" + FIELD_LOCATION + ") "
+                        + "REFERENCES " + blockRecordTable + "(" + FIELD_LOCATION + ") "
+                        + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                        + "PRIMARY KEY (" + FIELD_LOCATION + ", " + FIELD_DATA_KEY + ")"
+                        + ");"
         );
     }
 
     private void createChunkDataTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + chunkDataTable + "("
-                + FIELD_CHUNK + " CHAR(64) NOT NULL, "
-                + FIELD_DATA_KEY + " CHAR(64) NOT NULL, "
-                + FIELD_DATA_VALUE + " TEXT NOT NULL, "
-                + "PRIMARY KEY (" + FIELD_CHUNK + ", " + FIELD_DATA_KEY + ")"
-                + ");"
+                        + chunkDataTable + "("
+                        + FIELD_CHUNK + " VARCHAR(64) NOT NULL, "
+                        + FIELD_DATA_KEY + " VARCHAR(64) NOT NULL, "
+                        + FIELD_DATA_VALUE + " TEXT NOT NULL, "
+                        + "PRIMARY KEY (" + FIELD_CHUNK + ", " + FIELD_DATA_KEY + ")"
+                        + ");"
         );
     }
 
     private void createBlockInvTable() {
         executeSql(
                 "CREATE TABLE IF NOT EXISTS "
-                + blockInvTable + "("
-                + FIELD_LOCATION + " CHAR(64) NOT NULL, "
-                + FIELD_INVENTORY_SLOT + " TINYINT UNSIGNED NOT NULL, "
-                + FIELD_INVENTORY_ITEM + " TEXT NOT NULL, "
-                + "FOREIGN KEY (" + FIELD_LOCATION + ") "
-                + "REFERENCES " + blockRecordTable + "(" + FIELD_LOCATION + ") "
-                + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                + "PRIMARY KEY (" + FIELD_LOCATION + ", " + FIELD_INVENTORY_SLOT + ")"
-                + ");"
+                        + blockInvTable + "("
+                        + FIELD_LOCATION + " VARCHAR(64) NOT NULL, "
+                        + FIELD_INVENTORY_SLOT + " SMALLINT NOT NULL, "
+                        + FIELD_INVENTORY_ITEM + " TEXT NOT NULL, "
+                        + "FOREIGN KEY (" + FIELD_LOCATION + ") "
+                        + "REFERENCES " + blockRecordTable + "(" + FIELD_LOCATION + ") "
+                        + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                        + "PRIMARY KEY (" + FIELD_LOCATION + ", " + FIELD_INVENTORY_SLOT + ")"
+                        + ");"
         );
     }
 }

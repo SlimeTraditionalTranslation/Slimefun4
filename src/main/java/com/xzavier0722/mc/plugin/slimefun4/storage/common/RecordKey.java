@@ -15,6 +15,7 @@ public class RecordKey extends ScopeKey {
     private final List<Pair<FieldKey, String>> conditions;
     private volatile String strKey = "";
     private volatile boolean changed = true;
+    private boolean unique = false;
 
     @ParametersAreNonnullByDefault
     public RecordKey(DataScope scope) {
