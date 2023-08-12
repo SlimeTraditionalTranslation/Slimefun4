@@ -62,7 +62,7 @@ class PerformanceSummary {
         summarizeTimings(totalTickedBlocks, "個方塊", sender, items, entry -> {
             int count = profiler.getBlocksOfId(entry.getKey());
             String time = NumberUtils.getAsMillis(entry.getValue());
-            String message = entry.getKey() +  " - " + count + "x (%s)";
+            String message = entry.getKey() +  " - x" + count + "（%s）";
 
             if (count <= 1) {
                 return String.format(message, time);
@@ -71,9 +71,9 @@ class PerformanceSummary {
             String average = NumberUtils.getAsMillis(entry.getValue() / count);
 
             if (sender.getOrderType() == SummaryOrderType.AVERAGE) {
-                return String.format(message, average + " | total: " + time);
+                return String.format(message, average + "｜總共：" + time);
             } else {
-                return String.format(message, time + " | avg: " + average);
+                return String.format(message, time + "｜平均：" + average);
             }
         });
 
@@ -96,7 +96,7 @@ class PerformanceSummary {
     private void summarizeTimings(int count, String name, PerformanceInspector inspector, Map<String, Long> map, Function<Map.Entry<String, Long>, String> formatter) {
         Set<Entry<String, Long>> entrySet = map.entrySet();
         List<Entry<String, Long>> results = inspector.getOrderType().sort(profiler, entrySet);
-        String prefix = count + " " + name + (count != 1 ? 's' : "");
+        String prefix = count + " " + name;
 
         if (inspector instanceof PlayerPerformanceInspector playerPerformanceInspector) {
             TextComponent component = summarizeAsTextComponent(count, prefix, results, formatter);
@@ -185,13 +185,13 @@ class PerformanceSummary {
         }
 
         builder.append(ChatColor.DARK_GRAY)
-            .append(":".repeat(Math.max(0, rest)))
-            .append(" - ")
-            .append(rating.getColor()).append(ChatUtils.humanize(rating.name()))
-            .append(ChatColor.GRAY)
-            .append(" (")
-            .append(NumberUtils.roundDecimalNumber(percentage))
-            .append("%)");
+                .append(":".repeat(Math.max(0, rest)))
+                .append(" - ")
+                .append(rating.getColor()).append(rating.getDisplayname())
+                .append(ChatColor.GRAY)
+                .append("（")
+                .append(NumberUtils.roundDecimalNumber(percentage))
+                .append("%）");
 
         return builder.toString();
     }

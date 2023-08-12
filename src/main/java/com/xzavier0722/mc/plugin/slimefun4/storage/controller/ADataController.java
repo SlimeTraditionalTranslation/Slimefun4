@@ -60,7 +60,7 @@ public abstract class ADataController {
             var pendingTask = scheduledWriteTasks.size();
             while (pendingTask > 0) {
                 var doneTaskPercent = String.format("%.1f", (totalTask - pendingTask) / totalTask * 100);
-                logger.log(Level.INFO, "数据保存中，请稍候... 剩余 {0} 个任务 ({1}%)", new Object[]{pendingTask, doneTaskPercent});
+                logger.log(Level.INFO, "資料儲存終，請稍後... 剩餘 {0} 個任務（{1}%）", new Object[]{pendingTask, doneTaskPercent});
                 TimeUnit.SECONDS.sleep(1);
                 pendingTask = scheduledWriteTasks.size();
             }
